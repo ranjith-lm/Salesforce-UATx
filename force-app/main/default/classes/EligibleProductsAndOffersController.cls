@@ -152,7 +152,7 @@ public with sharing class EligibleProductsAndOffersController {
                 System.debug('📋 Product codes to fetch labels: ' + productCodes);
                 
                 if (!productCodes.isEmpty()) {
-                    Map<String, String> productNameMap = fetchProductLabels(productCodes, xCanaryValue, regionName);
+                    Map<String, String> productNameMap = fetchProductLabels(productCodes, account.CIF__pc, xCanaryValue, regionName);
                     System.debug('✅ Product label map size: ' + productNameMap.size());
                     for (ProductWrapper p : data.products) {
                         if (productNameMap.containsKey(p.id)) {
@@ -182,7 +182,7 @@ public with sharing class EligibleProductsAndOffersController {
                 System.debug('📋 Offer IDs to fetch labels: ' + offerIds);
                 
                 if (!offerIds.isEmpty()) {
-                    Map<String, String> offerNameMap = fetchOfferLabels(offerIds, xCanaryValue, regionName);
+                    Map<String, String> offerNameMap = fetchOfferLabels(offerIds, account.CIF__pc, xCanaryValue, regionName);
                     System.debug('✅ Offer label map size: ' + offerNameMap.size());
                     for (OfferWrapper o : data.offers) {
                         if (offerNameMap.containsKey(o.id)) {
@@ -211,7 +211,7 @@ public with sharing class EligibleProductsAndOffersController {
     /**
      * Fetch product labels from product catalogue API
      */
-    private static Map<String, String> fetchProductLabels(List<String> productCodes, String xCanary, String regionName) {
+    private static Map<String, String> fetchProductLabels(List<String> productCodes, String customerId, String xCanary, String regionName) {
         System.debug('🔵 [START] fetchProductLabels with codes: ' + productCodes);
         Map<String, String> labelMap = new Map<String, String>();
         if (productCodes.isEmpty()) {
@@ -232,8 +232,8 @@ public with sharing class EligibleProductsAndOffersController {
             System.debug('📤 Product Catalogue Request: ' + PRODUCT_CATALOGUE_PATH);
             System.debug('📤 Body: ' + requestBodyJson);
             
-            // Create HTTP request
-            HttpRequest req = con.createRequest('POST', PRODUCT_CATALOGUE_PATH, '6202914', regionName);
+            // Create HTTP request (use provided customerId)
+            HttpRequest req = con.createRequest('POST', PRODUCT_CATALOGUE_PATH, customerId, regionName);
             //req.setHeader('x-canary', xCanary);
             req.setHeader('x-canary', 'nbo');
             req.setHeader('Content-Type', 'application/json');
@@ -298,7 +298,7 @@ public with sharing class EligibleProductsAndOffersController {
      * Fetch offer labels from offer catalogue API
      * Updated to handle new response structure using 'offerId' and 'offerTitle'
      */
-    private static Map<String, String> fetchOfferLabels(List<String> offerIds, String xCanary, String regionName) {
+    private static Map<String, String> fetchOfferLabels(List<String> offerIds, String customerId, String xCanary, String regionName) {
         System.debug('🔵 [START] fetchOfferLabels with IDs: ' + offerIds);
         Map<String, String> labelMap = new Map<String, String>();
         if (offerIds.isEmpty()) {
@@ -312,8 +312,8 @@ public with sharing class EligibleProductsAndOffersController {
             String endpoint = OFFER_CATALOGUE_PATH + '?offerIds=' + offerIdsParam;
             System.debug('📤 Offer Catalogue Request: ' + endpoint);
             
-            // Create HTTP request
-            HttpRequest req = con.createRequest('GET', endpoint, '6202914', regionName);
+            // Create HTTP request (use provided customerId)
+            HttpRequest req = con.createRequest('GET', endpoint, customerId, regionName);
             req.setHeader('x-canary', 'nbo');
             req.setTimeout(TIMEOUT_MS);
             
