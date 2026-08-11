@@ -1,0 +1,39 @@
+67.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+19:03:46.0 (449562)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+19:03:46.0 (506005)|EXECUTION_STARTED
+19:03:46.0 (512485)|CODE_UNIT_STARTED|[EXTERNAL]|apex://CaseCommentController/ACTION$getRecentCaseComments
+19:03:46.0 (3279260)|CODE_UNIT_STARTED|[EXTERNAL]|01pPw000005ArWP|CaseCommentController.getRecentCaseComments(String)
+19:03:46.0 (3659273)|SYSTEM_MODE_ENTER|true
+19:03:46.0 (3837761)|SYSTEM_MODE_EXIT|true
+19:03:46.0 (3853736)|SYSTEM_MODE_ENTER|true
+19:03:46.0 (6515403)|SOQL_EXECUTE_BEGIN|[7]|Aggregations:0|SELECT ParentId, COUNT(Id) commentCount FROM CaseComment WHERE Parent.AccountId = :tmpVar1 GROUP BY ParentId
+19:03:46.0 (14933942)|SOQL_EXECUTE_END|[7]|Rows:0
+19:03:46.0 (17342583)|SOQL_EXECUTE_BEGIN|[18]|Aggregations:0|SELECT Id, CommentBody, ParentId, CreatedDate, Parent.CaseNumber, Parent.CreatedBy.Name, Parent.Recent_Updates__c, CreatedBy.Name FROM CaseComment WHERE (Parent.AccountId = :tmpVar1 AND ParentId IN (SELECT Id FROM Case WHERE AccountId = :tmpVar2) AND Parent.Recent_Updates__c = TRUE) ORDER BY LastModifiedDate DESC NULLS FIRST LIMIT 100
+19:03:46.0 (25202625)|SOQL_EXECUTE_END|[18]|Rows:0
+19:03:46.0 (33408887)|SOQL_EXECUTE_BEGIN|[31]|Aggregations:0|SELECT Id, ParentId FROM FeedItem WHERE (ParentId = :tmpVar1 AND Type = 'CaseCommentPost')
+19:03:46.0 (36219598)|SOQL_EXECUTE_END|[31]|Rows:0
+19:03:46.0 (57727036)|SOQL_EXECUTE_BEGIN|[43]|Aggregations:0|SELECT FeedItemId, CommentBody, CreatedDate, CreatedBy.Name FROM FeedComment WHERE FeedItemId IN (SELECT Id FROM FeedItem WHERE ParentId = :tmpVar1) ORDER BY CreatedDate DESC NULLS FIRST
+19:03:46.0 (60863240)|SOQL_EXECUTE_END|[43]|Rows:0
+19:03:46.0 (61355982)|USER_DEBUG|[93]|DEBUG|Final caseCommentsList: ()
+19:03:46.0 (63974196)|SYSTEM_MODE_EXIT|true
+19:03:46.66 (66183691)|CUMULATIVE_LIMIT_USAGE
+19:03:46.66 (66183691)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 4 out of 100
+  Number of query rows: 0 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 0
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 6000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+19:03:46.66 (66183691)|CUMULATIVE_LIMIT_USAGE_END
+
+19:03:46.0 (66226617)|CODE_UNIT_FINISHED|CaseCommentController.getRecentCaseComments(String)
+19:03:46.0 (66431374)|CODE_UNIT_FINISHED|apex://CaseCommentController/ACTION$getRecentCaseComments
+19:03:46.0 (66443368)|EXECUTION_FINISHED
