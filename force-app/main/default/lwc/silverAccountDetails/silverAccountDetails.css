@@ -1,0 +1,503 @@
+.account-details-section,
+.transactions-section,
+.statements-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #fafaf9;
+    border-radius: 0.5rem;
+    border: 1px solid #dddbda;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f3f3f3;
+}
+
+.section-header h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #080707;
+    margin: 0;
+}
+
+.statements-button {
+    margin-left: auto;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 0.5rem;
+    border: 1px solid #dddbda;
+    min-width: 0; /* Prevents overflow */
+    word-break: break-word; /* Handles long text */
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    color: #706e6b;
+    margin-bottom: 0.5rem;
+}
+
+.detail-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #080707;
+}
+
+.detail-value.highlight {
+    color: #0176d3;
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: #04844b;
+    color: white;
+}
+
+.status-dormant {
+    background: #ffb75d;
+    color: #080707;
+}
+
+.status-blocked {
+    background: #c23934;
+    color: white;
+}
+
+.status-completed {
+    background: #04844b;
+    color: white;
+}
+
+.status-pending {
+    background: #ffb75d;
+    color: #080707;
+}
+
+.status-failed {
+    background: #c23934;
+    color: white;
+}
+
+/* Additional status styles */
+.status-inactive {
+    background: #706e6b;
+    color: white;
+}
+
+.status-closed {
+    background: #706e6b;
+    color: white;
+}
+
+.status-suspended {
+    background: #ffb75d;
+    color: #080707;
+}
+
+.filter-section {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f3f3f3;
+    border-radius: 0.5rem;
+}
+
+.filter-row {
+    margin-bottom: 1rem;
+}
+
+.filter-row:last-child {
+    margin-bottom: 0;
+}
+
+.advanced-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.custom-label {
+    word-wrap: break-word;
+    hyphens: auto;
+    display: inline-block;
+    color: var(--slds-s-label-color, var(--slds-g-color-on-surface-2));
+    font-size: var(--slds-s-label-font-size, var(--slds-g-font-scale-neg-2));
+    font-weight: var(--slds-s-label-font-weight);
+    padding-inline-end: var(--slds-g-spacing-2);
+    padding-block-start: var(--slds-g-spacing-1);
+    margin-block-end: var(--slds-s-label-spacing-gap, calc(var(--slds-g-spacing-1) / 2));
+}
+
+.refresh-button {
+    display: flex;
+    align-items: flex-end;
+}
+
+.refresh-button lightning-button {
+    width: 100%;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 0.75rem;
+    background: #f3f3f3;
+    color: #080707;
+    font-weight: 600;
+    border-bottom: 2px solid #dddbda;
+}
+
+.data-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dddbda;
+    color: #3e3e3c;
+}
+
+.data-table tr:hover {
+    background: #fafaf9;
+}
+
+.data-table .credit {
+    color: #04844b;
+    font-weight: 600;
+}
+
+.data-table .debit {
+    color: #c23934;
+    font-weight: 600;
+}
+
+.no-data {
+    text-align: center;
+    padding: 2rem !important;
+    color: #706e6b;
+    font-style: italic;
+}
+
+.no-account-message {
+    text-align: center;
+    padding: 3rem;
+    background: #fafaf9;
+    border-radius: 0.5rem;
+    border: 2px dashed #dddbda;
+}
+
+.no-account-message lightning-icon {
+    margin-bottom: 1rem;
+    --sds-c-icon-color-foreground: #c23934;
+}
+
+.no-account-message h3 {
+    font-size: 1.25rem;
+    color: #080707;
+    margin-bottom: 0.5rem;
+}
+
+.no-account-message p {
+    color: #706e6b;
+}
+
+/* Loader Container Styles */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+/* Error Message Styles */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef3f2;
+    border: 1px solid #fecaca;
+    border-radius: 0.5rem;
+    color: #c23934;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.error-message lightning-icon {
+    flex-shrink: 0;
+}
+
+.error-message lightning-button {
+    margin-left: auto;
+}
+
+.error-message .error-hint {
+    width: 100%;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    color: #706e6b;
+    padding-top: 0.5rem;
+    border-top: 1px solid #fecaca;
+}
+
+/* Permission Denied Message Styles */
+.permission-denied-message {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 2px dashed #dddbda;
+}
+
+.permission-denied-message lightning-icon {
+    --sds-c-icon-color-foreground: #ffb75d;
+    margin-bottom: 1rem;
+}
+
+.permission-denied-message h3 {
+    color: #1b1b1b;
+    font-size: 20px;
+    margin: 16px 0 8px;
+    font-weight: 600;
+}
+
+.permission-denied-message p {
+    color: #666;
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+.permission-denied-message .error-hint {
+    color: #999;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 12px;
+}
+
+/* Animation for permission denied message */
+.permission-denied-message {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect for permission denied icon */
+.permission-denied-message lightning-icon {
+    transition: transform 0.3s ease;
+}
+
+.permission-denied-message:hover lightning-icon {
+    transform: scale(1.1);
+}
+
+/* Toast custom styles (if needed) */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .advanced-filters {
+        grid-template-columns: 1fr;
+    }
+    
+    .data-table {
+        font-size: 0.75rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 0.5rem;
+    }
+    
+    .loader-container {
+        padding: 2rem;
+    }
+    
+    .error-message {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .error-message lightning-button {
+        margin-left: 0;
+    }
+    
+    .section-header {
+        flex-wrap: wrap;
+    }
+    
+    .statements-button {
+        margin-left: 0;
+    }
+    
+    .refresh-button {
+        margin-top: 0.5rem;
+    }
+
+    .permission-denied-message {
+        padding: 30px 15px;
+        margin: 15px 0;
+    }
+
+    .permission-denied-message h3 {
+        font-size: 18px;
+    }
+
+    .permission-denied-message p {
+        font-size: 13px;
+    }
+}
+
+/* Additional utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 {
+    margin-top: 0.5rem;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+
+.mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+    margin-bottom: 1rem;
+}
+
+/* Loading animation for spinners */
+.loader-container lightning-spinner {
+    --slds-c-spinner-color-foreground: #0176d3;
+    --slds-c-spinner-color-background: #f3f3f3;
+}
+
+/* Hover effects for buttons */
+lightning-button-icon:hover {
+    --slds-c-button-icon-color-foreground: #0176d3;
+}
+
+/* Status badge animations */
+.status-badge {
+    transition: all 0.2s ease;
+}
+
+.status-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Card hover effect */
+.detail-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.detail-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table row hover effect enhancement */
+.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Filter section enhancements */
+.filter-section {
+    transition: box-shadow 0.2s ease;
+}
+
+.filter-section:focus-within {
+    box-shadow: 0 0 0 2px rgba(1, 118, 211, 0.2);
+}
+
+/* Input focus styles */
+.slds-input:focus,
+.slds-select:focus {
+    border-color: #0176d3;
+    box-shadow: 0 0 0 2px rgba(1, 118, 211, 0.2);
+}
+
+/* Scrollbar styling for table container */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f3f3f3;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #dddbda;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #cac8c7;
+}

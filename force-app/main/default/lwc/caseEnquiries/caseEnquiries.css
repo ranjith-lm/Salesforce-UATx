@@ -1,0 +1,4 @@
+/* Applied only when component is in URL mode */
+.url-text {
+    max-width: 800px;     /* ensure padding doesn't add to width */
+}

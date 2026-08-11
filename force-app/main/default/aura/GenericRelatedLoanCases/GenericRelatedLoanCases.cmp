@@ -1,0 +1,100 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+    access="global"
+    controller="GenericRelatedLoanCasesController">
+
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute
+        name="currentCase"
+        type="Object"
+    />
+
+    <!-- Configurable from Lightning App Builder through the .design file -->
+    <aura:attribute name="recordTypeDeveloperName" type="String" default="Loan_Application" />
+    <aura:attribute name="caseStatut" type="String" default="None" />
+    <aura:attribute name="caseSubStatus" type="String" default="None" />
+    <aura:attribute
+        name="caseSubType"
+        type="String"
+        default=""
+        description="Sub Type filter, direct override, or Case.Sub_Type__c token." />
+
+    <!-- UI state -->
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="caseData" type="List" default="[]" />
+    <aura:attribute name="displayedCases" type="List" default="[]" />
+    <aura:attribute name="recordCount" type="Integer" default="0" />
+    <aura:attribute name="sectionTitle" type="String" default="Previous Cases" />
+    <aura:attribute name="sectionIconName" type="String" default="standard:case" />
+    <aura:attribute name="showAll" type="Boolean" default="false" />
+    <aura:attribute name="showToggle" type="Boolean" default="false" />
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <aura:attribute name="errorMessage" type="String" />
+
+    <force:recordData
+        aura:id="currentCaseLoader"
+        recordId="{!v.recordId}"
+        fields="Sub_Type__c"
+        targetFields="{!v.currentCase}"
+        recordUpdated="{!c.handleRecordUpdated}"
+    />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+    <article class="slds-card slds-card_boundary slds-card_related-list-fix slds-theme_shade">
+        <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning:icon
+                        iconName="{!v.sectionIconName}"
+                        size="small"/>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>{!v.sectionTitle} ({!v.recordCount})</span>
+                    </h2>
+                </div>
+            </div>
+        </header>
+
+        <aura:if isTrue="{!v.isLoading}">
+            <div class="slds-is-relative loadingContainer">
+                <lightning:spinner alternativeText="Loading cases" size="small" />
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!not(empty(v.errorMessage))}">
+                    <div class="slds-p-around_medium slds-text-color_error">
+                        {!v.errorMessage}
+                    </div>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.recordCount > 0}">
+                            <div class="slds-card__body slds-p-horizontal_small slds-p-vertical_small tableContainer">
+                                <lightning:datatable
+                                    keyField="Id"
+                                    data="{!v.displayedCases}"
+                                    columns="{!v.columns}"
+                                    hideCheckboxColumn="true"
+                                    showRowNumberColumn="true" />
+                            </div>
+
+                            <aura:if isTrue="{!v.showToggle}">
+                                <div class="slds-p-vertical_x-small slds-text-align_center">
+                                    <lightning:button
+                                        variant="base"
+                                        label="{!if(v.showAll, 'Show Less', 'View All')}"
+                                        onclick="{!c.toggleCases}" />
+                                </div>
+                            </aura:if>
+
+                            <aura:set attribute="else">
+                                <div class="slds-p-around_medium emptyState">
+                                    No matching previous cases were found.
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </article>
+</aura:component>

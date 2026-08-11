@@ -1,0 +1,94 @@
+<!--
+* Change History :
+*         #CH01 :  Added by Maksud Ali 23-12-2025
+*        
+-->
+<aura:component controller="WaiverRequestController" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .slds-modal__container {
+        transform: none !important;
+        width : 70% !important;
+        max-width : 70% !important;
+        }
+    </aura:html>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="waiverFile" type="Object" />
+    <aura:attribute name="waiverFileName" type="String" default="" />
+    <aura:attribute name="fileSizeError" type="String" default="" />
+    <aura:attribute name="isDisabled" type="Boolean" default="false"/>
+    <aura:attribute name="contentDocumentId" type="String" default=""/>
+    <aura:attribute name="documentIdList" type="String[]" default=""/>
+    <aura:attribute name="filetype" type="List" 
+                    default="['.pdf','.doc','.docx','.xls','.xlsx','.ppt','.pptx','.png','.jpg','.jpeg','.gif','.bmp']" />
+	<header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+            <span>
+                <h4 class="title slds-text-heading--medium">New Waiver Request</h4>
+            </span>
+        </h2>
+    </header>
+    <lightning:spinner aura:id="waiverSpinner" 
+                       alternativeText="Saving..." 
+                       title="Saving.." 
+                       variant="brand" 
+                       size="large" 
+                       class="slds-hide"/>
+    
+    <lightning:card>
+        <div aura:id="dvForm">
+        <lightning:recordEditForm aura:id="form"
+                                      objectApiName="New_Wavier_Approval__c"
+                                      onsubmit="{!c.handleOnSubmit}"
+                                      onsuccess="{!c.handleOnSuccess}"
+                                      onerror="{!c.handleOnError}">
+            <lightning:messages/>
+            <lightning:inputField fieldName="Subject__c" aura:id="subject" required="true" />
+            <lightning:inputField fieldName="Description__c" aura:id="description" required="true"/>
+            <lightning:inputField fieldName="Case_Model__c" value="ila" aura:id="caseModel" required="true"/>
+            <lightning:inputField fieldName="Type__c" aura:id="waiverType" required="true"/>
+            <lightning:inputField fieldName="Sub_Type__c" aura:id="subType" required="true"/>
+            <lightning:inputField fieldName="Request_Type__c" aura:id="requestType" required="true"/>
+            <lightning:inputField fieldName="Case_Origin__c" aura:id="caseOrigin" required="true"/>
+            <lightning:inputField fieldName="Claim_Amount__c" aura:id="claimAmount" required="true"/>
+            <lightning:inputField fieldName="Transaction_Reference_Number__c" aura:id="transactionRefNum" />
+            
+            <!--<lightning:input type="file" label="Upload File" onchange="{!c.handleFileChange}"/>
+            
+            <span style="color:red">{!v.fileSizeError}</span>-->
+            <lightning:fileUpload 
+                                  aura:id="fileUploader" 
+                                  label="Upload File" 
+                                  multiple="false"
+                                  accept="{!v.filetype}"
+                                  recordId="{!v.recordId}" 
+                                  onuploadfinished="{!c.handleUploadFinished}" />
+            <aura:if isTrue="{!not(empty(v.waiverFileName))}">
+                <lightning:icon iconName="utility:check" size="xx-small" class="slds-icon-text-success"/>&nbsp;
+                <span style="color:green">Uploaded file:&nbsp;<b>{!v.waiverFileName}</b></span>
+            </aura:if>
+            
+            <footer>
+                <div class="slds-float_right">
+                    <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.isDisabled}"/>&nbsp;&nbsp;
+                    <lightning:button variant="brand" label="Cancel" onclick="{!c.onCancel}" />
+                </div>
+                <div>&nbsp;</div>
+            </footer>
+        </lightning:recordEditForm>
+        </div>
+    </lightning:card>
+    <c:apexService aura:id="apexService"/>
+</aura:component>

@@ -1,0 +1,38 @@
+<template>  
+    <template if:true={loadingSpinner}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </template>
+    <div class="slds-section slds-is-open">
+        <div style="width: 66%;">
+            <lightning-datatable
+                key-field="Id"
+                data={liabilitiesOptions}
+                columns={liabilitiesColumns}
+                selected-rows={requestedLiabilitiesSelectedRows}
+                onsave={handleSave}
+                oncancel ={handleCancel}
+                onrowselection={handleLiabilitiesRowSelection}
+                draft-values={draftValues}
+                editable="true">
+            </lightning-datatable>
+        </div>
+        <div class="slds-m-top_medium">
+            <lightning-button label="Add Row" onclick={handleAddRow} variant="brand"></lightning-button>
+        </div>
+    </div>
+    <br />
+    <h2>Liabilities Totals</h2>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_1-of-3 slds-p-around_medium">
+            <lightning-input label="Total Selected Liabilities Amount" value={totalSelectedLiabilities} disabled></lightning-input>
+        </div>
+        
+        <div class="slds-size_1-of-3 slds-p-around_medium">
+            <lightning-input label="Total Selected Liability Monthly Installment Amount" value={totalSelectedMonthlyInstallment} disabled></lightning-input>
+        </div>
+
+        <div class="slds-size_1-of-3 slds-p-around_medium">
+            <lightning-input label="Total Actual Obligations Amount" value={totalActualObligations} disabled></lightning-input>
+        </div>
+    </div>
+</template>
