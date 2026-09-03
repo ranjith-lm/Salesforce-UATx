@@ -16,6 +16,17 @@
                 >
                     <lightning-messages></lightning-messages>
 
+                    <template if:true={interactionId}>
+                        <div class="slds-m-top_medium">
+                            <p class="slds-text-body_regular pad-st">
+                                <strong>CIF:</strong> {cif}
+                            </p>
+                            <p class="slds-text-body_regular pad-st">
+                                <strong>Customer Name:</strong> {customerName}
+                            </p>
+                        </div>
+                    </template>
+
                     <lightning-input-field field-name="Case_Model__c"></lightning-input-field>
                     <lightning-input-field field-name="Type"></lightning-input-field>
                     <lightning-input-field field-name="Sub_Type__c"></lightning-input-field>
@@ -31,11 +42,11 @@
                     <!-- Display Interaction ID and Wrap‑up Code if present -->
                     <template if:true={interactionId}>
                         <div class="slds-m-top_medium">
-                            <p class="slds-text-body_regular">
+                            <p class="slds-text-body_regular pad-st">
                                 <strong>Genesys Interaction ID:</strong> {interactionId}
                             </p>
                             <template if:true={wrapupCode}>
-                                <p class="slds-text-body_regular">
+                                <p class="slds-text-body_regular pad-st">
                                     <strong>Wrap‑up Code:</strong> {wrapupLabel}
                                 </p>
                             </template>
@@ -45,7 +56,7 @@
                     <template if:false={interactionId}>
                         <template if:true={wrapupCode}>
                             <div class="slds-m-top_medium">
-                                <p class="slds-text-body_regular">
+                                <p class="slds-text-body_regular pad-st">
                                     <strong>Wrap‑up Code:</strong> {wrapupLabel}
                                 </p>
                             </div>

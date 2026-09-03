@@ -20,8 +20,8 @@
     <actionCalls>
         <name>Case_Upgrade_Acknowledge_email_Staff</name>
         <label>Case Upgrade Acknowledge email Staff</label>
-        <locationX>4274</locationX>
-        <locationY>782</locationY>
+        <locationX>4538</locationX>
+        <locationY>890</locationY>
         <actionName>Case.CC_UPGRADE_REQUEST_SUBMITTED</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -54,8 +54,8 @@
     <actionCalls>
         <name>Copy_1_of_Case_Upgrade_Acknowledge_email_Staff</name>
         <label>Case Upgrade Acknowledge email Staff</label>
-        <locationX>4538</locationX>
-        <locationY>782</locationY>
+        <locationX>4912</locationX>
+        <locationY>1598</locationY>
         <actionName>Case.CC_UPGRADE_REQUEST_SUBMITTED</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -71,7 +71,7 @@
     <actionCalls>
         <name>Copy_1_of_Send_Emaill</name>
         <label>Send Email</label>
-        <locationX>12194</locationX>
+        <locationX>12810</locationX>
         <locationY>674</locationY>
         <actionName>Case.Credit_Card_Limit_Split</actionName>
         <actionType>emailAlert</actionType>
@@ -88,8 +88,8 @@
     <actionCalls>
         <name>Copy_1_of_Update_Credit_Card_Request_API_after_Insert_Staff</name>
         <label>Update Credit Card Request API after Insert Staff</label>
-        <locationX>4538</locationX>
-        <locationY>674</locationY>
+        <locationX>4912</locationX>
+        <locationY>1490</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -114,7 +114,7 @@
     <actionCalls>
         <name>Copy_1_of_Update_Credit_Card_Split_Request_Accept</name>
         <label>Copy 1 of Update Credit Card Split Request_Accept</label>
-        <locationX>13514</locationX>
+        <locationX>14130</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -143,7 +143,7 @@
     <actionCalls>
         <name>Copy_1_of_Update_Credit_Card_Split_Request_API</name>
         <label>Copy 1 of Update Credit Card Split Request API</label>
-        <locationX>12194</locationX>
+        <locationX>12810</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -169,7 +169,7 @@
     <actionCalls>
         <name>Copy_1_of_Update_Credit_Card_Split_Request_Decline</name>
         <label>Copy 1 of Update Credit Card Split Request Decline</label>
-        <locationX>14042</locationX>
+        <locationX>14658</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -198,7 +198,7 @@
     <actionCalls>
         <name>Copy_1_of_Update_Credit_Card_Split_Request_Resend</name>
         <label>Copy 1 of Update Credit Card Split Request_Resend</label>
-        <locationX>13778</locationX>
+        <locationX>14394</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -227,7 +227,7 @@
     <actionCalls>
         <name>Send_Email</name>
         <label>Send Email</label>
-        <locationX>7706</locationX>
+        <locationX>8322</locationX>
         <locationY>674</locationY>
         <actionName>Case.Credit_Card_Limit_Split</actionName>
         <actionType>emailAlert</actionType>
@@ -331,7 +331,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_Cancelleddd</name>
         <label>Update Credit Card Request API after Cancelled</label>
-        <locationX>6386</locationX>
+        <locationX>6738</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -389,7 +389,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_HR_Approve</name>
         <label>Update Credit Card Request API after HR Approve</label>
-        <locationX>5066</locationX>
+        <locationX>5418</locationX>
         <locationY>782</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -418,7 +418,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_HR_Cancelled</name>
         <label>Update Credit Card Request API after HR Cancelled</label>
-        <locationX>5594</locationX>
+        <locationX>5946</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -447,7 +447,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_HR_Decline</name>
         <label>Update Credit Card Request API after HR Decline</label>
-        <locationX>5330</locationX>
+        <locationX>5682</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -503,8 +503,8 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_Insert_Staff</name>
         <label>Update Credit Card Request API after Insert Staff</label>
-        <locationX>4274</locationX>
-        <locationY>674</locationY>
+        <locationX>4538</locationX>
+        <locationY>782</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -584,7 +584,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Request_API_after_Upgrade_Completedd</name>
         <label>Update Credit Card Request API after Upgrade Completed</label>
-        <locationX>6122</locationX>
+        <locationX>6474</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardUpgradeHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -613,7 +613,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Accept</name>
         <label>Update Credit Card Split Request_Accept</label>
-        <locationX>8762</locationX>
+        <locationX>9378</locationX>
         <locationY>782</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -642,7 +642,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Acceptt</name>
         <label>Update Credit Card Split Request_Accept</label>
-        <locationX>10082</locationX>
+        <locationX>10698</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -671,7 +671,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Acceptttt</name>
         <label>Update Credit Card Split Request_Accept</label>
-        <locationX>12458</locationX>
+        <locationX>13074</locationX>
         <locationY>782</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -700,7 +700,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_API</name>
         <label>Update Credit Card Split Request API</label>
-        <locationX>7706</locationX>
+        <locationX>8322</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -726,7 +726,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Cancel</name>
         <label>Update Credit Card Split Request Cancel</label>
-        <locationX>8234</locationX>
+        <locationX>8850</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -755,7 +755,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Cancel3</name>
         <label>Update Credit Card Split Request Cancel</label>
-        <locationX>9554</locationX>
+        <locationX>10170</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -784,7 +784,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Cancelled</name>
         <label>Update Credit Card Split Request Cancel</label>
-        <locationX>12986</locationX>
+        <locationX>13602</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -813,7 +813,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Decline</name>
         <label>Update Credit Card Split Request Decline</label>
-        <locationX>9290</locationX>
+        <locationX>9906</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -842,7 +842,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Decline2</name>
         <label>Update Credit Card Split Request Decline</label>
-        <locationX>10610</locationX>
+        <locationX>11226</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -871,7 +871,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Declineee</name>
         <label>Update Credit Card Split Request Decline</label>
-        <locationX>12722</locationX>
+        <locationX>13338</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -900,7 +900,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Resend</name>
         <label>Update Credit Card Split Request_Resend</label>
-        <locationX>10346</locationX>
+        <locationX>10962</locationX>
         <locationY>566</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -929,7 +929,7 @@
     <actionCalls>
         <name>Update_Credit_Card_Split_Request_Send_To_Checker</name>
         <label>Update Credit Card Split Request Send To Checker</label>
-        <locationX>7970</locationX>
+        <locationX>8586</locationX>
         <locationY>782</locationY>
         <actionName>CreditCardSplitHandlerAPI</actionName>
         <actionType>apex</actionType>
@@ -960,8 +960,8 @@
     <assignments>
         <name>Copy_1_of_Route_to_Operations_Queue</name>
         <label>Route to Operations Queue</label>
-        <locationX>4538</locationX>
-        <locationY>458</locationY>
+        <locationX>4912</locationX>
+        <locationY>1274</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -1004,7 +1004,7 @@
     <assignments>
         <name>Making_Comments_Blank</name>
         <label>Making Comments Blank</label>
-        <locationX>11402</locationX>
+        <locationX>12018</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.cc_Signature_Verification_Comments__c</assignToReference>
@@ -1018,9 +1018,62 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Making_Comments_Blank1</name>
+        <label>Making Comments Blank</label>
+        <locationX>3746</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>newcaseRecord.cc_Credit_Approver_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newcaseRecord.cc_Contact_Centre_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newcaseRecord.cc_Operations_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_Update_Case_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Making_Comments_Blank2</name>
+        <label>Making Comments Blank</label>
+        <locationX>7530</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>newcaseRecord.cc_HR_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newcaseRecord.cc_Operations_Comments__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_2_of_Update_Case_Record_Staff</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Making_Comments_Blankkk</name>
         <label>Making Comments Blank</label>
-        <locationX>14570</locationX>
+        <locationX>15186</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.cc_Signature_Verification_Comments__c</assignToReference>
@@ -1043,8 +1096,8 @@
     <assignments>
         <name>Route_to_Approver_HR_Queue</name>
         <label>Route to Approver HR Queue</label>
-        <locationX>4274</locationX>
-        <locationY>458</locationY>
+        <locationX>4538</locationX>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -1175,7 +1228,7 @@
     <assignments>
         <name>Route_to_Checker</name>
         <label>Route to Checker</label>
-        <locationX>7970</locationX>
+        <locationX>8586</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1205,7 +1258,7 @@
     <assignments>
         <name>Route_to_Checkerr</name>
         <label>Route to Checker</label>
-        <locationX>10874</locationX>
+        <locationX>11490</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1344,7 +1397,7 @@
     <assignments>
         <name>Route_to_HR_Queue</name>
         <label>Route to HR Queue</label>
-        <locationX>12194</locationX>
+        <locationX>12810</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1388,7 +1441,7 @@
     <assignments>
         <name>Route_to_HR_Team</name>
         <label>Route to HR Team</label>
-        <locationX>6650</locationX>
+        <locationX>7002</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1432,7 +1485,7 @@
     <assignments>
         <name>Route_to_Maker</name>
         <label>Route to Maker</label>
-        <locationX>9026</locationX>
+        <locationX>9642</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1462,7 +1515,7 @@
     <assignments>
         <name>Route_to_Maker_Queue</name>
         <label>Route to Maker Queue</label>
-        <locationX>7706</locationX>
+        <locationX>8322</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1594,7 +1647,7 @@
     <assignments>
         <name>Route_to_Operations_Queuee</name>
         <label>Route to Operations Queue</label>
-        <locationX>5066</locationX>
+        <locationX>5418</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1638,7 +1691,7 @@
     <assignments>
         <name>Route_to_Signature_Verifier</name>
         <label>Route to Signature Verifier</label>
-        <locationX>8762</locationX>
+        <locationX>9378</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1682,7 +1735,7 @@
     <assignments>
         <name>Route_to_Signature_Verifierrrrr</name>
         <label>Route to Signature Verifier</label>
-        <locationX>12458</locationX>
+        <locationX>13074</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>newcaseRecord.OwnerId</assignToReference>
@@ -1763,7 +1816,7 @@
     <decisions>
         <name>Checker_Action</name>
         <label>Checker Action</label>
-        <locationX>9290</locationX>
+        <locationX>9906</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1859,7 +1912,7 @@
     <decisions>
         <name>Copy_1_of_Application_Source</name>
         <label>Application Source</label>
-        <locationX>4538</locationX>
+        <locationX>4912</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1873,7 +1926,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Route_to_Approver_HR_Queue</targetReference>
+                <targetReference>Inititiated_from_Upgrade_Case</targetReference>
             </connector>
             <label>Manual</label>
         </rules>
@@ -1971,9 +2024,16 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Campaign_Upgraded</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 OR 2</conditionLogic>
             <conditions>
                 <leftValueReference>newcaseRecord.isSubmitted__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>newcaseRecord.Is_Initiated_from_Limit_Increase_Case__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1988,7 +2048,7 @@
     <decisions>
         <name>Credit_Card_Upgrade_Segment_Check</name>
         <label>Credit Card Upgrade Segment Check</label>
-        <locationX>8762</locationX>
+        <locationX>9136</locationX>
         <locationY>134</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2125,7 +2185,7 @@
     <decisions>
         <name>Credit_Card_Upgrade_Split</name>
         <label>Credit Card Upgrade Split</label>
-        <locationX>13844</locationX>
+        <locationX>14460</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2198,7 +2258,7 @@
     <decisions>
         <name>Credit_Split_Action</name>
         <label>Credit Split Action</label>
-        <locationX>9950</locationX>
+        <locationX>10566</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2286,7 +2346,7 @@
     <decisions>
         <name>Credit_Upgrade_Action</name>
         <label>Credit Upgrade Action</label>
-        <locationX>2558</locationX>
+        <locationX>2690</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2355,11 +2415,40 @@
             </connector>
             <label>CC Result Change</label>
         </rules>
+        <rules>
+            <name>Clear_Comments1</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>newcaseRecord.cc_Credit_Approver_Comments__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>newcaseRecord.cc_Operations_Comments__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>newcaseRecord.cc_Contact_Centre_Comments__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Making_Comments_Blank1</targetReference>
+            </connector>
+            <label>Clear Comments</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Credit_Upgrade_Action_Staff</name>
         <label>Credit Upgrade Action Staff</label>
-        <locationX>6320</locationX>
+        <locationX>6804</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2406,11 +2495,33 @@
             </connector>
             <label>Operation Result Change</label>
         </rules>
+        <rules>
+            <name>Clear_Comments</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>newcaseRecord.cc_HR_Comments__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>newcaseRecord.cc_Operations_Comments__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Making_Comments_Blank2</targetReference>
+            </connector>
+            <label>Clear Comments</label>
+        </rules>
     </decisions>
     <decisions>
         <name>HR_Result</name>
         <label>HR Result</label>
-        <locationX>5462</locationX>
+        <locationX>5814</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2462,7 +2573,7 @@
     <decisions>
         <name>HR_Result_Actionnn</name>
         <label>HR Result Action</label>
-        <locationX>12854</locationX>
+        <locationX>13470</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2512,9 +2623,34 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Inititiated_from_Upgrade_Case</name>
+        <label>Inititiated from Upgrade Case</label>
+        <locationX>4670</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Route_to_Operations_Queue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>newcaseRecord.Is_Initiated_from_Limit_Increase_Case__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Route_to_Approver_HR_Queue</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>IsNewRecord</name>
         <label>IsNewRecord</label>
-        <locationX>2162</locationX>
+        <locationX>2294</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2551,7 +2687,7 @@
     <decisions>
         <name>IsNewRecord_Split</name>
         <label>IsNewRecord Split</label>
-        <locationX>9818</locationX>
+        <locationX>10434</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2588,7 +2724,7 @@
     <decisions>
         <name>IsNewRecord_Staff</name>
         <label>IsNewRecord Staff</label>
-        <locationX>5990</locationX>
+        <locationX>6485</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2625,7 +2761,7 @@
     <decisions>
         <name>IsNewRecord_Stafff</name>
         <label>IsNewRecord Staff</label>
-        <locationX>13646</locationX>
+        <locationX>14262</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2662,7 +2798,7 @@
     <decisions>
         <name>Maker_Action</name>
         <label>Maker Action</label>
-        <locationX>8234</locationX>
+        <locationX>8850</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2751,7 +2887,7 @@
     <decisions>
         <name>Operation_Result1</name>
         <label>Operation Result</label>
-        <locationX>6518</locationX>
+        <locationX>6870</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2803,7 +2939,7 @@
     <decisions>
         <name>Signature_Verifier_Action</name>
         <label>Signature Verifier Action</label>
-        <locationX>10610</locationX>
+        <locationX>11226</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2870,7 +3006,7 @@
     <decisions>
         <name>Signature_Verifier_Actionnn</name>
         <label>Signature Verifier Action</label>
-        <locationX>13910</locationX>
+        <locationX>14526</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2952,13 +3088,27 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
+        <name>Copy_1_of_Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>3746</locationX>
+        <locationY>566</locationY>
+        <inputReference>newcaseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>Copy_1_of_Update_Case_Record_Staff</name>
         <label>Update Case Record Staff</label>
-        <locationX>4538</locationX>
-        <locationY>566</locationY>
+        <locationX>4912</locationX>
+        <locationY>1382</locationY>
         <connector>
             <targetReference>Copy_1_of_Update_Credit_Card_Request_API_after_Insert_Staff</targetReference>
         </connector>
+        <inputReference>newcaseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_2_of_Update_Case_Record_Staff</name>
+        <label>Update Case Record Staff</label>
+        <locationX>7530</locationX>
+        <locationY>566</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
@@ -3001,7 +3151,7 @@
     <recordUpdates>
         <name>Update_Case_Record4</name>
         <label>Update Case Record</label>
-        <locationX>8762</locationX>
+        <locationX>9378</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Split_Request_Accept</targetReference>
@@ -3011,14 +3161,14 @@
     <recordUpdates>
         <name>Update_Case_Record5</name>
         <label>Update Case Record</label>
-        <locationX>10874</locationX>
+        <locationX>11490</locationX>
         <locationY>674</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Case_Record_Split</name>
         <label>Update Case Record</label>
-        <locationX>7706</locationX>
+        <locationX>8322</locationX>
         <locationY>458</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Split_Request_API</targetReference>
@@ -3028,7 +3178,7 @@
     <recordUpdates>
         <name>Update_Case_Record_Split1</name>
         <label>Update Case Record</label>
-        <locationX>7970</locationX>
+        <locationX>8586</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Split_Request_Send_To_Checker</targetReference>
@@ -3038,8 +3188,8 @@
     <recordUpdates>
         <name>Update_Case_Record_Staff</name>
         <label>Update Case Record Staff</label>
-        <locationX>4274</locationX>
-        <locationY>566</locationY>
+        <locationX>4538</locationX>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Request_API_after_Insert_Staff</targetReference>
         </connector>
@@ -3048,7 +3198,7 @@
     <recordUpdates>
         <name>Update_Case_Record_Staff1</name>
         <label>Update Case Record Staff</label>
-        <locationX>5066</locationX>
+        <locationX>5418</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Request_API_after_HR_Approve</targetReference>
@@ -3058,7 +3208,7 @@
     <recordUpdates>
         <name>Update_Case_Record_Staff2</name>
         <label>Update Case Record Staff</label>
-        <locationX>6650</locationX>
+        <locationX>7002</locationX>
         <locationY>674</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
@@ -3072,14 +3222,14 @@
     <recordUpdates>
         <name>Update_Case_Recordd1</name>
         <label>Update Case Record</label>
-        <locationX>9026</locationX>
+        <locationX>9642</locationX>
         <locationY>674</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Case_Recordd123</name>
         <label>Update Case Record</label>
-        <locationX>11402</locationX>
+        <locationX>12018</locationX>
         <locationY>566</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
@@ -3093,7 +3243,7 @@
     <recordUpdates>
         <name>Update_Case_Recordddd</name>
         <label>Update Case Record</label>
-        <locationX>12458</locationX>
+        <locationX>13074</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Update_Credit_Card_Split_Request_Acceptttt</targetReference>
@@ -3103,14 +3253,14 @@
     <recordUpdates>
         <name>Update_Case_Records</name>
         <label>Update Case Record</label>
-        <locationX>14570</locationX>
+        <locationX>15186</locationX>
         <locationY>566</locationY>
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Casee_Record</name>
         <label>Update Case Record</label>
-        <locationX>12194</locationX>
+        <locationX>12810</locationX>
         <locationY>458</locationY>
         <connector>
             <targetReference>Copy_1_of_Update_Credit_Card_Split_Request_API</targetReference>
@@ -3118,7 +3268,7 @@
         <inputReference>newcaseRecord</inputReference>
     </recordUpdates>
     <start>
-        <locationX>8636</locationX>
+        <locationX>9010</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Credit_Card_Upgrade_Segment_Check</targetReference>

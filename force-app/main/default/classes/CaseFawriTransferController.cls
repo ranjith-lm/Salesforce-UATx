@@ -184,7 +184,7 @@ public class CaseFawriTransferController {
     @AuraEnabled
     public static void sendFawriCancellationEmail(Id recordId) {
         try {
-            Case caseRecord = [SELECT Id, AccountId, Account.Contact_ID__pc, Account.PersonEmail FROM Case WHERE Id = :recordId LIMIT 1];
+            Case caseRecord = [SELECT Id, AccountId, Account.Contact_ID__pc, Account.PersonEmail, Case_Model__c FROM Case WHERE Id = :recordId LIMIT 1];
             if (caseRecord.AccountId != null && caseRecord.Account.PersonEmail != null) {
                
                 OrgWideEmailAddress owe = [SELECT Id FROM OrgWideEmailAddress WHERE Address = 'support@ilabank.com' LIMIT 1];

@@ -24,10 +24,10 @@
                 else if(response.getReturnValue() == "Email update"){
                     component.set("v.caseSubType",response.getReturnValue());
                 }
-                else if(response.getReturnValue() == "Expired ID Update"){
+                else if(response.getReturnValue() == "Expired ID Update"  || response.getReturnValue() == "ID Expiry Update" || response.getReturnValue() == "ID Type Update"){
                     component.set("v.caseSubType",response.getReturnValue());
   				}
-                else if(response.getReturnValue() == "Name Fix / Update"){
+                else if(response.getReturnValue() == "Name Fix / Update" || response.getReturnValue() == "Name Update"){
                     component.set("v.caseSubType",response.getReturnValue());
                 }
                 else if(response.getReturnValue() == "Address update"){

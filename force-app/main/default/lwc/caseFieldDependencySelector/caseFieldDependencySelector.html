@@ -17,6 +17,18 @@
             </header>
             <div class="slds-divider_bottom slds-m-bottom_medium"></div>
             <div class="slds-p-around_medium box-border box-height">
+
+                <template if:true={interactionId}>
+                        <div class="slds-m-top_medium">
+                            <p class="slds-text-body_regular pad-st">
+                                <strong>CIF:</strong> {caseCIF}
+                            </p>
+                            <p class="slds-text-body_regular pad-st">
+                                <strong>Customer Name:</strong> {caseCustomerName}
+                            </p>
+                        </div>
+                    </template>
+
                 <lightning-combobox label="Case Model" name="caseModel" onchange={handleChange} options={caseModelOptions}
                     required value={caseModel}></lightning-combobox>
                 <lightning-combobox label="Type" name="caseType" options={typeOptions} onchange={handleTypeChange} required>
@@ -24,9 +36,12 @@
                 <!-- CH01 added : value caseSubType -->
                 <lightning-combobox label="Sub Type" name="caseSubType" options={subTypeOptions}
                     onchange={handleSubTypeChange} disabled={isSubTypeDisabled}  value={caseSubType}></lightning-combobox>
-                <lightning-combobox label="Request Type" name="caseRequestType" options={requestTypeOptions}
-                    onchange={handleRequestTypeChange} disabled={isRequestTypeDisabled} value={caseRequestType}>
-                </lightning-combobox>
+                
+                <template if:false={isFawriCancellation}>
+                    <lightning-combobox label="Request Type" name="caseRequestType" options={requestTypeOptions}
+                        onchange={handleRequestTypeChange} disabled={isRequestTypeDisabled} value={caseRequestType}>
+                    </lightning-combobox>
+                </template>
 
                 <template if:true={isShowCardNumbers}>
                     <lightning-input type="text" label="Enter Card Number" name="cardNumber" onchange={handleChange}
@@ -176,12 +191,11 @@
                     </div>
 
                     <lightning-combobox 
-                    label="Device"
+                    label="Revoke Device Access"
                     name="deviceId"
                     value={selectedDeviceId}
                     options={deviceOptions}
-                    onchange={handleDeviceChange}
-                    required>
+                    onchange={handleDeviceChange}>
                 </lightning-combobox>
                 
                 <!-- Hidden fields for storing values -->
@@ -305,11 +319,11 @@
                 <!-- Display Interaction ID and Wrap‑up Code if present -->
                 <template if:true={interactionId}>
                     <div class="slds-m-top_medium">
-                        <p class="slds-text-body_regular">
+                        <p class="slds-text-body_regular pad-st">
                             <strong>Genesys Interaction ID:</strong> {interactionId}
                         </p>
                         <template if:true={wrapupCode}>
-                            <p class="slds-text-body_regular">
+                            <p class="slds-text-body_regular pad-st">
                                 <strong>Wrap‑up Code:</strong> {wrapupLabel}
                             </p>
                         </template>
@@ -319,7 +333,7 @@
                 <template if:false={interactionId}>
                     <template if:true={wrapupCode}>
                         <div class="slds-m-top_medium">
-                            <p class="slds-text-body_regular">
+                            <p class="slds-text-body_regular pad-st">
                                 <strong>Wrap‑up Code:</strong> {wrapupLabel}
                             </p>
                         </div>

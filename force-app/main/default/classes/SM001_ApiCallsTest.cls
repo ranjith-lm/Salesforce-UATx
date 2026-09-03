@@ -1,9 +1,7 @@
 /**
  * * Version History :
  *      #ch01  Added by Amina BENABDELKRIM 05-08-2022 *** to add new field (case model)
- *      #CH02 : Added by Imane TSIOUCHA  to add callUpdateFeeWaiverFlagReasonApiTest & callUncollectedFeesApiTest  DATE:07-09-2023  
- *		#CH03 : BondSukuk Statement 
- *      #CH04 : Added by Ranjith Raja 29-09-2024
+ *
  */
 @isTest
 public class SM001_ApiCallsTest {
@@ -56,8 +54,7 @@ public class SM001_ApiCallsTest {
         System.assert(response.getStatusCode() == 200);
         test.stopTest();
     }
-//Commented by Imane Tsioucha // 19/07/2024 // Field Cleaning
-    /*
+
     @isTest
     static void callBlockAmountApiTest(){
         test.startTest();
@@ -67,7 +64,7 @@ public class SM001_ApiCallsTest {
         HttpResponse response = SM001_ApiCalls.callBlockAmountApi(request1,caseObj);
         System.assert(response.getStatusCode() == 200);
         test.stopTest();
-    }*/
+    }
 
     @isTest
     static void callUnblockAmountApiTest(){
@@ -105,15 +102,15 @@ public class SM001_ApiCallsTest {
     }
 
     private static Case getCreateCase(){
-        return [SELECT Id,ac_Iban__c,Customer_CIF__c,Status,Sub_Status__c,PrimaryCardProductConfigurationId__c,PrimaryCard__c,cc_Name_on_the_Card__c,sc_Card_Holder_Mobile_No__c,/*CaseExecutionNumberB__c,LetterReferenceNumberB__c,/*BlockAmountBHDB__c,*/
+        return [SELECT Id,ac_Iban__c,Customer_CIF__c,Status,Sub_Status__c,PrimaryCardProductConfigurationId__c,PrimaryCard__c,cc_Name_on_the_Card__c,sc_Card_Holder_Mobile_No__c,CaseExecutionNumberB__c,LetterReferenceNumberB__c,BlockAmountBHDB__c,
                                 sc_Card_Holder_Email_Address__c,sc_Relationship__c,sc_Card_Holder_ID_Number__c,sc_Card_Holder_ID_Expiry_Date__c,sc_Card_Holder_Last_Name__c,AccountId,
                                 sc_Card_Holder_First_Name__c,sc_Card_Holder_Date_of_Birth__c,sc_Card_Holder_Nationality__c,sc_Card_Holder_Gender__c,Account.PersonEmail,Account.CIF__pc,Case_Model__c,Sub_Type__c,Region_Flag__c,
                                 ppc_Approved_Name_On_The_Card__c,ppc_Card_Holder_Age__c,ppc_Adult_Issuance_Fee__c,ppc_Adult_Issuance_VAT__c,ppc_Minor_Issuance_Fee__c,ppc_Minor_Issuance_VAT__c,Card_Product_Configuration_Id__c,ppc_OTP_MobileNo__c,
-                                ppc_OTP_EmailAddress__c, /*Waiver_Reason__c,*/ sc_Jumio_Scan_Reference_Number__c,Card_Type__c,ppc_ParticipantName__c,ppc_CardDesign__c,Account.x_canary__pc
+                                ppc_OTP_EmailAddress__c,sc_Jumio_Scan_Reference_Number__c,Card_Type__c,ppc_ParticipantName__c,ppc_CardDesign__c
                             FROM Case LIMIT 1];//CH01
     }
     private static Account getCreatedCustomer(){
-        return [SELECT Id,CIF__pc,PersonEmail,Mobile_Country_Code__pc,PersonMobilePhone,Region_Flag__c FROM Account LIMIT 1];
+        return [SELECT Id,CIF__pc,PersonEmail,Region_Flag__c FROM Account LIMIT 1];
     }
 
     @isTest
@@ -162,21 +159,21 @@ public class SM001_ApiCallsTest {
         test.stopTest();
     } 
 
-    // @isTest
-    // static void CreditCardStatusTest(){
-    //     test.startTest();
-    //     Account acc = getCreatedCustomer();
-    //     MCK001_ApiCalls.statusCodeGlobal = 200;
-    //     ApiConnection con = new ApiConnection();
+    @isTest
+    static void CreditCardStatusTest(){
+        test.startTest();
+        Account acc = getCreatedCustomer();
+        MCK001_ApiCalls.statusCodeGlobal = 200;
+        ApiConnection con = new ApiConnection();
 
-    //     HttpRequest request = con.createRequest('GET','/api/v1/credit-cards?',null);
-    //     ApiConnection.Response response = SM001_ApiCalls.getCreditCardStatusApi(con,'123456','123456','filerOption');
+        HttpRequest request = con.createRequest('GET','/api/v1/credit-cards?','Jordan');
+        ApiConnection.Response response = SM001_ApiCalls.getCreditCardStatusApi(con,'123456','123456','filerOption','Jordan');
         
-    //     HttpRequest request1 = con.createRequest('GET','/api/v1/credit-cards/{cardId}/details',null);
-    //     ApiConnection.Response response1 = SM001_ApiCalls.getCreditCardDetailsApi(con,'cardId','customerId','personEmail','Bahrain');
+        HttpRequest request1 = con.createRequest('GET','/api/v1/credit-cards/{cardId}/details',null);
+        ApiConnection.Response response1 = SM001_ApiCalls.getCreditCardDetailsApi(con,'cardId','customerId','personEmail','Bahrain');
 
-    //     test.stopTest();
-    // }
+        test.stopTest();
+    }
 
     @isTest
     static void accountClosureTest(){
@@ -239,19 +236,19 @@ public class SM001_ApiCallsTest {
         test.stopTest();
     }
 
-    // @isTest
-    // static void callScheduledPlaPaymentsApiTest(){
-    //     test.startTest();
-    //     MCK001_ApiCalls.statusCodeGlobal = 200;
+    @isTest
+    static void callScheduledPlaPaymentsApiTest(){
+        test.startTest();
+        MCK001_ApiCalls.statusCodeGlobal = 200;
 
-    //     ApiConnection.Response response = SM001_ApiCalls.callScheduledPlaPaymentsApi(new ApiConnection(),'123456' , '{}');
-    //     System.assert(response != null);
+        ApiConnection.Response response = SM001_ApiCalls.callScheduledPlaPaymentsApi(new ApiConnection(),'123456' , '{}','Bahrain');
+        System.assert(response != null);
 
-    //     ApiConnection.Response response1 = SM001_ApiCalls.callScheduledPlaPaymentDetailsApi(new ApiConnection(),'123456' , '1');
-    //     System.assert(response1 != null);
+        ApiConnection.Response response1 = SM001_ApiCalls.callScheduledPlaPaymentDetailsApi(new ApiConnection(),'123456' , '1','Bahrain');
+        System.assert(response1 != null);
 
-    //     test.stopTest();
-    // }
+        test.stopTest();
+    }
 	
     @isTest
     static void updatePrepaidCardRequestStatusApiTest(){
@@ -297,66 +294,20 @@ public class SM001_ApiCallsTest {
     }
     
     //End add 19/07/2022 by aniss
-
-   // START CH01 by Imane TSIOUCHA
-   //Commented by Imane Tsioucha // 19/07/2024 // Field Cleaning
-
-  /*  @isTest
-    static void callUpdateFeeWaiverFlagReasonApiTest(){
+    
+     @isTest
+    static void CustomerTotalBalanceAPITest(){
         test.startTest();
-        MCK001_ApiCalls.statusCodeGlobal = 200;
         Case caseObj = getCreateCase();
-        caseObj.Waiver_Reason__c = 'Orphans';
-        caseObj.Waiver_Flag__c = true;
-        update caseObj;
-        ApiConnection con = new ApiConnection();
-        try{
-            HttpResponse response = SM001_ApiCalls.callUpdateFeeWaiverFlagReasonApi(con, caseObj);
-        }catch(Exception e){
-            System.debug('callUpdateFeeWaiverFlagReasonApiTest');
-        }
-        test.stopTest();
-    }*/
-
-    @isTest
-    static void callUncollectedFeesApiTest(){
-        test.startTest();
+        Account acc = getCreatedCustomer();
         MCK001_ApiCalls.statusCodeGlobal = 200;
-        ApiConnection con = new ApiConnection();
-        try{
-            SM001_ApiCalls.callUncollectedFeesApi(con, '', '', '');
-        }catch(Exception e){
-            System.debug('callUncollectedFeesApiTest');
-        }
+
+        HttpResponse response = SM001_ApiCalls.CustomerTotalBalanceAPI(new HttpRequest(),acc );
+        System.assert(response.getStatusCode() == 200);
         test.stopTest();
     }
-    // END CH01
-
-      // START CH01 by Imane TSIOUCHA
-      @isTest
-      static void ManualOnboardingAPITest(){
-        test.startTest();
-          Case caseObj = getCreateCase();
-          Account acc = getCreatedCustomer();
-          MCK001_ApiCalls.statusCodeGlobal = 200;
-          HttpResponse response = SM001_ApiCalls.ManualOnboardingAPI(new HttpRequest(),acc);
-          System.assert(response.getStatusCode() == 200);
-  
-          test.stopTest();
-      }
-      
-          @isTest
-         static void GetInstrumentAPITest(){
-          test.startTest();
-          Case caseObj = getCreateCase();
-          Account acc = getCreatedCustomer();
-          MCK001_ApiCalls.statusCodeGlobal = 200;
-          HttpResponse response = SM001_ApiCalls.ManualOnboardingAPI(new HttpRequest(),acc);
-          System.assert(response.getStatusCode() == 200);
-  
-          test.stopTest();
-      }
-      //CH03: START
+    
+          //CH03: START
        @isTest
        static void callBondSukukStatementsApiTest(){
         test.startTest();
@@ -370,7 +321,7 @@ public class SM001_ApiCallsTest {
 
         test.stopTest();
     }
-    
+
     //CH04:Start
     @isTest
     static void MoEngageDeleteAPITest(){
@@ -385,7 +336,7 @@ public class SM001_ApiCallsTest {
     }
     
     @isTest
-    static void CustomerTotalBalanceAPITest(){
+    static void CustomerTotalBalanceAPITest2(){
         test.startTest();
         Case caseObj = getCreateCase();
         Account acc = getCreatedCustomer();
@@ -451,19 +402,7 @@ public class SM001_ApiCallsTest {
     }
     
     @isTest
-    static void UpdateAccountForInterestRateTest(){
-        test.startTest();
-        Case caseObj = getCreateCase();
-        Account acc = getCreatedCustomer();
-        MCK001_ApiCalls.statusCodeGlobal = 200;
-
-        HttpResponse response = SM001_ApiCalls.UpdateAccountForInterestRate(new HttpRequest(),acc);
-        System.assert(response.getStatusCode() == 200);
-        test.stopTest();
-    }
-    
-    @isTest
-    static void callScheduledPlaPaymentsApiTest(){
+    static void callScheduledPlaPaymentsApiTest2(){
         test.startTest();
         MCK001_ApiCalls.statusCodeGlobal = 200;
 

@@ -15,7 +15,7 @@
                     margin-bottom: 4cm;
                     margin-left: 1cm;
                     margin-right: 1cm;
-                    font-family: 'Neo Sans';
+                    font-family: 'Open Sans', Inter, sans-serif;
                     @top {
                         content: element(header);
                     }
@@ -31,63 +31,65 @@
                       }
                 #footer {position: fixed;bottom: 0; }
 
-             body {margin-top: 0px;margin-left: 0px; font-family: 'Neo Sans'; }
+             body {margin-top: 0px;margin-left: 0px; font-family: 'Open Sans', Inter, sans-serif; }
 
-             #page_1 {position:relative; overflow: hidden;margin: 14px 0px 18px 23px;padding: 0px;border: none;width: 771px; font-family: 'Neo Sans';}
-            #page_1 #id1_1 {border:none;margin: 0px 0px 0px 235px;padding: 0px;border:none;width: 490px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #id1_2 {border:none;margin: 73px 0px 0px 4px;padding: 0px;border:none;width: 767px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #id1_2 #id1_2_1 {float:left;border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 690px;overflow: hidden; font-family: 'Neo Sans';}
+             #page_1 {position:relative; overflow: hidden;margin: 14px 0px 18px 23px;padding: 0px;border: none;width: 771px; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_1 {border:none;margin: 0px 0px 0px 235px;padding: 0px;border:none;width: 490px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_2 {border:none;margin: 73px 0px 0px 4px;padding: 0px;border:none;width: 767px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_2 #id1_2_1 {float:left;border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 690px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
             #page_1 #id1_2 #id1_2_2 {float:left;border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 328px;overflow: hidden;}
-            #page_1 #id1_3 {border:none;margin: 0px 0px 0px 35px;padding: 20px;border:none;width: 734px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #id1_4 {border:none;margin: 110px 0px 0px 0px;padding: 0px;border:none;width: 746px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #id1_4 #id1_4_1 {float:left;border:none;margin: 5px 0px 0px 0px;padding: 0px;border:none;width: 426px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #id1_4 #id1_4_2 {float:left;border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 320px;overflow: hidden; font-family: 'Neo Sans';}
+            #page_1 #id1_3 {border:none;margin: 0px 0px 0px 35px;padding: 20px;border:none;width: 734px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_4 {border:none;margin: 110px 0px 0px 0px;padding: 0px;border:none;width: 746px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_4 #id1_4_1 {float:left;border:none;margin: 5px 0px 0px 0px;padding: 0px;border:none;width: 426px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #id1_4 #id1_4_2 {float:left;border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 320px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
 			
             #page_1 #id1_5 {border:none; margin-top:60px;margin-left:250px;}
-			 #page_1 #id1_6 {border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 734px;overflow: hidden; font-family: 'Neo Sans';}
-            #page_1 #p1dimg1 {position:absolute;top:0px;left:300px;z-index:-1;width:432px;height:896px; font-family: 'Neo Sans';}
-            #page_1 #p1dimg1 #p1img1 {width:432px;height:896px; font-family: 'Neo Sans';}
+			 #page_1 #id1_6 {border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 734px;overflow: hidden; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #p1dimg1 {position:absolute;top:0px;left:300px;z-index:-1;width:432px;height:896px; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #p1dimg1 #p1img1 {width:432px;height:896px; font-family: 'Open Sans', Inter, sans-serif;}
 
-            #page_1 #p1inl_img1 {position:relative;width:1px;height:8px; font-family: 'Neo Sans';}
-            #page_1 #p1inl_img2 {position:relative;width:4px;height:11px; font-family: 'Neo Sans';}
+            #page_1 #p1inl_img1 {position:relative;width:1px;height:8px; font-family: 'Open Sans', Inter, sans-serif;}
+            #page_1 #p1inl_img2 {position:relative;width:4px;height:11px; font-family: 'Open Sans', Inter, sans-serif;}
 
 
 
-            .dclr {clear:both;float:none;height:1px;margin:0px;padding:0px;overflow:hidden; font-family: 'Neo Sans';}
+            .dclr {clear:both;float:none;height:1px;margin:0px;padding:0px;overflow:hidden; font-family: 'Open Sans', Inter, sans-serif;}
 
-            .ft0{font: 19px 'Arial';line-height: 22px;font-family: 'Neo Sans';}
-            .ft1{font: 23px 'Arial';line-height: 26px;font-family: 'Neo Sans';}
-            .ft2{font: 16px 'Arial';line-height: 18px;font-family: 'Neo Sans';}
-            .ft3{font: 16px 'Arial';line-height: 23px;font-family: 'Neo Sans';}
-            .ft4{font: 15px 'Arial';line-height: 25px;font-family: 'Neo Sans';}
-            .ft5{font: 16px 'Arial';line-height: 25px;font-family: 'Neo Sans';}
-            .ft6{font: 13px 'Arial';color: #231f20;line-height: 16px;font-family: 'Neo Sans';}
-            .ft7{font: 12px 'Arial';color: #0c1d3c;line-height: 15px;font-family: 'Neo Sans';}
-            .ft8{font: 11px 'Arial';color: #0c1d3c;line-height: 14px;font-family: 'Neo Sans';}
-            .ft9{font: 12px 'Neo Sans';color: #0c143b;line-height: 16px;font-family: 'Neo Sans';}
-            .ft10{font: 12px 'Arial';color: #0c143b;line-height: 15px;font-family: 'Neo Sans';}
+            .ft0{font: 19px 'Arial';line-height: 22px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft1{font: 23px 'Arial';line-height: 26px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft2{font: 16px 'Arial';line-height: 18px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft3{font: 16px 'Arial';line-height: 23px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft4{font: 15px 'Arial';line-height: 25px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft5{font: 16px 'Arial';line-height: 25px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft6{font: 13px 'Arial';color: #231f20;line-height: 16px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft7{font: 12px 'Arial';color: #0c1d3c;line-height: 15px;font-family: 'Open Sans', Inter, sans-serif;}
+            .ft8{font: 11px 'Arial';color: #0c1d3c;line-height: 14px;font-family: 'Open Sans', Inter, sans-serif;}
+            /* .ft9{font: 12px 'Neo Sans';color: #0c143b;line-height: 16px;font-family: 'Open Sans', Inter, sans-serif;} */
+            .ft9 {font: 12px 'Open Sans', Inter, sans-serif; color: #0c143b;line-height: 16px;}
+
+            .ft10{font: 12px 'Arial';color: #0c143b;line-height: 15px;font-family: 'Open Sans', Inter, sans-serif;}
 
             .p0{text-align: left;margin-top: 0px;margin-bottom: 0px;}
-            .p1{text-align: left;padding-left: 20px;margin-top: 10px;margin-bottom: 0px;font-family: 'Neo Sans';}
-            .p2{text-align: left;margin-top: 20px;margin-bottom: 0px;font-family: 'Neo Sans';}
-            .p3{text-align: left;margin-top: 2px;margin-bottom: 0px;font-family: 'Neo Sans';}
-            .p4{text-align: left;margin-top: 2px;margin-bottom: 0px;font-family: 'Neo Sans';}
-            .p5{text-align: justify;margin-top: 53px;margin-bottom: 0px;font-family: 'Neo Sans';}
+            .p1{text-align: left;padding-left: 20px;margin-top: 10px;margin-bottom: 0px;font-family: 'Open Sans', Inter, sans-serif;}
+            .p2{text-align: left;margin-top: 20px;margin-bottom: 0px;font-family: 'Open Sans', Inter, sans-serif;}
+            .p3{text-align: left;margin-top: 2px;margin-bottom: 0px;font-family: 'Open Sans', Inter, sans-serif;}
+            .p4{text-align: left;margin-top: 2px;margin-bottom: 0px;font-family: 'Open Sans', Inter, sans-serif;}
+            .p5{text-align: justify;margin-top: 53px;margin-bottom: 0px;font-family: 'Open Sans', Inter, sans-serif;}
             .p6{text-align: justify;margin-top: 83px;margin-bottom: 0px;font-family: 'arial,sans-serif';color: inherit;}
-            .p7{text-align: left;padding-left: 264px;margin-top: 0px;margin-bottom: 0px; font-family: 'Neo Sans';}
-            .p8{text-align: right;padding-left: 160px;padding-right: 25px;margin-top: 41px;margin-bottom: 0px;  font-family: 'Neo Sans';}
-            .p9{text-align: right;padding-left: 4px;padding-right: 25px;margin-top: 60px;margin-bottom: 0px; font-family: 'Neo Sans';}
-            .p10{text-align: justify;padding-right: 25px;margin-top: 29px;margin-bottom: 0px;text-indent: 63px; font-family: 'Neo Sans';}
-            .p11{text-align: left;margin-top: 0px;margin-bottom: 0px;white-space: nowrap; font-family: 'Neo Sans';}
-            .p12{text-align: right;margin-top: 0px;margin-bottom: 0px;white-space: nowrap; font-family: 'Neo Sans';}
-            .p13{text-align: left;padding-right: 67px;margin-top: 0px;margin-bottom: 0px; font-family: 'Neo Sans'; font-family: 'Neo Sans';}
-            .p14{text-align: right;margin-top: 0px;margin-bottom: 0px; font-family: 'Neo Sans';}
+            .p7{text-align: left;padding-left: 264px;margin-top: 0px;margin-bottom: 0px; font-family: 'Open Sans', Inter, sans-serif;}
+            .p8{text-align: right;padding-left: 160px;padding-right: 25px;margin-top: 41px;margin-bottom: 0px;  font-family: 'Open Sans', Inter, sans-serif;}
+            .p9{text-align: right;padding-left: 4px;padding-right: 25px;margin-top: 60px;margin-bottom: 0px; font-family: 'Open Sans', Inter, sans-serif;}
+            .p10{text-align: justify;padding-right: 25px;margin-top: 29px;margin-bottom: 0px;text-indent: 63px; font-family: 'Open Sans', Inter, sans-serif;}
+            .p11{text-align: left;margin-top: 0px;margin-bottom: 0px;white-space: nowrap; font-family: 'Open Sans', Inter, sans-serif;}
+            .p12{text-align: right;margin-top: 0px;margin-bottom: 0px;white-space: nowrap; font-family: 'Open Sans', Inter, sans-serif;}
+            .p13{text-align: left;padding-right: 67px;margin-top: 0px;margin-bottom: 0px; font-family: 'Open Sans', Inter, sans-serif; font-family: 'Open Sans', Inter, sans-serif;}
+            .p14{text-align: right;margin-top: 0px;margin-bottom: 0px; font-family: 'Open Sans', Inter, sans-serif;}
 
-            .td0{padding: 0px;margin: 0px;width: 679px;vertical-align: bottom; font-family: 'Neo Sans';}
-            .td1{padding: 0px;margin: 0px;width: 55px;vertical-align: bottom; font-family: 'Neo Sans';}
+            .td0{padding: 0px;margin: 0px;width: 679px;vertical-align: bottom; font-family: 'Open Sans', Inter, sans-serif;}
+            .td1{padding: 0px;margin: 0px;width: 55px;vertical-align: bottom; font-family: 'Open Sans', Inter, sans-serif;}
 
-            .tr0{height: 26px;font-family: 'Neo Sans';}
-            .tr1{height: 22px;font-family: 'Neo Sans';}
+            .tr0{height: 26px;font-family: 'Open Sans', Inter, sans-serif;}
+            .tr1{height: 22px;font-family: 'Open Sans', Inter, sans-serif;}
 
             .t0{width: 734px;font: 13px 'Arial';color: #231f20;}
             

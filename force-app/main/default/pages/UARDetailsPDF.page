@@ -2,7 +2,8 @@
     <head>
         <style type="text/css">
             body {
-            font-family: Arial, sans-serif;
+            /* font-family: Arial, sans-serif; */
+            font-family: 'Open Sans', Inter, sans-serif;
             font-size: 12px;
             margin: 20px;
             color: #333;

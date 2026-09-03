@@ -3,7 +3,8 @@
         <style type="text/css">
             
             body {
-                font-family: Arial Unicode MS;
+                /* font-family: Arial Unicode MS; */
+                font-family: 'Open Sans', Inter, sans-serif;
                 font-size: 8px;
                 margin: 10px;
             }
@@ -44,7 +45,8 @@
             .repeatTableHeader{-fs-table-paginate: paginate;}
         </style>
     </head>
-    <body style="font-family: Arial Unicode MS">
+    <!-- <body style="font-family: Arial Unicode MS"> -->
+     <body style="font-family: 'Open Sans', Inter, sans-serif;">
         
         
         

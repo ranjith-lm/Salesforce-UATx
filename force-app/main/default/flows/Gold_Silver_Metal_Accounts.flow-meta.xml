@@ -89,6 +89,38 @@
             <label>Yes, Changed to Reject</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Check_Maker_Result_is_Changed</name>
+        <label>Check Maker Result is Changed?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Check_Checker_Result_is_Changed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Changed_to_Send_to_Checker</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>oldCaseRecord.cc_Maker__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>caseRecord.cc_Maker__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>caseRecord.cc_Maker__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Send to Checker</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Address_Updated_By</targetReference>
+            </connector>
+            <label>Yes, Changed to Send to Checker</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <interviewLabel>Gold &amp; Silver Metal Accounts {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Gold &amp; Silver Metal Accounts</label>
@@ -111,11 +143,35 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <start>
+    <recordUpdates>
+        <name>Update_Address_Updated_By</name>
+        <label>Update Address Updated By</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_Checker_Result_is_Changed</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Address_Updated_By__c</field>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Maker_Result_is_Changed</targetReference>
         </connector>
     </start>
     <status>Active</status>

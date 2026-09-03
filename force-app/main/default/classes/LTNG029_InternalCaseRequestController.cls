@@ -58,7 +58,14 @@ public with sharing class LTNG029_InternalCaseRequestController {
       };       
      
 
+      //start omar
      
+    @AuraEnabled(cacheable=false)
+    public static ApiConnection.Response loadLoansList(final String customerId, Final String caseModel) {
+        return Loans_LoansListController.loadLoansList(customerId, caseModel);
+    }
+//end omar
+
     @AuraEnabled(cacheable=false)
      //CH01: To retrieve credit card from API
     public static Map<String,Object> getPCIOptionsV2(String accID,String caseModel){
@@ -212,11 +219,13 @@ public with sharing class LTNG029_InternalCaseRequestController {
         return retriveDeviceOptions;
     }
 
-    @InvocableMethod(label='call PingOne Platform API - Delete MFA User Device' description='call PingOne Platform API - Delete MFA User Device' callout=true )
+    @InvocableMethod(label='call PingOne Platform API - Delete MFA User Device' description='call PingOne Platform API - Delete MFA User Device')
     public static List<String> deleteDeviceApiFromFlow(List<Id> caseIds)
     {
-        deleteDeviceApiFuture(new Set<Id>(caseIds));
-
+        //deleteDeviceApiFuture(new Set<Id>(caseIds));
+		System.enqueueJob(
+            new DeleteDeviceApiQueueable(new Set<Id>(caseIds))
+        );
         return caseIds;
     }
     @future(callout=true)
@@ -300,6 +309,7 @@ public with sharing class LTNG029_InternalCaseRequestController {
         }
     }
     //CH02: End
+    
     //CH03: Start
     @AuraEnabled
 	public static Boolean checkCreditCardUser(String userId) {

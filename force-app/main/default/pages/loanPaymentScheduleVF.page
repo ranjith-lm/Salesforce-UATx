@@ -2,7 +2,7 @@
   <head>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Open Sans', Inter, sans-serif;
         }
         @page {
             size: landscape;
@@ -10,7 +10,8 @@
             margin-bottom: 2cm;
             margin-left: 1cm;
             margin-right: 1cm;
-            font-family: 'Neo Sans';
+            /* font-family: 'Neo Sans'; */
+            font-family: 'Open Sans', Inter, sans-serif;
             
             
             @top-center {

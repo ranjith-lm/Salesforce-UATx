@@ -3,8 +3,8 @@
     <actionCalls>
         <name>REACTIVATE_DORMANCY_REQUESTD</name>
         <label>REACTIVATE_DORMANCY_REQUESTD</label>
-        <locationX>50</locationX>
-        <locationY>566</locationY>
+        <locationX>72</locationX>
+        <locationY>1058</locationY>
         <actionName>Case.REACTIVATE_DORMANCY_REQUESTD</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -17,13 +17,55 @@
         <nameSegment>Case.REACTIVATE_DORMANCY_REQUESTD</nameSegment>
         <offset>0</offset>
     </actionCalls>
+    <actionCalls>
+        <name>Send_KYC_Email_to_Customer</name>
+        <label>Send KYC Email to Customer</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.Ila_KYC_Profile_Form</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CaseRec.Id</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.Ila_KYC_Profile_Form</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_KYC_Form_to_Customer</name>
+        <label>Send KYC Form to Customer</label>
+        <locationX>314</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.Alburaq_KYC_Profile_Form</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CaseRec.Id</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.Alburaq_KYC_Profile_Form</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
     <apiVersion>55.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>Assign_To_Compliance_Business_Queue</name>
         <label>Assign To Compliance/Business Queue</label>
-        <locationX>578</locationX>
-        <locationY>242</locationY>
+        <locationX>600</locationX>
+        <locationY>734</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -45,8 +87,8 @@
     <assignments>
         <name>Assign_To_Maker_Queue</name>
         <label>Assign To Maker Queue</label>
-        <locationX>50</locationX>
-        <locationY>350</locationY>
+        <locationX>72</locationX>
+        <locationY>842</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -75,8 +117,8 @@
     <assignments>
         <name>Assign_To_Maker_Queue1</name>
         <label>Assign To Maker Queue</label>
-        <locationX>314</locationX>
-        <locationY>350</locationY>
+        <locationX>336</locationX>
+        <locationY>842</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -103,10 +145,75 @@
         </connector>
     </assignments>
     <decisions>
+        <name>Check_Case_Model</name>
+        <label>Check Case Model?</label>
+        <locationX>314</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ila</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRec.Case_Model__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ila</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_KYC_Email_to_Customer</targetReference>
+            </connector>
+            <label>ila</label>
+        </rules>
+        <rules>
+            <name>alburaq</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRec.Case_Model__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>alburaq</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_KYC_Form_to_Customer</targetReference>
+            </connector>
+            <label>alburaq</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Sub_Type</name>
+        <label>Check Sub Type?</label>
+        <locationX>534</locationX>
+        <locationY>134</locationY>
+        <defaultConnector>
+            <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Dormant_Account_Reactivation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRec.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dormant Account Reactivation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Case_Model</targetReference>
+            </connector>
+            <label>Dormant Account Reactivation</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Relationship_Reactivation_Or_Posting_Transaction</name>
         <label>Is Relationship Reactivation Or Posting Transaction ?</label>
-        <locationX>512</locationX>
-        <locationY>134</locationY>
+        <locationX>534</locationX>
+        <locationY>626</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Relationship_Reactivation</name>
@@ -142,8 +249,8 @@
     <decisions>
         <name>Region_Flag</name>
         <label>Region Flag</label>
-        <locationX>182</locationX>
-        <locationY>242</locationY>
+        <locationX>204</locationX>
+        <locationY>734</locationY>
         <defaultConnector>
             <targetReference>Assign_To_Maker_Queue1</targetReference>
         </defaultConnector>
@@ -190,15 +297,15 @@
     <recordUpdates>
         <name>Copy_1_of_Update_Case</name>
         <label>Update Case</label>
-        <locationX>314</locationX>
-        <locationY>458</locationY>
+        <locationX>336</locationX>
+        <locationY>950</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Case</name>
         <label>Update Case</label>
-        <locationX>50</locationX>
-        <locationY>458</locationY>
+        <locationX>72</locationX>
+        <locationY>950</locationY>
         <connector>
             <targetReference>REACTIVATE_DORMANCY_REQUESTD</targetReference>
         </connector>
@@ -207,15 +314,15 @@
     <recordUpdates>
         <name>Update_Case_0</name>
         <label>Update Case</label>
-        <locationX>578</locationX>
-        <locationY>350</locationY>
+        <locationX>600</locationX>
+        <locationY>842</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <start>
-        <locationX>386</locationX>
+        <locationX>408</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>
+            <targetReference>Check_Sub_Type</targetReference>
         </connector>
     </start>
     <status>Active</status>

@@ -34,6 +34,15 @@ export default class CaseCommentsPdfPreview extends LightningElement {
             });
     }
 
+    assignAttachmentKeys(attachments) {
+        if (!attachments) {
+            return;
+        }
+        attachments.forEach((att, i) => {
+            att.key = (att.attachmentName || 'att') + '-' + i;
+        });
+    }
+
     processResult(res) {
         // Create a deep clone to mutate
         let processed = JSON.parse(JSON.stringify(res));
@@ -42,17 +51,25 @@ export default class CaseCommentsPdfPreview extends LightningElement {
             processed.threads.forEach((t, i) => {
                 t.index = i + 1;
                 t.hasReplies = t.replies && t.replies.length > 0;
+                this.assignAttachmentKeys(t.attachments);
+                if (t.replies) {
+                    t.replies.forEach(reply => this.assignAttachmentKeys(reply.attachments));
+                }
             });
         }
         if (processed.callLogs) {
             processed.callLogs.forEach((c, i) => {
                 c.index = i + 1;
                 c.hasReplies = c.replies && c.replies.length > 0;
+                if (c.replies) {
+                    c.replies.forEach(reply => this.assignAttachmentKeys(reply.attachments));
+                }
             });
         }
         if (processed.emails) {
             processed.emails.forEach((e, i) => {
                 e.index = i + 1;
+                this.assignAttachmentKeys(e.attachments);
             });
         }
         if (processed.caseRecord) {
@@ -108,11 +125,14 @@ export default class CaseCommentsPdfPreview extends LightningElement {
         return tableHtml;
     }
 
-    formatAttachmentLabel(hasAttachment, attachmentName) {
-        if (!hasAttachment || !attachmentName) {
+    formatAttachmentLabels(attachments) {
+        if (!attachments || attachments.length === 0) {
             return '';
         }
-        return ` <span style="color:#C62828; font-weight:bold;">[${attachmentName}]</span>`;
+        return attachments
+            .filter(att => att && att.attachmentName)
+            .map(att => ` <span style="color:#C62828; font-weight:bold;">[${att.attachmentName}]</span>`)
+            .join('');
     }
 
     buildReplyBlocks(replies) {
@@ -121,7 +141,7 @@ export default class CaseCommentsPdfPreview extends LightningElement {
         }
         let blocks = '<div class="replies-container">';
         replies.forEach(reply => {
-            const attachment = this.formatAttachmentLabel(reply.hasAttachment, reply.attachmentName);
+            const attachment = this.formatAttachmentLabels(reply.attachments);
             blocks += `<div class="reply-block">
                 <div class="reply-meta"><span style="color: green; font-weight: bold;">RE: </span><strong>${reply.createdBy}</strong>${attachment} &mdash; ${this.formatDate(reply.createdDate)}</div>
                 <div class="reply-body">${reply.body || ''}</div>
@@ -213,7 +233,7 @@ export default class CaseCommentsPdfPreview extends LightningElement {
                         const badge = thread.comment.IsPublished
                             ? `<span style="color:#04844B;">Public</span>`
                             : `<span style="color:#8A6D3B;">Internal</span>`;
-                        const attachment = this.formatAttachmentLabel(thread.hasAttachment, thread.attachmentName);
+                        const attachment = this.formatAttachmentLabels(thread.attachments);
                         rows += `<tr>
                             <td>${thread.index}</td>
                             <td>${badge}</td>
@@ -274,7 +294,7 @@ export default class CaseCommentsPdfPreview extends LightningElement {
                         const badge = email.isIncoming
                             ? `<span style="color:#04844B;">Inbound</span>`
                             : `<span style="color:#8A6D3B;">Outbound</span>`;
-                        const attachment = this.formatAttachmentLabel(email.hasAttachment, email.attachmentName);
+                        const attachment = this.formatAttachmentLabels(email.attachments);
                         rows += `<tr>
                             <td>${email.index}</td>
                             <td>${badge}</td>
@@ -298,7 +318,7 @@ export default class CaseCommentsPdfPreview extends LightningElement {
             const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
             const a = document.createElement('a');
             a.href = dataUrl;
-            a.download = 'CaseComments_' + this.data.caseRecord.CaseNumber + '.doc';
+            a.download = this.data.caseRecord.CaseNumber + '_CaseCommentsPDF_IlaRCD' + '.doc';
             a.target = '_blank';
             document.body.appendChild(a);
             a.click();

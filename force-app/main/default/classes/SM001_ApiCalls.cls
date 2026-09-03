@@ -508,8 +508,8 @@ if (objCase.Region_Flag__c == 'Bahrain') {
     body +=
         ',"sendOTPNotificationsTo":' + stringApiFormat(objCase.Send_OTP_Notifications_To__c) +
         ',"sendTransactionsNotificationsTo":' + stringApiFormat(objCase.Send_Transaction_Notifications_To__c) +
-        ',"cardHolderMobileNumber":' + stringApiFormat(objCase.ppc_OTP_MobileNo__c) +
-        ',"cardHolderEmail":' + stringApiFormat(objCase.ppc_OTP_EmailAddress__c);
+        ',"cardHolderMobileNumber":' + stringApiFormat(objCase.sc_Card_Holder_Mobile_No__c) +
+        ',"cardHolderEmail":' + stringApiFormat(objCase.sc_Card_Holder_Email_Address__c);
 }
 
             body += '}}';

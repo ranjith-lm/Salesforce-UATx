@@ -2,6 +2,7 @@
  * 		Created By: Jahangeer Mohammed
  *		Created Date: 15-08-2024
  * 		Change History: 
+ * 						#CH01# #03-08-2026# #Jahangeer Mohammed# Added Campaign Upgrade Logic(NBA-17681)
  * 			
  *			  
  */
@@ -340,7 +341,7 @@
             	var result = response.getReturnValue();
                 component.find("namOnCard").set("v.value",result);
             });
-        
+        //CH01: Start
         component.find('apexService').request(component.get('c.isCampaignUpgradeUser'), {
                 
             },
@@ -349,7 +350,7 @@
                 console.log('Is Campaign Upgrade User:',result);
                 component.set("v.isCampaignUpgradeUser",result);
             });
-			
+        //CH01: END	
     },	
     handleLoad: function (component, event, helper) {
 		console.log('handleLoad  cmp---'+component.find("Subscription_Model").get("v.value"));	
@@ -359,10 +360,11 @@
         }else{	
             component.set('v.caseModel','ila');	
         }
-        
+        //CH01: Start
         let segment = component.find("Segment").get("v.value");
         console.log('Segment Value is:',segment);
         component.set('v.customerSegment',segment);
+        //CH01: END
     },	
     requestPCINumberChange: function (component, event, helper) {	
 		let requestedPCINumber = component.find("requestedPCINumber").get("v.value");

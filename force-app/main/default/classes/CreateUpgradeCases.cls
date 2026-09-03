@@ -13,7 +13,7 @@ global class CreateUpgradeCases implements Queueable{
     }
     public void execute(QueueableContext context){
         List<Case> caseToInsert = new List<Case>();
-        List<Case> lstCase = [Select id, AccountId, Type, Sub_Type__c,cc_Name_on_the_Card__c,cc_Approved_Credit_Limit__c,cc_Credit_Card_PCI_Number__c,cc_Approved_Requested_Card_Type__c,Card_Type__c,Selected_Supplementary_Cards__c,Is_Cash_Collateral__c,cc_PCI_Id__c from Case Where Id IN : caseId];
+        List<Case> lstCase = [Select id, AccountId, Type, Sub_Type__c,cc_Name_on_the_Card__c,cc_Approved_Credit_Limit__c,cc_Credit_Card_PCI_Number__c,cc_Approved_Requested_Card_Type__c,Card_Type__c,Selected_Supplementary_Cards__c,Is_Cash_Collateral__c,cc_PCI_Id__c,Target_Upgrade_Credit_Card_Type__c from Case Where Id IN : caseId];
         if(lstCase.size() > 0){
             for(Case c : lstCase){
                Id upgradeRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('Credit_Card_Upgrade_Request').getRecordTypeId();
@@ -29,7 +29,7 @@ global class CreateUpgradeCases implements Queueable{
                cs.cc_Credit_Card_PCI_Number__c = c.cc_PCI_Id__c;
         	   cs.cc_Current_Credit_Limit__c = c.cc_Approved_Credit_Limit__c;
 		       cs.Card_Type__c = c.cc_Approved_Requested_Card_Type__c;
-               cs.cc_Requested_Card_Type__c = c.Card_Type__c;
+               cs.cc_Requested_Card_Type__c = c.Target_Upgrade_Credit_Card_Type__c;
                cs.Selected_Supplementary_Cards__c = c.Selected_Supplementary_Cards__c;
                cs.ParentId = c.id;
                cs.Is_Initiated_from_Limit_Increase_Case__c = true;

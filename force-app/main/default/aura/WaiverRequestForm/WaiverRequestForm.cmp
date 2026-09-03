@@ -19,9 +19,18 @@
         }
         .slds-modal__container {
         transform: none !important;
-        width : 70% !important;
-        max-width : 70% !important;
+        
+        width : 80% !important;
+        max-width : 80% !important;
         }
+        
+        @media (min-width: 48em){
+        	.slds-modal__container {
+        		width: 95% !important;
+        		max-width: 55% !important;
+        	}
+        }
+        
     </aura:html>
     
     <aura:handler name="init" value="{!this}" action="{!c.init}" />
@@ -31,6 +40,19 @@
     <aura:attribute name="isDisabled" type="Boolean" default="false"/>
     <aura:attribute name="contentDocumentId" type="String" default=""/>
     <aura:attribute name="documentIdList" type="String[]" default=""/>
+    
+    <aura:attribute name="selectedAccount" type="String" default="none" />
+    <aura:attribute name="accountList" type="String[]" default=""/>
+    <aura:attribute name="transactionData" type="Object[]" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="selectedRows" type="List" default="[]"/>
+    <aura:attribute name="selectedDateTo" type="Date" />
+    <aura:attribute name="selectedDateFrom" type="Date" />
+    <aura:attribute name="filterError" type="String" />
+    <aura:attribute name="selectedReference" type="String" />
+    <aura:attribute name="totalAmount" type="String" default="" />
+    <aura:attribute name="prevSelectedRows" type="List" default="[]"/>
+    
     <aura:attribute name="filetype" type="List" 
                     default="['.pdf','.doc','.docx','.xls','.xlsx','.ppt','.pptx','.png','.jpg','.jpeg','.gif','.bmp']" />
 	<header class="slds-modal__header">
@@ -55,16 +77,58 @@
                                       onsuccess="{!c.handleOnSuccess}"
                                       onerror="{!c.handleOnError}">
             <lightning:messages/>
-            <lightning:inputField fieldName="Subject__c" aura:id="subject" required="true" />
-            <lightning:inputField fieldName="Description__c" aura:id="description" required="true"/>
-            <lightning:inputField fieldName="Case_Model__c" value="ila" aura:id="caseModel" required="true"/>
-            <lightning:inputField fieldName="Type__c" aura:id="waiverType" required="true"/>
-            <lightning:inputField fieldName="Sub_Type__c" aura:id="subType" required="true"/>
-            <lightning:inputField fieldName="Request_Type__c" aura:id="requestType" required="true"/>
-            <lightning:inputField fieldName="Case_Origin__c" aura:id="caseOrigin" required="true"/>
-            <lightning:inputField fieldName="Claim_Amount__c" aura:id="claimAmount" required="true"/>
-            <lightning:inputField fieldName="Transaction_Reference_Number__c" aura:id="transactionRefNum" />
+            <lightning:inputField fieldName="Subject__c" variant="label-stacked" aura:id="subject" required="true" />
+            <lightning:inputField fieldName="Description__c" variant="label-stacked" aura:id="description" required="true"/>
+            <lightning:inputField fieldName="Case_Model__c" variant="label-stacked" value="ila" aura:id="caseModel" required="true"/>
+            <lightning:inputField fieldName="Type__c" variant="label-stacked" aura:id="waiverType" required="true"/>
+            <lightning:inputField fieldName="Sub_Type__c" variant="label-stacked" aura:id="subType" required="true"/>
+            <lightning:inputField fieldName="Request_Type__c" variant="label-stacked" aura:id="requestType" required="true"/>
+            <lightning:inputField fieldName="Case_Origin__c" variant="label-stacked" aura:id="caseOrigin" required="true"/>
             
+            
+            
+            <lightning:select name="accountList" label="Select Account" 
+                              class="customSelect" onchange="{!c.handleAccountChange}">
+                <aura:iteration items="{!v.accountList}" var="opt">
+                    <option value="{!opt.value}" text="{!opt.label}" />
+                </aura:iteration>
+            </lightning:select>
+            <aura:if isTrue="{!v.selectedAccount != 'none'}">
+                
+                <div style="margin-top:13px;margin-bottom:13px;">
+                    <div style="font-style: italic;">Search Filter - (Transaction can be filter and max date range would be a one month only.)</div>
+                    <div style="display:flex;">
+                        <div style="flex:1">
+                            <lightning:input type="date" placeholder="From Date" name="dateFrom" variant="label-hidden" aura:id="dateFrom" value="{!v.selectedDateFrom}" onchange="{!c.fromDateChanged}"/>
+                        </div>
+                        <div>&nbsp;&nbsp;</div>
+                        <div style="flex:1">
+                        	<lightning:input type="date" placeholder="To Date" name="dateFrom" variant="label-hidden" aura:id="dateTo" value="{!v.selectedDateTo}" onchange="{!c.toDateChanged}"/>
+                        </div>
+                        <div>&nbsp;&nbsp;</div>
+                        <div style="flex:1">
+                        	<lightning:button variant="neutral" label="Search" onclick="{! c.searchFilterClicked }" />
+                        </div>
+                    </div>
+                    <div style="color:red;">
+                    	{!v.filterError}
+                    </div>
+                </div>
+            	<div style="margin-bottom:5px;">
+                	<lightning:datatable
+                        keyField="id"
+                        data="{!v.transactionData}"
+                        selectedRows = "{!v.selectedRows}"
+                        onrowselection = "{!c.handleTransactionCellChange}"
+                        columns="{!v.columns}"/>
+                </div>
+            </aura:if>
+            
+            
+            
+            <lightning:inputField variant="label-stacked" fieldName="Transaction_Reference_Number__c" value="{!v.selectedReference}" aura:id="transactionRefNum" />
+            <lightning:input label="Total Amount" value="{!v.totalAmount}" />
+            <lightning:inputField fieldName="Claim_Amount__c" variant="label-stacked" aura:id="claimAmount" required="true"/>
             <!--<lightning:input type="file" label="Upload File" onchange="{!c.handleFileChange}"/>
             
             <span style="color:red">{!v.fileSizeError}</span>-->

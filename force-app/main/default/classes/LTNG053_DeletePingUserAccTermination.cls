@@ -1,3 +1,13 @@
+/**
+* @author Anis
+* @date Création 27/08/2024
+* @date Modification
+* @description : LTNG053_DeletePingUserAccTermination
+* @history Modifications :   
+*  				#CH01# #Maksud Ali #23-08-2026 #Added logic for relationship termination based on subscription model
+*/
+
+
 public without sharing class LTNG053_DeletePingUserAccTermination {
 
     private static String CLASS_NAME = LTNG053_DeletePingUserAccTermination.class.getName();
@@ -20,7 +30,8 @@ public without sharing class LTNG053_DeletePingUserAccTermination {
         if (caseIds != null && caseIds.size() > 0) {
             String fields = DM000_sObjectDescriber.constructFieldListForQueryFrom('Case');
             
-            String soqlQuery = 'SELECT ' + fields + ',Account.PersonEmail,Account.CIF__pc,Account.Region_Flag__pc,Parent.Status,Account.Subscription_Model__pc FROM Case WHERE Id IN :caseIds';
+            //CH01 - Added a new field in query Account.Subscription_Model__pc- 
+            String soqlQuery = 'SELECT ' + fields + ',Account.PersonEmail,Account.CIF__pc,Account.Region_Flag__pc,Parent.Status,Account.X_Canary__pc,Account.Subscription_Model__pc FROM Case WHERE Id IN :caseIds';
             cases = new List<Case>((List<Case>)Database.query(soqlQuery));
         }
 
@@ -37,6 +48,9 @@ public without sharing class LTNG053_DeletePingUserAccTermination {
                 
                 //request.setHeader('userId', caseObj.Account.PersonEmail);
                 request.setHeader('customerId', caseObj.Account.CIF__pc);
+                 if(caseObj.Account.X_Canary__pc != null){
+                    request.setHeader('x-canary', caseObj.Account.X_Canary__pc);
+                  }
                 request.setTimeout(60000);
                 HttpResponse response;
                 if ( test.isRunningTest() ) {
@@ -82,8 +96,16 @@ public without sharing class LTNG053_DeletePingUserAccTermination {
                     if(caseObj.Sub_Type__c == 'Relationship Termination - By Bank' && caseObj.Final_Black_Listed__c == true){
                         //check reason
                         Account acc = new Account(Id=caseObj.AccountId);
-                        acc.Closure_Reason__c = caseObj.Final_Closure_Reason__c;
-                        acc.CustomerStatus__c = 'Closed';
+                        //CH01 - START
+                        if(caseObj.Account.Subscription_Model__pc == 'both'){
+                            acc.Subscription_Model__pc = caseObj.Case_Model__c == 'alburaq' ? 'ila' : 'alburaq';
+                        }
+                        else {
+                            acc.Closure_Reason__c = caseObj.Final_Closure_Reason__c;
+                        	acc.CustomerStatus__c = 'Closed';
+                        }
+                        //CH01 END
+                        
                         if( caseObj.Closure_Reason__c == 'Death Confirmed' ){
                             acc.Death_Confirmed__c = true;
                             acc.PLA_Eligibility__pc = 'No';
@@ -104,18 +126,16 @@ public without sharing class LTNG053_DeletePingUserAccTermination {
                              (caseObj.Created_by_Contact_Center_Flag__c == false && caseObj.Sub_Type__c == 'Relationship Termination - By Customer') 
                     ){
                         Account acc = new Account(Id=caseObj.AccountId);
-                        if(caseObj.Unit_Termination__c==caseObj.Account.Subscription_Model__pc){
-                                      acc.Closure_Reason__c = caseObj.Final_Closure_Reason__c;
-                                      acc.CustomerStatus__c = 'Closed';
-                        }else if (caseObj.Account.Subscription_Model__pc=='both'){
-                            if(caseObj.Unit_Termination__c=='ila'){
-                                acc.Subscription_Model__pc='alburaq';
-                            }else{
-                                acc.Subscription_Model__pc='ila';
-                            }
+                        
+                        //CH01 - START
+                        if(caseObj.Account.Subscription_Model__pc == 'both'){
+                            acc.Subscription_Model__pc = caseObj.Case_Model__c == 'alburaq' ? 'ila' : 'alburaq'; 
                         }
-
-                     
+                        else {
+                            acc.Closure_Reason__c = caseObj.Final_Closure_Reason__c;
+                        	acc.CustomerStatus__c = 'Closed';
+                        }
+                        //CH01 - END
                         customersUpdate.add(acc);
                     }
 

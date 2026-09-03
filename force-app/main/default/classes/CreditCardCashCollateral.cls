@@ -2537,16 +2537,35 @@ objCase.cc_HR_Result_Date_Time__c = system.now();
                      	objCase.cc_Customer_Response__c  = '';
                     	//CH25: END
                         if(objCase.cc_Credit_Approval_Result__c == 'Decline'){
+                            //CH26: Start
+                            if(objCase.Region_Flag__c == 'Bahrain' && objCase.Reapplying_Restriction_Period__c != null){
+                                Account acc = restrictAccountToApplyCard(objCase,objCase.AccountId);
+                            	accListToUpdateRestrictCreditCard.add(acc);
+                            }
+                            //CH26: END
+                            
                             objCase.cc_Credit_Approval_Result_Date_Time__c = system.now();
                             objCase.cc_Application_Stages__c = 'Credit Approval';
                         }
                         if(objCase.cc_Business_Approval_Result__c == 'Decline'){
+                             //CH26: Start
+                            if(objCase.Region_Flag__c == 'Bahrain' && objCase.Reapplying_Restriction_Period__c != null){
+                                Account acc = restrictAccountToApplyCard(objCase,objCase.AccountId);
+                            	accListToUpdateRestrictCreditCard.add(acc);
+                            }
+                            //CH26: END
                             objCase.cc_Business_Approval_Result_Date_Time__c = system.now();
                             objCase.cc_Application_Stages__c = 'Credit Business Team';
                         }
                         if(objCase.cc_HR_Result__c == 'Decline')
                             objCase.cc_HR_Result_Date_Time__c = system.now();
                         if(objCase.cc_Credit_Pre_Screening_Result__c == 'Decline'){
+                             //CH26: Start
+                            if(objCase.Region_Flag__c == 'Bahrain' && objCase.Reapplying_Restriction_Period__c != null){
+                                Account acc = restrictAccountToApplyCard(objCase,objCase.AccountId);
+                            	accListToUpdateRestrictCreditCard.add(acc);
+                            }
+                            //CH26: END
                             objCase.cc_Credit_Pre_Screening_Result_Date_Time__c = system.now();
                             objCase.cc_Application_Stages__c = 'Credit Pre-Screening';
                         }
@@ -2566,6 +2585,12 @@ objCase.cc_HR_Result_Date_Time__c = system.now();
                         //CH08: END
                         //CH13: Start
                     	if(objCase.cc_Signature_Verifier_Result__c == 'Decline'){
+                             //CH26: Start
+                            if(objCase.Region_Flag__c == 'Bahrain' && objCase.Reapplying_Restriction_Period__c != null){
+                                Account acc = restrictAccountToApplyCard(objCase,objCase.AccountId);
+                            	accListToUpdateRestrictCreditCard.add(acc);
+                            }
+                            //CH26: END
                         	objCase.cc_Signature_Verification_Date_Time__c = system.now();
                         	objCase.cc_Application_Stages__c = 'Credit Signature Verification';
                     	}

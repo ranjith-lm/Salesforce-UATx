@@ -1950,6 +1950,13 @@
                     <stringValue>Issue</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service_Request</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Call_Reason_Revamp</targetReference>
             </connector>
@@ -3310,7 +3317,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Label.MakerQueue</elementReference>
+                <elementReference>$Label.Maker_Place_Hold</elementReference>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
@@ -3650,7 +3657,7 @@
         <connector>
             <targetReference>Send_Email_To_Maker</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4)</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3670,6 +3677,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Personal Info Update</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Profile Update</stringValue>
             </value>
         </filters>
         <inputAssignments>
@@ -3760,7 +3774,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Label.MakerQueue</elementReference>
+                <elementReference>$Label.Checker_Place_Hold</elementReference>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>

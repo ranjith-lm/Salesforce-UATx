@@ -40,6 +40,14 @@ public without sharing virtual class BankCardListController {
                                                             String discount, String embossName, String caseId,  String regionName)
     {
 
+        System.debug('43 upDowngradeSegment ');
+        System.debug('43 upDowngradeSegment customerId ' + customerId);
+        System.debug('43 upDowngradeSegment availableCard ' + availableCard);
+        System.debug('43 upDowngradeSegment discount ' + discount);
+        System.debug('43 upDowngradeSegment embossName ' + embossName);
+        System.debug('43 upDowngradeSegment caseId ' + caseId);
+        System.debug('43 upDowngradeSegment regionName ' + regionName);
+        
         //#CH01 Start: added to close the Case after sucessfull response
         ApiConnection.Response response = SegmentAPIHandler.upDowngradeSegment(customerId, availableCard, discount, embossName, caseId, regionName);
         if (response.isSuccess){

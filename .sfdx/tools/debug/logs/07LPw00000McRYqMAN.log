@@ -1,0 +1,37 @@
+68.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+14:40:28.0 (283716)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+14:40:28.0 (364735)|EXECUTION_STARTED
+14:40:28.0 (399121)|CODE_UNIT_STARTED|[EXTERNAL]|apex://UserProfileController/ACTION$isDuplicateId
+14:40:28.0 (8408549)|CODE_UNIT_STARTED|[EXTERNAL]|01p1t00000MLZX9|UserProfileController.isDuplicateId(String, Account, String)
+14:40:28.0 (11094569)|SYSTEM_MODE_ENTER|true
+14:40:28.0 (11168149)|SYSTEM_MODE_EXIT|true
+14:40:28.0 (11204924)|SYSTEM_MODE_ENTER|true
+14:40:28.0 (11217760)|SYSTEM_MODE_EXIT|true
+14:40:28.0 (11221205)|SYSTEM_MODE_ENTER|true
+14:40:28.0 (11224235)|SYSTEM_MODE_EXIT|true
+14:40:28.0 (11314278)|USER_DEBUG|[841]|DEBUG|ID Number:5242525
+14:40:28.0 (11991443)|USER_DEBUG|[842]|DEBUG|Account Info:Account:{Minor_Update__pc=false, ID_Number__pc=5242525, US_Indicia__pc=false, MiddleName_Update__pc=IBRAHIM MOH'D, ID_Number_Update__pc=54235363, Proof_of_Address_ID_Type_Update__pc=Bank Statement, Bypass_Geo_Location_Check_Update__pc=false, Mailing_Apartment_Number_Update__pc=90, Name=ANAS IBRAHIM MOH'D RIDA, Gross_Monthly_Income_Update__pc=750, ID_Number_2_Update__pc=9890554343, FirstName_Update__pc=ANAS, Nationality__pc=JO, Occupation_Update__pc=Testing, PersonMailingCity=Amman, PersonMailingCountry=JO, Employer_Name_Update__pc=Abc, Marital_Status_Update__pc=NEVER MARRIED, Sources_of_Funds__pc=Salary, Account_Opening_Reason__pc=Salary transfer, Place_of_birth_government__pc=jordan, Expected_Monthly_deposits__pc=750, ID_Nationality__pc=JO, PersonMailingStreet=deen, deen, 89, 98, Sources_of_Funds_Update__pc=Salary, Gross_Monthly_Income_Staff__pc=JOD 500 – JOD 999, Employer_Country_Update__pc=JO, Mailing_Building_Number_Update__pc=98, Place_of_Birth__pc=JO, Gender_Update__pc=M, Employer_Country__pc=JO, CIF__pc=10020985, PersonBirthdate=1987-10-12 00:00:00, Show_Info_Staff__pc=true, Proof_of_Address_ID_Type__pc=Bank Statement, Mailing_City_Update__pc=Amman, Employment_Status_Update__pc=Employed, Applicable_Residency_Tax_Update__pc=NO, ID_Expiry_Date__pc=2027-09-10 00:00:00, ID_Type_Update__pc=Jordanian ID, LastName=RIDA, Id=001Pw000010iZhWIAU, Mobile_Country_Code__pc=+91, Employer_Address_Update__pc=amman, amman, PersonEmail=ridaanas1+aug18@gmail.com, Occupation__pc=Testing, Mailing_Street_Update__pc=amman,amman,37,84, Employer_Name__pc=Abc, FATCA_Customer__pc=false, Place_of_Birth_Update__pc=JO, LastName_Update__pc=RIDA, Mailing_Area__c=deen, Applicable_Residency_Tax__pc=No, ID_Expiry_Date_Update__pc=2029-09-07 00:00:00, Arabic_Name_Update__pc=راحو, Mailing_Area_Update__pc=deen, ID_Number_2__pc=4353436, Expected_Monthly_deposits_Update__pc=750, Gross_Monthly_Income__pc=750, Document_Country_Update__pc=JO, Minor__pc=false, Region_Flag__c=Jordan, Place_of_birth_government_Update__pc=jordan, PersonMobilePhone=536343, RecordTypeId=0121t000000Z39kAAC, Email_Update__pc=ridaanas1+aug18@gmail.com, Arabic_Name__pc=راحو, Nationality_Update__pc=JO, ID_Similarity__pc=MATCH, Mobile_Update__pc=223432, Residency__pc=JO, FirstName=ANAS, Fatca_Customer_Update__pc=false, BirthDate_Update__pc=1987-10-12 00:00:00, Bypass_Geo_Location_Check__pc=false, Employer_City_Update__pc=Amman, MiddleName=IBRAHIM MOH'D, Mailing_Building_Number__c=89, Gender__pc=M, Residency_Update__pc=JO, Account_Opening_Reason_Update__pc=Salary transfer, Employer_City__pc=Amman, Mailing_Apartment_Number__c=98, ID_Validation_Status__pc=APPROVED_VERIFIED, Mailing_Country_Update__pc=JO, US_Indicia_Update__pc=false, Employer_Address__pc=amman, amman, ID_Type__pc=Jordanian ID, Mobile_Country_Code_Update__pc=+7365, Employment_Status__pc=Employed}
+14:40:28.0 (12034358)|USER_DEBUG|[843]|DEBUG|Region Name:Jordan
+14:40:28.0 (13082557)|SOQL_EXECUTE_BEGIN|[853]|Aggregations:0|SELECT Id, Region_Flag__pc, Archived__pc, ID_Number__pc FROM Account WHERE (ID_Number__pc = :tmpVar1 AND Id != :tmpVar2 AND Region_Flag__pc = :tmpVar3 AND Archived__pc = FALSE)
+14:40:28.0 (31764543)|SOQL_EXECUTE_END|[853]|Rows:0
+14:40:28.32 (32038502)|CUMULATIVE_LIMIT_USAGE
+14:40:28.32 (32038502)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 1 out of 100
+  Number of query rows: 0 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 10000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+14:40:28.32 (32038502)|CUMULATIVE_LIMIT_USAGE_END
+
+14:40:28.0 (32092173)|CODE_UNIT_FINISHED|UserProfileController.isDuplicateId(String, Account, String)
+14:40:28.0 (32368087)|CODE_UNIT_FINISHED|apex://UserProfileController/ACTION$isDuplicateId
+14:40:28.0 (32392751)|EXECUTION_FINISHED

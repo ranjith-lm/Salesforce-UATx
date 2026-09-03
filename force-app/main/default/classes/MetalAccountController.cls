@@ -1,4 +1,4 @@
-public class MetalAccountController {
+public with sharing class MetalAccountController {
     @TestVisible
     private static ApiConnection con = new ApiConnection();
     
@@ -313,13 +313,15 @@ public class MetalAccountController {
 public static SettingResponse getUserSettings(String userId, String customerId) {
     try {
         SettingResponse response = new SettingResponse();
-        
+        System.debug('Method --->');
         // Check if customerId is provided
         if (String.isNotBlank(customerId)) {
             // Query the Account to get Segment__pc
+            System.debug('Reached --->');
             String accountQuery = 'SELECT Id, Segment__pc FROM Account WHERE Id = :customerId LIMIT 1';
+            System.debug('accountQuery --->'+accountQuery);
             List<Account> accounts = Database.query(accountQuery);
-            
+            System.debug('accounts --->'+accounts);
             if (!accounts.isEmpty()) {
                 Account acc = accounts[0];
                 String segment = acc.Segment__pc;
@@ -377,7 +379,7 @@ public static SettingResponse getUserSettings(String userId, String customerId) 
             response.data.viewStaffDataJordan = false;
             response.message = 'No settings found for user, defaulting to false';
         }
-        
+        System.debug('Response --->'+response);
         return response;
         
     } catch (Exception e) {

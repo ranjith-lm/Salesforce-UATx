@@ -26,36 +26,56 @@
         
         <aura:if isTrue="{!true == v.tabsConfig.Credit_Cards__c}">
             <lightning:tab label="Credit Cards">
-                <lightning:select aura:id="select" name="select" label="Select Card Status" 
-                                 onchange="{!c.onStatusChange}" value="{!v.selectedStatus}">
-                    <option value="B">Exclude Blocked</option>
-                    <option value="A">All</option>
-                    <option value="C">Exclude Expired</option>
-                    <option value="D">Exclude Blocked/ Expired</option>
-                    <aura:if isTrue="{!v.account.Region_Flag__c == 'Bahrain'}">
-                        <option value="P">Purged</option>
-                    </aura:if>
-                </lightning:select>
-                <br/>
                 
-                <c:creditCardList aura:id="creditCardList" 
-                                  customerId="{!v.customerId}" 
-                                  caseId="{!v.recordId}" 
-                                  enableActions="{!'Case' == v.sObjectName}" 
-                                  account="{!v.account}"
-                                  data="{!v.dataInformation}"
-                                  CaptureDataBasedOnFilter="{!v.dataInformationBasedOnFilter}"
-                                  caseType="{!v.caseType}"
-                                  caseRecordType="{!v.caseRecordType}"
-                                  caseSubType="{!v.caseSubType}"
-                                  caseStatus="{!v.caseStatus}"
-                                  isSecondary="false"/>
+                <!-- <aura:if isTrue="{!v.account.Subscription_Model__pc == 'alburaq' || v.account.Subscription_Model__pc == 'both'}"> 
+                    <c:bankCardsList aura:id="bankCardsList"
+                                     customerId="{!v.customerId}" caseId="{!v.recordId}" enableActions="{! 'Case' == v.sObjectName }" account="{!v.account}" isAlburaqProduct='true'/>
+                    -->
+                    <!-- <aura:set attribute="else"> -->
+                        <lightning:select aura:id="select" name="select" label="Select Card Status" 
+                                          onchange="{!c.onStatusChange}" value="{!v.selectedStatus}">
+                            <option value="B">Exclude Blocked</option>
+                            <option value="A">All</option>
+                            <option value="C">Exclude Expired</option>
+                            <option value="D">Exclude Blocked/ Expired</option>
+                            <aura:if isTrue="{!v.account.Region_Flag__c == 'Bahrain'}">
+                                <option value="P">Purged</option>
+                            </aura:if>
+                        </lightning:select>
+                        <br/>
+                        
+                        <c:creditCardList aura:id="creditCardList" 
+                                          customerId="{!v.customerId}" 
+                                          caseId="{!v.recordId}" 
+                                          enableActions="{!'Case' == v.sObjectName}" 
+                                          account="{!v.account}"
+                                          data="{!v.dataInformation}"
+                                          CaptureDataBasedOnFilter="{!v.dataInformationBasedOnFilter}"
+                                          caseType="{!v.caseType}"
+                                          caseRecordType="{!v.caseRecordType}"
+                                          caseSubType="{!v.caseSubType}"
+                                          caseStatus="{!v.caseStatus}"
+                                          isSecondary="false"/>
+                        
+                    <!-- </aura:set> -->
+                    
+                <!--  </aura:if> -->
+                
+                
+                
             </lightning:tab>
         </aura:if>
         
         <lightning:tab label="Debit Cards">
+
+            <aura:if isTrue="{!v.account.Subscription_Model__pc == 'alburaq' || v.account.Subscription_Model__pc == 'both'}"> 
+                    <c:bankCardsList aura:id="bankCardsList"
+                                     customerId="{!v.customerId}" caseId="{!v.recordId}" enableActions="{! 'Case' == v.sObjectName }" account="{!v.account}" isAlburaqProduct='true'/>
+                    
+                     <aura:set attribute="else">
+
             <lightning:select aura:id="select" name="select" label="Select Debit Card Status" 
-                             onchange="{!c.onDebitCardStatusChange}" value="{!v.selectedDebitCardStatus}">
+                              onchange="{!c.onDebitCardStatusChange}" value="{!v.selectedDebitCardStatus}">
                 <option value="B">Active / Inactive</option>
                 <option value="A">Blocked / Cancelled</option>
                 <option value="P">Purged</option>
@@ -74,6 +94,8 @@
                 <c:IlaSubTabsAuditTrack aura:id="bankCardsList"
                                         accId="{!v.recordId}"
                                         subTabName="{!v.debitCardSubTab}"/>
+            </aura:if>
+            </aura:set>
             </aura:if>
         </lightning:tab>
     </lightning:tabset>

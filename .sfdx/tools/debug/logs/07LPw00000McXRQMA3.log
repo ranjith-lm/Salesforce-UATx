@@ -1,0 +1,36 @@
+68.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+14:36:59.0 (222807)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+14:36:59.0 (275067)|EXECUTION_STARTED
+14:36:59.0 (289584)|CODE_UNIT_STARTED|[EXTERNAL]|apex://UserProfileController/ACTION$isWatiqueUpload
+14:36:59.0 (3541723)|CODE_UNIT_STARTED|[EXTERNAL]|01p1t00000MLZX9|UserProfileController.isWatiqueUpload(String)
+14:36:59.0 (6760675)|SYSTEM_MODE_ENTER|true
+14:36:59.0 (6823731)|SYSTEM_MODE_EXIT|true
+14:36:59.0 (6868775)|SYSTEM_MODE_ENTER|true
+14:36:59.0 (6881935)|SYSTEM_MODE_EXIT|true
+14:36:59.0 (6885380)|SYSTEM_MODE_ENTER|true
+14:36:59.0 (6888469)|SYSTEM_MODE_EXIT|true
+14:36:59.0 (8732932)|SOQL_EXECUTE_BEGIN|[586]|Aggregations:0|SELECT Id, AccountId FROM Case WHERE Id = :tmpVar1
+14:36:59.0 (14307840)|SOQL_EXECUTE_END|[586]|Rows:1
+14:36:59.0 (16045165)|SOQL_EXECUTE_BEGIN|[587]|Aggregations:1|SELECT Id, (SELECT Id, Document_Type__c FROM Content__r WHERE Document_Type__c = 'Wathiq Consent Form') FROM Account WHERE Id = :tmpVar1
+14:36:59.0 (30977298)|SOQL_EXECUTE_END|[587]|Rows:1
+14:36:59.31 (31275629)|CUMULATIVE_LIMIT_USAGE
+14:36:59.31 (31275629)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 2 out of 100
+  Number of query rows: 2 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 10000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+14:36:59.31 (31275629)|CUMULATIVE_LIMIT_USAGE_END
+
+14:36:59.0 (31310350)|CODE_UNIT_FINISHED|UserProfileController.isWatiqueUpload(String)
+14:36:59.0 (31486070)|CODE_UNIT_FINISHED|apex://UserProfileController/ACTION$isWatiqueUpload
+14:36:59.0 (31493934)|EXECUTION_FINISHED

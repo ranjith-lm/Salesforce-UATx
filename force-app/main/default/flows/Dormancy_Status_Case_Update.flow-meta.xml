@@ -3,7 +3,7 @@
     <actionCalls>
         <name>Copy_1_of_call_Dormancy_API_and_trigger_the_notification</name>
         <label>call Dormancy API  and trigger the notification</label>
-        <locationX>3482</locationX>
+        <locationX>4010</locationX>
         <locationY>350</locationY>
         <actionName>DormancyStatusJoController</actionName>
         <actionType>apex</actionType>
@@ -18,27 +18,46 @@
         <offset>0</offset>
     </actionCalls>
     <actionCalls>
-        <name>REACTIVATE_DORMANCY_COMPLETED</name>
-        <label>REACTIVATE_DORMANCY_COMPLETED</label>
+        <name>REACTIVATE_DORMANT</name>
+        <label>REACTIVATE_DORMANT</label>
         <locationX>1106</locationX>
-        <locationY>566</locationY>
-        <actionName>Case.REACTIVATE_DORMANCY_COMPLETED</actionName>
+        <locationY>674</locationY>
+        <actionName>Case.REACTIVATE_DORMANT</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
                 <elementReference>CaseRec.Id</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
             </value>
         </inputParameters>
-        <nameSegment>Case.REACTIVATE_DORMANCY_COMPLETED</nameSegment>
+        <nameSegment>Case.REACTIVATE_DORMANT</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>REACTIVATE_DORMANT_ALBURAQ</name>
+        <label>REACTIVATE_DORMANT_ALBURAQ</label>
+        <locationX>1370</locationX>
+        <locationY>674</locationY>
+        <actionName>Case.REACTIVATE_DORMANT_ALBURAQ</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CaseRec.Id</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.REACTIVATE_DORMANT_ALBURAQ</nameSegment>
         <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>Send_notification_to_the_owner</name>
         <label>Send notification to the owner</label>
-        <locationX>2426</locationX>
-        <locationY>1082</locationY>
+        <locationX>2690</locationX>
+        <locationY>1274</locationY>
         <actionName>Case.Case_Owner_Change_Notification</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -56,7 +75,7 @@
     <assignments>
         <name>Assign_to_Jo_Account_Services_Queue</name>
         <label>Assign to Jo Account Services Queue</label>
-        <locationX>3746</locationX>
+        <locationX>4274</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
@@ -87,7 +106,7 @@
     <assignments>
         <name>Assign_to_Jo_Checker_Queue</name>
         <label>Assign to Jo Checker Queue</label>
-        <locationX>4010</locationX>
+        <locationX>4538</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
@@ -118,7 +137,7 @@
     <assignments>
         <name>assign_to_Jo_Compliance_Queue</name>
         <label>assign to Jo Compliance Queue</label>
-        <locationX>2690</locationX>
+        <locationX>3218</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
@@ -149,8 +168,8 @@
     <assignments>
         <name>Assign_to_JO_maker</name>
         <label>Assign to JO maker</label>
-        <locationX>2426</locationX>
-        <locationY>866</locationY>
+        <locationX>2690</locationX>
+        <locationY>1058</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -179,7 +198,7 @@
     <assignments>
         <name>AssignToValidation</name>
         <label>AssignToValidation</label>
-        <locationX>2162</locationX>
+        <locationX>2690</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
@@ -255,7 +274,7 @@
     <assignments>
         <name>ICU_Approve</name>
         <label>ICU_Approve</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -271,6 +290,13 @@
                 <stringValue>Completed</stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CaseRec.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>UpdateCase_2</targetReference>
         </connector>
@@ -278,7 +304,7 @@
     <assignments>
         <name>ICU_SendToRMT</name>
         <label>ICU_SendToRMT</label>
-        <locationX>1370</locationX>
+        <locationX>1898</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -308,7 +334,7 @@
     <assignments>
         <name>RMT_Decline</name>
         <label>RMT_Decline</label>
-        <locationX>1898</locationX>
+        <locationX>2426</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.RMT_Results_Date_Time__c</assignToReference>
@@ -335,7 +361,7 @@
     <assignments>
         <name>RMT_PendingDocuments</name>
         <label>RMT_PendingDocuments</label>
-        <locationX>1634</locationX>
+        <locationX>2162</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.RMT_Results_Date_Time__c</assignToReference>
@@ -372,7 +398,7 @@
     <assignments>
         <name>Send_To_Business_Queue_Posting_Transaction</name>
         <label>Send To Business Queue (Posting Transaction)</label>
-        <locationX>7178</locationX>
+        <locationX>7706</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -402,7 +428,7 @@
     <assignments>
         <name>Send_To_Compliance_Posting_Transaction</name>
         <label>Send To Compliance (Posting Transaction)</label>
-        <locationX>6650</locationX>
+        <locationX>7178</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -432,7 +458,7 @@
     <assignments>
         <name>Send_To_ICU_Posting_Transaction</name>
         <label>Send To ICU (Posting Transaction)</label>
-        <locationX>5330</locationX>
+        <locationX>5858</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.OwnerId</assignToReference>
@@ -462,7 +488,7 @@
     <assignments>
         <name>Send_To_Ops_Posting_Transaction</name>
         <label>Send To Ops (Posting Transaction )</label>
-        <locationX>6386</locationX>
+        <locationX>6914</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -492,7 +518,7 @@
     <assignments>
         <name>sub_status_as_cancelled</name>
         <label>sub-status as cancelled</label>
-        <locationX>2426</locationX>
+        <locationX>2954</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Sub_Status__c</assignToReference>
@@ -515,7 +541,7 @@
     <assignments>
         <name>SubStatus_Is_Completed_Posting_Transaction</name>
         <label>SubStatus Is Completed (Posting Transaction)</label>
-        <locationX>6122</locationX>
+        <locationX>6650</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Compliance_Results_Date_Time__c</assignToReference>
@@ -545,7 +571,7 @@
     <assignments>
         <name>SubStatus_Is_Declined_Posting_Transaction</name>
         <label>SubStatus Is Declined (Posting Transaction)</label>
-        <locationX>5594</locationX>
+        <locationX>6122</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Compliance_Results_Date_Time__c</assignToReference>
@@ -575,7 +601,7 @@
     <assignments>
         <name>SubStatus_Is_In_progress_2_Posting_Transaction</name>
         <label>SubStatus Is In progress 2 (Posting Transaction)</label>
-        <locationX>7442</locationX>
+        <locationX>7970</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.cc_Operations_Date_Time__c</assignToReference>
@@ -598,7 +624,7 @@
     <assignments>
         <name>SubStatus_Is_In_progress_3_Posting_Transaction</name>
         <label>SubStatus Is In progress 3(Posting Transaction)</label>
-        <locationX>7706</locationX>
+        <locationX>8234</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.cc_Operations_Date_Time__c</assignToReference>
@@ -621,7 +647,7 @@
     <assignments>
         <name>SubStatus_Is_In_progress_4_Posting_Transaction</name>
         <label>SubStatus Is In progress 4 (Posting Transaction)</label>
-        <locationX>7970</locationX>
+        <locationX>8498</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.cc_Operations_Date_Time__c</assignToReference>
@@ -651,7 +677,7 @@
     <assignments>
         <name>SubStatus_Is_In_Progress_Posting_Transaction</name>
         <label>SubStatus Is In Progress (Posting Transaction)</label>
-        <locationX>5858</locationX>
+        <locationX>6386</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Compliance_Results_Date_Time__c</assignToReference>
@@ -674,7 +700,7 @@
     <assignments>
         <name>SubStatus_Is_In_progress_Posting_Transaction1</name>
         <label>SubStatus Is In progress 1 (Posting Transaction )</label>
-        <locationX>6914</locationX>
+        <locationX>7442</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -727,7 +753,7 @@
     <assignments>
         <name>SubStatus_Is_Pending_Posting_Transaction</name>
         <label>SubStatus Is Pending (Posting Transaction)</label>
-        <locationX>5066</locationX>
+        <locationX>5594</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Compliance_Results_Date_Time__c</assignToReference>
@@ -750,7 +776,7 @@
     <assignments>
         <name>Update_Compliance_Date_Time</name>
         <label>Update Compliance Date Time</label>
-        <locationX>8234</locationX>
+        <locationX>8762</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.Compliance_Results_Date_Time__c</assignToReference>
@@ -766,7 +792,7 @@
     <assignments>
         <name>Update_ICU_Date_Time1</name>
         <label>Update ICU Date Time</label>
-        <locationX>8498</locationX>
+        <locationX>9026</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.ICU_Result_Date_Time__c</assignToReference>
@@ -782,7 +808,7 @@
     <assignments>
         <name>Updating_Operation_Date_Time</name>
         <label>Updating Operation Date Time</label>
-        <locationX>8762</locationX>
+        <locationX>9290</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>CaseRec.cc_Operations_Date_Time__c</assignToReference>
@@ -826,9 +852,46 @@
         </connector>
     </assignments>
     <decisions>
+        <name>Check_Case_Model</name>
+        <label>Check Case Model?</label>
+        <locationX>1370</locationX>
+        <locationY>566</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ila</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRec.Case_Model__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ila</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>REACTIVATE_DORMANT</targetReference>
+            </connector>
+            <label>ila</label>
+        </rules>
+        <rules>
+            <name>alburaq</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRec.Case_Model__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>alburaq</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>REACTIVATE_DORMANT_ALBURAQ</targetReference>
+            </connector>
+            <label>alburaq</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Compliance_Result_Or_ICU_Result_Or_Operation_Result_Is_Updated</name>
         <label>Compliance Result Or ICU Result Or Operation Result Is Updated</label>
-        <locationX>7046</locationX>
+        <locationX>7574</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1165,17 +1228,24 @@
     <decisions>
         <name>Is_Relationship_Reactivation_Or_Posting_Transaction</name>
         <label>Is Relationship Reactivation Or Posting Transaction ?</label>
-        <locationX>5858</locationX>
+        <locationX>6254</locationX>
         <locationY>134</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Relationship_Reactivation</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>CaseRec.Type</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Reactivate Dormant Relationship</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CaseRec.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dormant Account Reactivation</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1202,7 +1272,7 @@
     <decisions>
         <name>Maker_Result_Or_Checker_Result_Or_ICU_Result_Is_Changed</name>
         <label>Maker Result Or Checker Result Or ICU Result Is Changed</label>
-        <locationX>2426</locationX>
+        <locationX>2690</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1660,7 +1730,7 @@
     <decisions>
         <name>Risk_Rating</name>
         <label>Risk Rating</label>
-        <locationX>2954</locationX>
+        <locationX>3482</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1728,15 +1798,15 @@
     <recordUpdates>
         <name>update_case1</name>
         <label>update case</label>
-        <locationX>2426</locationX>
+        <locationX>2954</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>update_case2</name>
         <label>update case</label>
-        <locationX>2426</locationX>
-        <locationY>974</locationY>
+        <locationX>2690</locationX>
+        <locationY>1166</locationY>
         <connector>
             <targetReference>Send_notification_to_the_owner</targetReference>
         </connector>
@@ -1745,105 +1815,105 @@
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>5330</locationX>
+        <locationX>5858</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>7442</locationX>
+        <locationX>7970</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>5066</locationX>
+        <locationX>5594</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>6914</locationX>
+        <locationX>7442</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>6386</locationX>
+        <locationX>6914</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>7706</locationX>
+        <locationX>8234</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>6650</locationX>
+        <locationX>7178</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>7178</locationX>
+        <locationX>7706</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>6122</locationX>
+        <locationX>6650</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>5858</locationX>
+        <locationX>6386</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>5594</locationX>
+        <locationX>6122</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>7970</locationX>
+        <locationX>8498</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>8498</locationX>
+        <locationX>9026</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>8234</locationX>
+        <locationX>8762</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_case_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update case</label>
-        <locationX>8762</locationX>
+        <locationX>9290</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
@@ -1871,43 +1941,43 @@
     <recordUpdates>
         <name>UpdateCase_2</name>
         <label>UpdateCase</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>458</locationY>
         <connector>
-            <targetReference>REACTIVATE_DORMANCY_COMPLETED</targetReference>
+            <targetReference>Check_Case_Model</targetReference>
         </connector>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateCase_3</name>
         <label>UpdateCase</label>
-        <locationX>1370</locationX>
+        <locationX>1898</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateCase_4</name>
         <label>UpdateCase</label>
-        <locationX>1634</locationX>
+        <locationX>2162</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateCase_5</name>
         <label>UpdateCase</label>
-        <locationX>2162</locationX>
+        <locationX>2690</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateRecord_4</name>
         <label>UpdateRecord</label>
-        <locationX>1898</locationX>
+        <locationX>2426</locationX>
         <locationY>458</locationY>
         <inputReference>CaseRec</inputReference>
     </recordUpdates>
     <start>
-        <locationX>5732</locationX>
+        <locationX>6128</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_Relationship_Reactivation_Or_Posting_Transaction</targetReference>

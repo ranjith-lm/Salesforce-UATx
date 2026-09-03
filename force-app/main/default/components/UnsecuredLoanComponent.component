@@ -3,7 +3,7 @@
     <apex:attribute name="caseRecord" assignTo="{!caseObject}" type="Case" description="Case record" required="true"/>
     <apex:attribute name="caseAnnexRecord" assignTo="{!caseAnnexObject}" type="CaseAnnex__c" description="Case Annex record" required="true"/>
     
-    <div style="font-size:14px; width:100%;overflow:hidden;height:auto;">
+    <div style="font-size:12px; width:100%;overflow:hidden;height:auto;">
         <div style="width:50%;float:left;">
             <span> Employment Status:  </span> <apex:outputField value="{!caseRecord.cc_Approved_employment_status__c}"/><br/>
             <span> Employer Sector: </span> <apex:outputField value="{!caseRecord.cc_Employer_Sector__c}"/> <br/>
@@ -114,7 +114,7 @@
             <td width="30%" style="border:0px;text-align:left">Credit Pre-Screening Result</td>
             <td width="20%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Pre_Screening_Result__c}</td>
             <td width="25%" style="border:0px;text-align:left">Credit Pre-Screening by</td>
-            <td width="25%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Pre_Screening_by__c}</td>
+            <td width="25%" style="border:0px;text-align:left"><apex:outputField value="{!caseRecord.cc_Credit_Pre_Screening_by__c}"/></td>
         </tr>
         <tr>
             <td width="50%" colspan="2" style="border:0px;text-align:left">Credit Pre-Screening Result Date Time</td>
@@ -128,7 +128,7 @@
             <td width="30%" style="border:0px;text-align:left">Credit Evaluation Result</td>
             <td width="20%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Evaluation_Result__c}</td>
             <td width="25%" style="border:0px;text-align:left">Credit Evaluation by</td>
-            <td width="25%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Evaluation_by__c}</td>
+            <td width="25%" style="border:0px;text-align:left"><apex:outputField value="{!caseRecord.cc_Credit_Evaluation_by__c}"/></td>
         </tr>
         <tr>
             <td width="50%" colspan="2" style="border:0px;text-align:left">Credit Evaluation Result Date Time</td>

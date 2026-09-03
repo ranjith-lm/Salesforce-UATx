@@ -107,7 +107,7 @@
                 <lightning:inputField fieldName="AccountId" value="{!v.recordId}" aura:id="accId"/>
                 <lightning:inputField fieldName="PrimaryCardProductConfigurationId__c" value="{!v.cardProductionConfigurationId}" aura:id="configId"/>
                 <!-- CH03 Start -->
-                <lightning:inputField fieldName="Card_Type__c" value="{!v.selectedCard}" aura:id="targetCard"/>
+                <lightning:inputField fieldName="Target_Upgrade_Credit_Card_Type__c" value="{!v.selectedCard}" aura:id="targetCard"/>
 				<!-- CH03 END -->
             </div> 
            

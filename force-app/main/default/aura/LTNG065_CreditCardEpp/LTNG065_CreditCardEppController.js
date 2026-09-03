@@ -36,7 +36,7 @@
         component.find('EPPListTable').set("v.selectedRows", []);
        // component.set('v.selectedEPPRow',[]);
         var selectedRows = event.getParam('selectedRows');
-        //console.log('--> SELECTED EPP Record-> ',selectedRows);
+        console.log('--> SELECTED EPP Record-> ',selectedRows);
         var selRow = [];
         for (var i = 0; i < selectedRows.length; i++){
             selRow = selectedRows[i];

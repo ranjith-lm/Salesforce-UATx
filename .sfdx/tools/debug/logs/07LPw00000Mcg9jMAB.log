@@ -1,0 +1,35 @@
+68.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+14:41:01.0 (241053)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+14:41:01.0 (281629)|EXECUTION_STARTED
+14:41:01.0 (290392)|CODE_UNIT_STARTED|[EXTERNAL]|apex://JordanCivilDepartmentController/ACTION$getCaseDetails
+14:41:01.0 (5069791)|CODE_UNIT_STARTED|[EXTERNAL]|01p3N00000B72jz|JordanCivilDepartmentController.getCaseDetails(String)
+14:41:01.0 (7323196)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (7376836)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (7421009)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (7438044)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (7442795)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (7446891)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (7546370)|USER_DEBUG|[18]|DEBUG|QUERY: Select Status, AccountId, Type, Origin, RecordType.Name, Region_Flag__c
+14:41:01.0 (9804122)|SOQL_EXECUTE_BEGIN|[19]|Aggregations:0|Select Status, AccountId, Type, Origin, RecordType.Name, Region_Flag__c from Case where Id =:caseId
+14:41:01.0 (27238918)|SOQL_EXECUTE_END|[19]|Rows:1
+14:41:01.27 (27486828)|CUMULATIVE_LIMIT_USAGE
+14:41:01.27 (27486828)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 1 out of 100
+  Number of query rows: 1 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 10000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+14:41:01.27 (27486828)|CUMULATIVE_LIMIT_USAGE_END
+
+14:41:01.0 (27523533)|CODE_UNIT_FINISHED|JordanCivilDepartmentController.getCaseDetails(String)
+14:41:01.0 (27727660)|CODE_UNIT_FINISHED|apex://JordanCivilDepartmentController/ACTION$getCaseDetails
+14:41:01.0 (27735780)|EXECUTION_FINISHED

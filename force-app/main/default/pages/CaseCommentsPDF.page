@@ -286,7 +286,9 @@
                             <td class="col-author">
                                 <apex:outputText value="{!thread.createdByName}"/>
                                 <apex:outputPanel rendered="{!thread.hasAttachment}">
-                                    <div class="badge badge-attachment"> <apex:outputText value="{!thread.attachmentName}"/></div>
+                                    <apex:repeat value="{!thread.attachments}" var="att">
+                                        <div class="badge badge-attachment"><apex:outputText value="{!att.attachmentName}"/></div>
+                                    </apex:repeat>
                                 </apex:outputPanel>
                             </td>
                             <td class="col-date nowrap">
@@ -307,7 +309,9 @@
                                                         <span style="color: green; font-weight: bold;">RE: </span>
                                                         <strong><apex:outputText value="{!reply.createdBy}"/></strong>
                                                         <apex:outputPanel rendered="{!reply.hasAttachment}">
-                                                            <span class="badge badge-attachment"> <apex:outputText value="{!reply.attachmentName}"/></span>
+                                                            <apex:repeat value="{!reply.attachments}" var="att">
+                                                                <span class="badge badge-attachment"><apex:outputText value="{!att.attachmentName}"/></span>
+                                                            </apex:repeat>
                                                         </apex:outputPanel>
                                                         &mdash;
                                                         <apex:outputText value="{0,date,dd/MM/yyyy HH:mm}">
@@ -389,7 +393,9 @@
                                                         <span style="color: green; font-weight: bold;">RE: </span>
                                                         <strong><apex:outputText value="{!reply.createdBy}"/></strong>
                                                         <apex:outputPanel rendered="{!reply.hasAttachment}">
-                                                            <span class="badge badge-attachment"> <apex:outputText value="{!reply.attachmentName}"/></span>
+                                                            <apex:repeat value="{!reply.attachments}" var="att">
+                                                                <span class="badge badge-attachment"><apex:outputText value="{!att.attachmentName}"/></span>
+                                                            </apex:repeat>
                                                         </apex:outputPanel>
                                                         &mdash;
                                                         <apex:outputText value="{0,date,dd/MM/yyyy HH:mm}">
@@ -451,9 +457,11 @@
                                     <div class="reply-meta"><apex:outputText value="{!email.fromAddress}"/></div>
                                 </apex:outputPanel>
                                 <apex:outputPanel rendered="{!email.hasAttachment}">
-                                    <div class="badge badge-attachment" style="margin-left:0; margin-top:2px;">
-                                        <apex:outputText value="{!email.attachmentName}"/>
-                                    </div>
+                                    <apex:repeat value="{!email.attachments}" var="att">
+                                        <div class="badge badge-attachment" style="margin-left:0; margin-top:2px;">
+                                            <apex:outputText value="{!att.attachmentName}"/>
+                                        </div>
+                                    </apex:repeat>
                                 </apex:outputPanel>
                             </td>
                             <td class="col-date nowrap">

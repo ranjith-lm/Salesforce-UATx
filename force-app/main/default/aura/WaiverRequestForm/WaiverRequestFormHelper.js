@@ -71,6 +71,142 @@
         });
         $A.enqueueAction(action);
     },
+    loadAccountList : function(component) {
+        
+        console.log("Record ID ",component.get("v.recordId"));
+        var action = component.get('c.loadAccountList');
+        action.setParams(
+        {
+			customerId: component.get("v.recordId")
+        });
+        
+        action.setCallback(this, function (actionResult) {
+            var status = actionResult.getState();
+            
+            let data = actionResult.getReturnValue();
+            console.log("status account record list ",data);
+            console.log("status account ",status);
+            
+            const accountList = [];
+            accountList.push({
+                label : 'None',
+                value : 'none'
+            });
+            if (data.isSuccess && status === "SUCCESS") {
+                if(data){
+                    for(let i = 0; i < data.responseData.accounts.length; i++){
+                        accountList.push({
+                            label : data.responseData.accounts[i].productName + ' - ' +  data.responseData.accounts[i].customerId,
+                            value : data.responseData.accounts[i].customerId + ';' +  data.responseData.accounts[i].id
+                        });
+                    }
+                    console.log("accountList ",accountList);
+                    component.set("v.accountList",accountList);
+                }
+            }
+            else {
+            	component.set("v.accountList",accountList);
+                if(data.errorData){
+                	//code 	"ACCO-0002	message	"No account found."
+                	let toastParams = {
+                        mode: "sticky",
+                        title: "Error",
+                        message: data.errorData.code + " - " + data.errorData.message, // Default error message
+                        type: "error"
+                    };
+                    
+                    // Fire error toast
+                    let toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams(toastParams);
+                    toastEvent.fire();
+                }
+            }
+        });
+        
+        $A.enqueueAction(action);
+    },
+    getAccountTransaction : function(component,customer,accountId){
+      	console.log('customer ',customer);
+        console.log('accountId ',accountId);
+        
+        //const todaysDate = new Date();
+        //const jsonToDate = this.getFormattedDate(todaysDate);
+        
+        //todaysDate.setMonth(todaysDate.getMonth() -1);
+        //const jsonFromDate = this.getFormattedDate(todaysDate); //one months old 
+        
+        let toSelectedDate = component.get("v.selectedDateTo");
+        let fromSelectedDate = component.get("v.selectedDateFrom");
+        console.log("toSelectedDate ",toSelectedDate);
+        console.log("fromSelectedDate ",fromSelectedDate);
+        
+        var searchParametersJson = {
+            "id": accountId,
+            "offSet": 0,
+            "pageSize": 50,
+            "fromDate": fromSelectedDate,
+            "toDate": toSelectedDate,
+            "debitCreditIndicator" : "ALL"
+        };
+        var action = component.get('c.loadAccountTransactions');
+        action.setParams(
+        {
+			customerId: customer,
+            searchParametersJson: JSON.stringify(searchParametersJson)
+        });
+        
+        action.setCallback(this, function (actionResult) {
+            debugger;
+            var status = actionResult.getState();
+            let data = actionResult.getReturnValue();
+            console.log("status transaction record list ",data);
+            console.log("status transaction ",status);
+            if(status == 'SUCCESS'){
+                const transData = [];
+                for(let i = 0; i < data.responseData.transactions.length; i++){
+                    const tranData = data.responseData.transactions[i];
+                    let dt = tranData.transactionDate;
+                    if(dt.includes('T')){
+                        dt = dt.split('T')[0];
+                    }
+                    transData.push({
+                        id: tranData.id,
+                        reference: tranData.reference,
+                        transactionType: tranData.transactionType,
+                        originalAmount: tranData.originalAmount,
+                        transactionDate: dt,
+                        transactionDescription1 : tranData.transactionDescription1
+                    })
+                }
+                
+                //sorting transaction by reference no.
+                transData.sort((a, b) =>
+                  a.reference.toLowerCase().localeCompare(b.reference.toLowerCase())
+                );
+                
+                component.set("v.transactionData",transData);
+                component.set("v.selectedRows", []);
+            }
+        });
+        $A.enqueueAction(action);
+    },
+    initDateFields: function(component){
+    	
+        const todaysDate = new Date();
+        const jsonToDate = this.getFormattedDate(todaysDate);
+        component.set("v.selectedDateTo",jsonToDate);
+        
+        todaysDate.setMonth(todaysDate.getMonth() - 1);
+        const jsonFromDate = this.getFormattedDate(todaysDate);
+        component.set("v.selectedDateFrom",jsonFromDate);
+	},
+    getFormattedDate: function(dtObj){
+        const year = dtObj.getFullYear();
+        const month = String(dtObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dtObj.getDate()).padStart(2, '0');
+        
+        return `${year}-${month}-${day}`;
+    },
     saveWaiverWithFile: function(component,event){
         const fields = event.getParam("fields");
         var data = {

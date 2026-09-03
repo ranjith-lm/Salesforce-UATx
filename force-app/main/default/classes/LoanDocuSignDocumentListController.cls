@@ -21,14 +21,14 @@ public class LoanDocuSignDocumentListController {
             }
             
             links = [SELECT Id,LinkedEntityId,ContentDocumentId,ContentDocument.Title,
-                     ContentDocument.FileExtension,ContentDocument.ContentSize 
+                     ContentDocument.FileExtension,ContentDocument.ContentSize,ContentDocument.CreatedBy.Name 
                      FROM ContentDocumentLink 
                      WHERE LinkedEntityId IN :docMap.keyset()];
         }
         else {
             links = [SELECT Id,LinkedEntityId,ContentDocumentId,ContentDocument.Title,
                      ContentDocument.FileExtension,ContentDocument.ContentSize,
-                     ContentDocument.LastModifiedDate,ContentDocument.CreatedDate 
+                     ContentDocument.LastModifiedDate,ContentDocument.CreatedDate,ContentDocument.CreatedBy.Name 
                      FROM ContentDocumentLink 
                      WHERE LinkedEntityId =:caseId];
         }
@@ -48,10 +48,17 @@ public class LoanDocuSignDocumentListController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<String> getFileData(String caseId) {
-        List<String> fileData = new List<String>();
+    public static List<fileDataWrapper> getFileData(String caseId) {
+        List<fileDataWrapper> fileData = new List<fileDataWrapper>();
         
-        List<DocuSignWrapper> docList = getDocumentList(caseId,true);
+        List<DocuSignWrapper> docList = new List<DocuSignWrapper>();
+        for(DocuSignWrapper doc :  getDocumentList(caseId,true)){
+            if(doc.documentType != 'DocuSign Document'){
+                docList.add(doc);
+            }
+        }
+        
+        docList.addAll(getDocumentList(caseId,false));
         
         if(docList.isEmpty()) return fileData;
         
@@ -61,17 +68,43 @@ public class LoanDocuSignDocumentListController {
         }
         
         String summary = getCalculationSummaryPDF(caseId);
-        System.debug('summary ' + summary);
-        fileData.add(summary);
+        
+        fileData.add(new fileDataWrapper('CalculationSummary',summary));
         for(ContentVersion cv : [SELECT Id, VersionData, FileExtension FROM ContentVersion WHERE ContentDocumentId IN :contentDocumentIds ORDER BY CreatedDate DESC]){
             System.debug('cv ' + cv.FileExtension);
             if(cv.FileExtension == 'pdf'){
             	String base64Data = EncodingUtil.base64Encode(cv.VersionData);
-	            fileData.add(base64Data);    
+                fileData.add(new fileDataWrapper('DocuSign',base64Data));
             }
         }
         
+        String loanSummary = getLoanPaymentSummary(caseId);
+        if(loanSummary != ''){
+            fileData.add(new fileDataWrapper('LoanSummary',loanSummary));
+        }
+        
     	return fileData;
+    }
+    
+    public static String getLoanPaymentSummary(String caseId){
+        PageReference pdfPage = Page.loanPaymentScheduleVF;
+        String encodedCaseId = EncodingUtil.base64Encode(Blob.valueOf(caseId));
+        String encodedPageName = EncodingUtil.base64Encode(Blob.valueOf('case'));
+        pdfPage.getParameters().put('caseId', encodedCaseId);
+        pdfPage.getParameters().put('pageName',encodedPageName);
+        Blob pdfBlob;
+        
+        try {
+            pdfBlob = pdfPage.getContentAsPDF();
+            String base64Pdf = EncodingUtil.base64Encode(pdfBlob);
+        	return base64Pdf;
+        } catch (Exception e) {
+            System.debug('Error -->'+e.getMessage());
+            System.debug('Error Line -->'+e.getLineNumber());
+            return '';
+        }
+        
+        
     }
     
     public static String getCalculationSummaryPDF(String caseId){
@@ -106,6 +139,18 @@ public class LoanDocuSignDocumentListController {
         return base64Pdf;
     }
     
+    public class fileDataWrapper {
+        @AuraEnabled
+        public String fileTitle { get; set; }
+        
+        @AuraEnabled
+        public String fileData { get; set; }
+        
+        public fileDataWrapper(String title, String fData){
+            this.fileTitle = title;
+            this.fileData = fData;
+        }
+    }
     
     public class DocuSignWrapper {
         
@@ -157,7 +202,7 @@ public class LoanDocuSignDocumentListController {
         @AuraEnabled
         public String fileName {
             get {
-                return fileTitle + '.' + fileExt;
+                return fileTitle;
             }
             private set;
         }
@@ -181,11 +226,34 @@ public class LoanDocuSignDocumentListController {
             this.contentName = contentObj == null ? 'Signed' : contentObj.Name;
             this.regionFlag = contentObj == null ? '' : contentObj.Region_Flag__c;
             this.documentModel = contentObj == null ? '' : contentObj.Document_Model__c;
-            this.ownerName = contentObj == null ? '' : contentObj.CreatedBy.Name;
+            this.ownerName = contentObj == null ? cdl.ContentDocument.CreatedBy.Name : contentObj.CreatedBy.Name;
             this.fileSize = ((Decimal)cdl.ContentDocument.ContentSize / 1024 / 1024).setScale(2) + ' MB';
             this.lastModifiedDate = contentObj == null ? cdl.ContentDocument.LastModifiedDate.date() : contentObj.LastModifiedDate.date();
             this.createdDate = contentObj == null ? cdl.ContentDocument.CreatedDate.date() : contentObj.CreatedDate.date();
             this.signerName = caseObj.Account.CIF__pc;
+            Map<String,String> partialFileNames = new Map<String,String>();
+            partialFileNames.put('personalloanstermsandcondition','Personal Loans Terms and Condition');
+            partialFileNames.put('taxinvoice','Tax Invoice');
+            partialFileNames.put('ilamanagercheque','ila Manager Cheque');
+            partialFileNames.put('certificateofcompletion','Certificate Of Completion');
+            partialFileNames.put('promissorynote','Promissory Note - ila');
+            partialFileNames.put('loandetailedrepaymentscheduleform','Loan Detailed Repayment Schedule Form');
+            partialFileNames.put('personalloanagreemen','Personal Loan Agreemen');
+            partialFileNames.put('loanapplicationform','Loan Application Form');
+            
+            for(String key :partialFileNames.keyset()){
+                //System.debug('file Name FF before ' + cdl.ContentDocument.Title.toLowerCase());
+                String fName = cdl.ContentDocument.Title.toLowerCase().trim();
+                fName = fName.replaceAll('\\s','').replaceAll('\'s','').replace('_','');
+                //System.debug('file Name FF after ' + fName + ' KEY = ' + key);
+                if(fName.contains(key)){
+                    System.debug('file Name FF after ' + fName);
+                    if(contentObj == null){
+                        this.contentName = partialFileNames.get(key);
+                    }
+                    break;
+                }
+            }
         }
     }
     

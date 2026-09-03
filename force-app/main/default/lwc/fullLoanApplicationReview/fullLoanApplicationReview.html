@@ -10,9 +10,16 @@
         </template>
 
         <!-- Show message if no documents are available -->
-        <template if:false={previewUrl}>
+        <template if:true={noDocumentToShow}>
             <div class="slds-align_absolute-center slds-m-vertical_large">
                 <p class="slds-text-heading_small slds-text-color_error">No documents to display.</p>
+            </div>
+        </template>
+
+        <!-- Show message if no documents are available -->
+        <template if:false={previewUrl}>
+            <div class="slds-align_absolute-center slds-m-vertical_large">
+                <p class="slds-text-heading_small">Loading documents...</p>
             </div>
         </template>
 

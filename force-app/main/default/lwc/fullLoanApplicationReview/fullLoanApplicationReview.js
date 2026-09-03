@@ -45,6 +45,7 @@ export default class FullLoanApplicationReview extends LightningElement {
     previewUrl;
     isLoading = false;
     isRendered = false;
+    noDocumentToShow = false;
     isLoaded = false;
     blobValue;
     caseRecord;
@@ -105,6 +106,12 @@ export default class FullLoanApplicationReview extends LightningElement {
                 .then((result) => {
                     this.docData = JSON.parse(JSON.stringify(result));
                     console.log("result from file data ",this.docData);
+                    if(this.docData.length == 0){
+                        this.noDocumentToShow = true;
+                    }
+                    else {
+                        this.noDocumentToShow = false;
+                    }
                     // Check if we can create PDF now
                     this.tryCreatePdf();
                 })
@@ -210,29 +217,39 @@ export default class FullLoanApplicationReview extends LightningElement {
 
         // Process all document data
         for (let i = 0; i < this.docData.length; i++) {
-            const fileData = this.docData[i];
+            const fileObj = this.docData[i];
 
             try {
-                const tempBytes = Uint8Array.from(atob(fileData), (c) => c.charCodeAt(0));
+                const tempBytes = Uint8Array.from(atob(fileObj.fileData), (c) => c.charCodeAt(0));
                 const fileHeader = tempBytes.slice(0, 4).join(',');
-                debugger;
                 if (fileHeader === '37,80,68,70') {
                     const loadedPdf = await this.pdfLibJs.PDFDocument.load(tempBytes);
                     const pages = loadedPdf.getPages();
-
+                    console.log("Total Pages ",pages);
                     if (pages.length > 0) {
                         for (const page of pages) {
                             const embeddedPage = await pdfDoc.embedPage(page);
-                            const newPage = pdfDoc.addPage();
-                            newPage.drawPage(embeddedPage);
 
-                            newPage.drawText('This', {
+                            //If pdf is Calculation Summary or LoanSummary, it should have landscape orientation.
+                            if(fileObj.fileTitle == 'CalculationSummary' || fileObj.fileTitle == 'LoanSummary'){ 
+                                const newPage = pdfDoc.addPage([842,595]);
+                                newPage.drawPage(embeddedPage);
+                            }
+                            else {
+                                const newPage = pdfDoc.addPage();
+                                newPage.drawPage(embeddedPage);
+                            }
+                            
+                            
+                            
+
+                            /*newPage.drawText('This', {
                                 x: 50,
                                 y: height - 180,
                                 size: 14,
                                 font,
                                 fontWeight: 'bold'
-                            });
+                            });*/
                         }
                     } else {
                         console.error(`No pages found in PDF at index ${i}`);
@@ -295,12 +312,13 @@ export default class FullLoanApplicationReview extends LightningElement {
             return;
         }
         
+        console.log("creating pdf...");
         const url = URL.createObjectURL(this.blobValue);
         const a = document.createElement('a');
         a.href = url;
         // Use safe case record for filename
-        const caseRecord = this.safeCaseRecord;
-        a.download = 'LoanApplicationSummary_' + caseRecord.customerCif + '_v1.pdf';
+        //const caseRecord = this.safeCaseRecord;
+        a.download = 'LoanApplicationSummary_' + this.caseRecord.customerCif + '_v1.pdf';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

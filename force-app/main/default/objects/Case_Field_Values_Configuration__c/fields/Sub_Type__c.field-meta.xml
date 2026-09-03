@@ -555,6 +555,11 @@
                 <label>Callback Request</label>
             </value>
             <value>
+                <fullName>Fawri Cancellation Request</fullName>
+                <default>false</default>
+                <label>Fawri Cancellation Request</label>
+            </value>
+            <value>
                 <fullName>Tranacation amount</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

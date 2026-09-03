@@ -1,0 +1,30 @@
+68.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+14:41:01.0 (736684)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+14:41:01.0 (869277)|EXECUTION_STARTED
+14:41:01.0 (903283)|CODE_UNIT_STARTED|[EXTERNAL]|apex://StandardTabsAuditTrackController/ACTION$createAuditRecordForCase
+14:41:01.0 (4767595)|CODE_UNIT_STARTED|[EXTERNAL]|01pPw000002j4ZN|StandardTabsAuditTrackController.createAuditRecordForCase(Id, String)
+14:41:01.0 (7446436)|SOQL_EXECUTE_BEGIN|[83]|Aggregations:0|SELECT Id, CaseNumber, Type, Account.CIF__pc FROM Case WHERE Id = :tmpVar1
+14:41:01.0 (30219448)|SOQL_EXECUTE_END|[83]|Rows:1
+14:41:01.0 (31178304)|DML_BEGIN|[92]|Op:Insert|Type:Customer_Pages_Audit_Trail__c|Rows:1
+14:41:01.0 (56909761)|DML_END|[92]
+14:41:01.65 (65299932)|CUMULATIVE_LIMIT_USAGE
+14:41:01.65 (65299932)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 1 out of 100
+  Number of query rows: 1 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 1 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 1 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 10000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+14:41:01.65 (65299932)|CUMULATIVE_LIMIT_USAGE_END
+
+14:41:01.0 (65396994)|CODE_UNIT_FINISHED|StandardTabsAuditTrackController.createAuditRecordForCase(Id, String)
+14:41:01.0 (65625926)|CODE_UNIT_FINISHED|apex://StandardTabsAuditTrackController/ACTION$createAuditRecordForCase
+14:41:01.0 (65638327)|EXECUTION_FINISHED

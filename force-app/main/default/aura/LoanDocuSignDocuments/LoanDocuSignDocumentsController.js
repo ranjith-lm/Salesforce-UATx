@@ -9,7 +9,7 @@
             { label: 'File Size', fieldName: 'fileSize', type: 'text',width:110 }, 
             { label: 'Last Modified Date', fieldName: 'lastModifiedDate', type: 'text',width:170 },
             { label: 'Owner', fieldName: 'ownerName', type: 'text',width:110 },
-            { label: 'Source', fieldName: 'documentType', type: 'text',width:130 },
+            { label: 'Source', fieldName: 'caseNumber', type: 'text',width:130 },
             {
                 type: 'action',
                 typeAttributes:{

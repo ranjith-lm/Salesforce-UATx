@@ -93,6 +93,8 @@
 *             #CH87# #Aniss Mbarki# 21-04-2026# Added Logic for Credit Card FOR STAFF - In-App DocuSign Documents Signing  (NBA-13727)
 *             #CH88# AITOGRAM Omar 27-04-2026 Added logic for Cancelling fawri transfer (NBA-15906)
 *             #CH89# AITOGRAM Omar 11-05-2026 Added logic for FATCA project NBA-16536
+              #CH90# #Jahangeer Mohammed# 28-08-2026# Added Logic for Making Comments Blank for Credit Card Upgrade(UATNB-228941)
+			  #CH91# #Maksud Ali 31-08-2026# Added logic for Maker/checker for Place Hold ticket.
 */
 public without sharing class CaseHandler extends BaseTriggerHandler {
     private static final String  CONTACT_CENTRE_QUEUE = 'Contact Centre';
@@ -1004,12 +1006,14 @@ setCaseApprovedByHRForCreditLimitIncrease.add(caseObj.id);
             }
             //CH55: Added Region Flag in if conditionTeam
             //CH31 : Added Condition for Cash Collateral
-            if(caseObj.cc_Credit_Approver_Comments__c !=caseOldObj.cc_Credit_Approver_Comments__c && caseObj.cc_Credit_Approver_Comments__c != null && caseObj.cc_Credit_Approver_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || caseObj.Type == 'Credit Limit Increase Application' || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application')  && caseObj.Region_Flag__c == 'Bahrain')
+            //CH90: Added  Type = Credit Card Upgrade
+            if(caseObj.cc_Credit_Approver_Comments__c !=caseOldObj.cc_Credit_Approver_Comments__c && caseObj.cc_Credit_Approver_Comments__c != null && caseObj.cc_Credit_Approver_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || caseObj.Type == 'Credit Limit Increase Application' || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application' || caseObj.Type == 'Credit Card Upgrade')  && caseObj.Region_Flag__c == 'Bahrain')
             {
                 System.debug('Inside Approver Comments');
                 CaseComment ApprovalComm = new CaseComment(ParentID=caseObj.id, CommentBody= 'Credit Approver Comments - '+ caseObj.cc_Credit_Approver_Comments__c);
                 lstComment.add(ApprovalComm);
             }
+            //CH90: END
             //CH55: Added Region Flag in if condition
             //CH31 : Added Condition for Cash Collateral
             if(caseObj.cc_Credit_Business_Team_Comments__c !=caseOldObj.cc_Credit_Business_Team_Comments__c && caseObj.cc_Credit_Business_Team_Comments__c != null && caseObj.cc_Credit_Business_Team_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || (caseObj.Type == 'Credit Limit Increase Application' && caseObj.Sub_Type__c == 'Credit Limit Increase') || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application') && caseObj.Region_Flag__c == 'Bahrain')
@@ -1028,12 +1032,14 @@ setCaseApprovedByHRForCreditLimitIncrease.add(caseObj.id);
             }
             //CH55: Added Region Flag in if condition
             //CH31 : Added Condition for Cash Collateral
-            if(caseObj.cc_Contact_Centre_Comments__c !=caseOldObj.cc_Contact_Centre_Comments__c && caseObj.cc_Contact_Centre_Comments__c != null && caseObj.cc_Contact_Centre_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || (caseObj.Type == 'Credit Limit Increase Application' && caseObj.Sub_Type__c == 'Credit Limit Increase') || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application') && caseObj.Region_Flag__c == 'Bahrain')
+            //CH90: Added  Type = Credit Card Upgrade
+            if(caseObj.cc_Contact_Centre_Comments__c !=caseOldObj.cc_Contact_Centre_Comments__c && caseObj.cc_Contact_Centre_Comments__c != null && caseObj.cc_Contact_Centre_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || (caseObj.Type == 'Credit Limit Increase Application' && caseObj.Sub_Type__c == 'Credit Limit Increase') || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application' || caseObj.Type == 'Credit Card Upgrade') && caseObj.Region_Flag__c == 'Bahrain')
             {
                 System.debug('Inside Contact Comments');
                 CaseComment CCComm = new CaseComment(ParentID=caseObj.id, CommentBody= 'Credit Contact Centre Comments - '+ caseObj.cc_Contact_Centre_Comments__c);
                 lstComment.add(CCComm);
             }
+            //CH90: END
             //CH55: Added Region Flag in if condition
             //CH50: Start
             if(caseObj.Retention_Comments__c !=caseOldObj.Retention_Comments__c && caseObj.Retention_Comments__c != null && caseObj.Retention_Comments__c != '' && (caseObj.Type == 'Credit Card Application'  || caseObj.Type == 'New Loan / Finance Application') && caseObj.Region_Flag__c == 'Bahrain')
@@ -1082,12 +1088,14 @@ setCaseApprovedByHRForCreditLimitIncrease.add(caseObj.id);
             //CH76: END
             //CH31 : Added Condition for Cash Collateral
             //CH55: Added Region Flag in if condition
-            if(caseObj.cc_Operations_Comments__c !=caseOldObj.cc_Operations_Comments__c && caseObj.cc_Operations_Comments__c != null && caseObj.cc_Operations_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || (caseObj.Type == 'Credit Limit Increase Application' && caseObj.Sub_Type__c == 'Credit Limit Increase') || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application') && caseObj.Region_Flag__c == 'Bahrain')
+            //CH90: Added  Type = Credit Card Upgrade
+            if(caseObj.cc_Operations_Comments__c !=caseOldObj.cc_Operations_Comments__c && caseObj.cc_Operations_Comments__c != null && caseObj.cc_Operations_Comments__c != '' && (caseObj.Type == 'Credit Card Application' || (caseObj.Type == 'Credit Limit Increase Application' && caseObj.Sub_Type__c == 'Credit Limit Increase') || caseObj.Type == 'Credit Card Cash Collateral Application' || caseObj.Type == 'New Loan / Finance Application' || caseObj.Type == 'Credit Card Upgrade') && caseObj.Region_Flag__c == 'Bahrain')
             {
                 System.debug('Inside Operations Comments');
                 CaseComment operationComments = new CaseComment(ParentID=caseObj.id, CommentBody= 'Credit Operation Comments - '+ caseObj.cc_Operations_Comments__c);
                 lstComment.add(operationComments);
             }
+            //CH90: END
             //CH31 : Added Condition for Cash Collateral
             //CH08 : Start
             //CH55: Added Region Flag in if condition
@@ -2352,7 +2360,8 @@ caseObj.Status ='Closed';
             //CH04 End
             /////////////////////////////Second BHD Account Creation all the Case update the validation handling Starts here
             //CH38: Added a condition to Bypass Customer Profile Update Record Type in if condition
-            if(caseObj.cc_Maker__c =='Send to Checker' && CaseOldMap.get(caseObj.Id).cc_Maker__c !=caseObj.cc_Maker__c && caseObj.RecordTypeId!=system.Label.Customer_Update_Profile_record_type_id){
+            //CH91: Aded Type != 'Place Hold' condition to bypass place hold 
+            if(caseObj.cc_Maker__c =='Send to Checker' && caseObj.Type != 'Place Hold' && CaseOldMap.get(caseObj.Id).cc_Maker__c !=caseObj.cc_Maker__c && caseObj.RecordTypeId!=system.Label.Customer_Update_Profile_record_type_id){
                 // assign to checker Q
                 caseObj.Address_Updated_By__c = UserInfo.getUserId();
                 //CH75: Added Type != Credit Card Upgrade to Bypass this if condition for Split functionality
@@ -2383,7 +2392,8 @@ caseObj.Status ='Closed';
             //CH88: added Type != 'Funds Transfer' and RecordType_DeveloperName__c != 'Request' to Bypass Request RecordType with type 'Funds Transfer'
             //CH89 :  added Type != 'FATCA
             if(caseObj.cc_Checker_Result__c =='Approve' && CaseOldMap.get(caseObj.Id).cc_Checker_Result__c !=caseObj.cc_Checker_Result__c  && caseObj.RecordTypeId!=system.Label.Customer_Update_Profile_record_type_id && caseObj.RecordTypeId!=system.Label.Manual_Customer_Archival
-               && caseObj.Type != 'FATCA'  && caseObj.Sub_Type__c != 'Alburaq Segment Change' && caseObj.RecordType_DeveloperName__c != 'Sukuk_Bond_Request' && (caseObj.Type != 'Funds Transfer' && caseObj.RecordType_DeveloperName__c != 'Request')){
+               && caseObj.Type != 'FATCA'  && caseObj.Sub_Type__c != 'Alburaq Segment Change' && caseObj.RecordType_DeveloperName__c != 'Sukuk_Bond_Request' && (caseObj.Type != 'Funds Transfer' && caseObj.RecordType_DeveloperName__c != 'Request') 
+               && !(caseObj.Type == 'Account' && caseObj.Sub_Type__c == 'Segment' && caseObj.cc_Request_Type__c == 'Upgrade')){
                    setSecondBHDAccount.add(caseObj.Id);
                    caseObj.cc_Checker_Result_Date_Time__c = System.now();
                    system.debug('Case Object--> Approve');
@@ -2405,9 +2415,11 @@ caseObj.Status ='Closed';
             //CH56: Bypass this condition for && caseObj.Sub_Type__c = 'Alburaq Segment Change'
             //CH75: Added Type != Credit Card Upgrade to Bypass this if condition for Split functionality
             //CH88: added RecordType_DeveloperName__c != 'Request' to Bypass Request RecordType
-            if(caseObj.cc_Checker_Result__c =='Return to Maker' && caseObj.RecordTypeId!=system.Label.Credit_Collection_RecordType && caseObj.RecordTypeId!=system.Label.DormancyStatusRecordId && caseObj.RecordTypeId!=system.Label.Block_Unblock_Account_RecordType && caseObj.RecordTypeId!=system.Label.AIR_AccountInterestRate_RecordType && caseObj.Type != 'New Bond/Sukuk Buy Request' && caseObj.Type != 'New Bond/Sukuk sell Request' && CaseOldMap.get(caseObj.Id).cc_Checker_Result__c != caseObj.cc_Checker_Result__c && caseObj.RecordTypeId!=system.Label.Customer_Update_Profile_record_type_id
-               && (caseObj.Type != 'Funds Transfer' && caseObj.RecordType_DeveloperName__c != 'Request') && caseObj.RecordType_DeveloperName__c != 'ppc_Prepaid_Card' && caseObj.RecordType_DeveloperName__c != 'Subscription_Model_Termination' /*&& caseObj.RecordType_DeveloperName__c != 'AmountBlockingUnblockingDirective'*/ && caseObj.Sub_Type__c != 'Alburaq Segment Change' && caseObj.Type != 'Credit Card Upgrade' && (caseObj.cc_Request_Type__c != 'Staff Joiner' && caseObj.cc_Request_Type__c != 'Staff Leaver' && caseObj.RecordType_DeveloperName__c != 'Investment_Questionnaire_Review'))
+            //CH91: Added Type != 'Place Hold' to bypass the place hold maker/checker condition.
+            if(caseObj.cc_Checker_Result__c =='Return to Maker' && caseObj.RecordTypeId!=system.Label.Credit_Collection_RecordType && caseObj.RecordTypeId!=system.Label.DormancyStatusRecordId && caseObj.RecordTypeId!=system.Label.Block_Unblock_Account_RecordType && caseObj.RecordTypeId!=system.Label.AIR_AccountInterestRate_RecordType && caseObj.Type != 'New Bond/Sukuk Buy Request' && caseObj.Type != 'New Bond/Sukuk sell Request' && caseObj.Type!='Sukuk/bonds/Government security'&& caseObj.Type != 'Place Hold' && CaseOldMap.get(caseObj.Id).cc_Checker_Result__c != caseObj.cc_Checker_Result__c && caseObj.RecordTypeId!=system.Label.Customer_Update_Profile_record_type_id
+               && (caseObj.Type != 'Funds Transfer' && caseObj.RecordType_DeveloperName__c != 'Request' && caseObj.RecordType_DeveloperName__c != 'Sukuk_Bond_Request') && caseObj.RecordType_DeveloperName__c != 'ppc_Prepaid_Card' && caseObj.RecordType_DeveloperName__c != 'Subscription_Model_Termination' /*&& caseObj.RecordType_DeveloperName__c != 'AmountBlockingUnblockingDirective'*/ && caseObj.Sub_Type__c != 'Alburaq Segment Change' && caseObj.Type != 'Credit Card Upgrade' && (caseObj.cc_Request_Type__c != 'Staff Joiner' && caseObj.cc_Request_Type__c != 'Staff Leaver' && caseObj.RecordType_DeveloperName__c != 'Investment_Questionnaire_Review'))
             {
+                system.debug('Return to Maker Changed...');
                 Util.setOwnerQueue(queueIds, caseToRegion, caseObj, MAKER_QUEUE);//  caseObj.OwnerId = System.label.MakerQueue;
                 caseObj.cc_Maker__c ='';
                 if(caseObj.Address_Updated_By__c != UserInfo.getUserId()){

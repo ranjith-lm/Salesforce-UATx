@@ -76,7 +76,7 @@
             <td width="30%" style="border:0px;text-align:left">Credit Pre-Screening Result</td>
             <td width="20%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Pre_Screening_Result__c}</td>
             <td width="25%" style="border:0px;text-align:left">Credit Pre-Screening by</td>
-            <td width="25%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Pre_Screening_by__c}</td>
+            <td width="25%" style="border:0px;text-align:left"><apex:outputField value="{!caseRecord.cc_Credit_Pre_Screening_by__c}"/></td>
         </tr>
         <tr>
             <td width="50%" colspan="2" style="border:0px;text-align:left">Credit Pre-Screening Result Date Time</td>
@@ -90,7 +90,7 @@
             <td width="30%" style="border:0px;text-align:left">Credit Evaluation Result</td>
             <td width="20%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Evaluation_Result__c}</td>
             <td width="25%" style="border:0px;text-align:left">Credit Evaluation by</td>
-            <td width="25%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Evaluation_by__c}</td>
+            <td width="25%" style="border:0px;text-align:left"><apex:outputField value="{!caseRecord.cc_Credit_Evaluation_by__c}"/></td>
         </tr>
         <tr>
             <td width="50%" colspan="2" style="border:0px;text-align:left">Credit Evaluation Result Date Time</td>
@@ -104,7 +104,7 @@
             <td width="30%" style="border:0px;text-align:left">Credit Approval Result</td>
             <td width="20%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Approval_Result__c}</td>
             <td width="25%" style="border:0px;text-align:left">Credit Approved by</td>
-            <td width="25%" style="border:0px;text-align:left">{!caseRecord.cc_Credit_Approved_by__c}</td>
+            <td width="25%" style="border:0px;text-align:left"><apex:outputField value="{!caseRecord.cc_Credit_Approved_by__c}"/></td>
         </tr>
         <tr>
             <td width="50%" colspan="2" style="border:0px;text-align:left">Credit Approval Result Date Time</td>

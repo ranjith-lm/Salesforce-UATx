@@ -1,2 +1,12 @@
-.THIS {
+.THIS .modal-container {
+    max-width:90rem !important;
+    width:90% !important;
+    overflow-y:hidden !important;
+}
+
+
+.THIS .slds-modal__container {
+    max-width:90rem !important;
+    width:70% !important;
+    overflow-y:hidden !important;
 }

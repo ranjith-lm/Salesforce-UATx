@@ -65,6 +65,7 @@
     },
     handleRowSelection: function (component, event, helper) {
         var selectedRows = event.getParam('selectedRows');
+        
         console.log('--> SELECTED ROW OF TERM DEPOSIT-> ',selectedRows);
         for(var i =0 ;i < selectedRows.length; i++){
             var termDepositId = selectedRows[i].urbisContractId;
@@ -105,6 +106,8 @@
     },
      //CH02: Start
      onFixedDepositStatusChange : function(component, event, helper){
+         
+         
         var newdata = [];
         var fixedDepositSelected = component.get('v.selectedFixedDepositStatus'); 
         console.log('Selected Fixed Deposit: >>>  '+fixedDepositSelected);
@@ -121,6 +124,11 @@
               	newdata.push(account);
         	} 
         })
+            
+            //CH04 START
+         component.set('v.data', []);//clearing the data before populating actual data.
+         component.set("v.selectedTermDepositId","");
+         //CH04 END
         console.log('newdata >>>> '+JSON.stringify(newdata));
         component.set('v.data', newdata);
     },

@@ -1,4 +1,4 @@
-import { LightningElement, wire, api } from 'lwc';
+import { LightningElement, wire, api, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -11,6 +11,7 @@ import getAccountIdByCIF
     from '@salesforce/apex/FaultIncidentCaseController.getAccountIdByCIF';
 import createCaseAnnex
     from '@salesforce/apex/FaultIncidentCaseController.createCaseAnnex';
+import getCustomerNameByCIF from '@salesforce/apex/FaultIncidentCaseController.getCustomerNameByCIF';
 
 export default class FaultIncidentCaseCreation extends NavigationMixin(LightningElement) {
 
@@ -27,6 +28,9 @@ export default class FaultIncidentCaseCreation extends NavigationMixin(Lightning
     interactionId = null;
     wrapupCode = null; // NEW
 
+    @track cif;
+    @track customerName;
+
     @wire(getFaultIncidentRecordTypeId)
     wiredRecordType({ data, error }) {
         if (data) {
@@ -41,6 +45,7 @@ export default class FaultIncidentCaseCreation extends NavigationMixin(Lightning
     getPageReference(pageRef) {
         if (pageRef && pageRef.state) {
             const cif = pageRef.state.c__cif;
+            this.cif = cif;
             this.interactionId = pageRef.state.c__interactionId || null;
             this.wrapupCode = pageRef.state.c__wrapupcode || null; // NEW
 
@@ -57,6 +62,17 @@ export default class FaultIncidentCaseCreation extends NavigationMixin(Lightning
         try {
             this.accountId = await getAccountIdByCIF({ cif });
             if (!this.accountId) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: 'No Account found for the provided CIF.',
+                        variant: 'error'
+                    })
+                );
+            }
+
+            this.customerName = await getCustomerNameByCIF({ cif });
+            if (!this.customerName) {
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',

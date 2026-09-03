@@ -21,3 +21,7 @@ footer {
     gap: 1rem; /* Space between Case Origin and Case Nature */
     align-items: center; /* Aligns fields vertically in the same row */
 }
+
+.pad-st {
+    padding-bottom: 5px;
+}

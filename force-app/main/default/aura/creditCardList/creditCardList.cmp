@@ -359,12 +359,12 @@
                 
                 <lightning:datatable 
                     data="{!v.btPlans}"
-                    aura:id="btPlansTable"
-                    columns="{!v.btColumns}"
-                    keyField="id"
-                    hideCheckboxColumn="false"
-                    maxRowSelection="1"
-                    onrowselection="{!c.handleBTPlanSelection}"/>
+    aura:id="btPlansTable"
+    columns="{!v.btColumns}"
+    keyField="planNumber"
+    hideCheckboxColumn="false"
+    maxRowSelection="1"
+    onrowselection="{!c.handleBTPlanSelection}"/>
 
                 <br/>
                 <div class="slds-align_absolute-center slds-m-top_medium">

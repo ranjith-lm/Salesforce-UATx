@@ -72,7 +72,7 @@
     <actionCalls>
         <name>Send_Email_to_Customer3</name>
         <label>Send Email to Customer</label>
-        <locationX>3570</locationX>
+        <locationX>3834</locationX>
         <locationY>566</locationY>
         <actionName>Case.Issue_Closure</actionName>
         <actionType>emailAlert</actionType>
@@ -113,7 +113,7 @@
     <actionCalls>
         <name>Send_Email_to_Customer_2_0</name>
         <label>Send Email to Customer</label>
-        <locationX>3834</locationX>
+        <locationX>4098</locationX>
         <locationY>566</locationY>
         <actionName>Case.Issue_Closure_alburaq</actionName>
         <actionType>emailAlert</actionType>
@@ -247,9 +247,32 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Case_Status_and_Sub_Status</name>
+        <label>Assign Case Status and Sub Status</label>
+        <locationX>3130</locationX>
+        <locationY>950</locationY>
+        <assignmentItems>
+            <assignToReference>caseRecord.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>caseRecord.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Case_Sub_Status_to_Closed</name>
         <label>Assign Case Sub Status to Closed</label>
-        <locationX>2888</locationX>
+        <locationX>3020</locationX>
         <locationY>1868</locationY>
         <assignmentItems>
             <assignToReference>caseRecord.Sub_Status__c</assignToReference>
@@ -288,7 +311,7 @@
     <assignments>
         <name>Assign_Owner_to_CC</name>
         <label>Assign Owner to CC</label>
-        <locationX>2404</locationX>
+        <locationX>2536</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>caseRecord.OwnerId</assignToReference>
@@ -304,7 +327,7 @@
     <assignments>
         <name>Assign_Status</name>
         <label>Assign Status</label>
-        <locationX>2140</locationX>
+        <locationX>2272</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>caseRecord.Status</assignToReference>
@@ -382,7 +405,7 @@
     <decisions>
         <name>Check_Checker_Result_is_Changed_1</name>
         <label>Check Checker Result is Changed?</label>
-        <locationX>2404</locationX>
+        <locationX>2536</locationX>
         <locationY>350</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -433,7 +456,7 @@
     <decisions>
         <name>Check_Customer_Email_Suppression_on_Creation</name>
         <label>Check Customer Email Suppression on Creation?</label>
-        <locationX>3614</locationX>
+        <locationX>3878</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Check_Case_Model</targetReference>
@@ -458,7 +481,7 @@
     <decisions>
         <name>Check_Record_Type</name>
         <label>Check Record Type?</label>
-        <locationX>2888</locationX>
+        <locationX>3020</locationX>
         <locationY>134</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -570,7 +593,7 @@
     <decisions>
         <name>Check_Status_is_changed_to_Closed</name>
         <label>Check Status is changed to Closed?</label>
-        <locationX>3944</locationX>
+        <locationX>4208</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -621,7 +644,7 @@
     <decisions>
         <name>Check_Type_and_Sub_Type</name>
         <label>Check Type and Sub Type?</label>
-        <locationX>2668</locationX>
+        <locationX>2800</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Copy_2_of_Check_Status_is_changed_to_Closed</targetReference>
@@ -690,7 +713,7 @@
     <decisions>
         <name>Copy_1_of_Check_Case_Model</name>
         <label>Check Case Model?</label>
-        <locationX>3834</locationX>
+        <locationX>4098</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Assign_Case_Sub_Status_to_Closed</targetReference>
@@ -752,7 +775,7 @@
     <decisions>
         <name>Copy_1_of_Check_Status_is_changed_to_Closed</name>
         <label>Copy 1 of Check Status is changed to Closed?</label>
-        <locationX>4626</locationX>
+        <locationX>4890</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -781,7 +804,7 @@
     <decisions>
         <name>Copy_2_of_Check_Status_is_changed_to_Closed</name>
         <label>Check Status is changed to Closed?</label>
-        <locationX>2668</locationX>
+        <locationX>2800</locationX>
         <locationY>842</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -820,6 +843,21 @@
                 <targetReference>Assign_Case_Owner</targetReference>
             </connector>
             <label>RMT Result Changed</label>
+        </rules>
+        <rules>
+            <name>Checker_Result_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>caseRecord.cc_Checker_Result__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approve</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Case_Status_and_Sub_Status</targetReference>
+            </connector>
+            <label>Checker Result Changed</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -974,9 +1012,19 @@ ISPICKVAL({!caseRecord.cc_Request_Type__c}, &quot;Recall Amount&quot;)
         <inputReference>caseRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>3130</locationX>
+        <locationY>1058</locationY>
+        <connector>
+            <targetReference>Assign_Case_Sub_Status_to_Closed</targetReference>
+        </connector>
+        <inputReference>caseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Case_Records</name>
         <label>Update Case Records</label>
-        <locationX>2404</locationX>
+        <locationX>2536</locationX>
         <locationY>650</locationY>
         <connector>
             <targetReference>Copy_2_of_Check_Status_is_changed_to_Closed</targetReference>
@@ -986,7 +1034,7 @@ ISPICKVAL({!caseRecord.cc_Request_Type__c}, &quot;Recall Amount&quot;)
     <recordUpdates>
         <name>Update_Case_Sub_Status_to_closed</name>
         <label>Update Case Sub Status to closed</label>
-        <locationX>2888</locationX>
+        <locationX>3020</locationX>
         <locationY>1976</locationY>
         <inputReference>caseRecord</inputReference>
     </recordUpdates>
@@ -998,7 +1046,7 @@ ISPICKVAL({!caseRecord.cc_Request_Type__c}, &quot;Recall Amount&quot;)
         <inputReference>caseRecord</inputReference>
     </recordUpdates>
     <start>
-        <locationX>2762</locationX>
+        <locationX>2894</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_Record_Type</targetReference>

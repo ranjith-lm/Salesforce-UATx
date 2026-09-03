@@ -249,6 +249,11 @@
                 <default>false</default>
                 <label>Profile Update</label>
             </value>
+            <value>
+                <fullName>Fawri Cancellation Request</fullName>
+                <default>false</default>
+                <label>Fawri Cancellation Request</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

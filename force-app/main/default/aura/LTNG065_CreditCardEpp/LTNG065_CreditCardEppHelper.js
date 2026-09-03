@@ -87,6 +87,7 @@
         rec.numberOfInstallmentsRemaining = eppObj.numberOfInstallmentsRemaining;
         rec.numberOfInstallmentsPaid = eppObj.numberOfInstallmentsPaid;
         rec.installmentBookingDate = eppObj.installmentBookingDate;
+        rec.currencycode=eppObj.currency.code;
         //rec.status = 'ACTIVE';
         rec.status = eppObj.status;
         return rec;

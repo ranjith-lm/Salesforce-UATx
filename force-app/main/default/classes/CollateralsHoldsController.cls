@@ -1,12 +1,8 @@
-/**
- * @description Controller for the Collaterals/Holds LWC
- *              Returns mock data until the actual API is integrated.
- */
 public with sharing class CollateralsHoldsController {
+    @TestVisible
+    private static ApiConnection con = new ApiConnection();
 
-    /**
-     * @description Wrapper for an account that has active holds.
-     */
+    // Wrapper classes
     public class AccountHoldWrapper {
         @AuraEnabled public String accountNumber;
         @AuraEnabled public String accountName;
@@ -23,9 +19,6 @@ public with sharing class CollateralsHoldsController {
         }
     }
 
-    /**
-     * @description Wrapper for individual hold details.
-     */
     public class HoldDetail {
         @AuraEnabled public String holdId;
         @AuraEnabled public String holdType;
@@ -44,70 +37,105 @@ public with sharing class CollateralsHoldsController {
         }
     }
 
-    /**
-     * @description Returns a list of accounts that have active holds for a given CIF.
-     *              In production, this would call the GetCustomerHolds API.
-     *              For now, mock data is returned.
-     * @param cif Customer Identifier
-     * @return List<AccountHoldWrapper>
-     */
     @AuraEnabled(cacheable=true)
-    public static List<AccountHoldWrapper> getCustomerHolds(String cif) {
-        // Mock data – simulate accounts with holds
-        List<AccountHoldWrapper> result = new List<AccountHoldWrapper>();
+public static List<AccountHoldWrapper> getCustomerHolds(String cif, String regionName, String xCanaryValue) {
+    List<AccountHoldWrapper> result = new List<AccountHoldWrapper>();
 
-        // Account 1 – Currency Account
-        List<HoldDetail> holds1 = new List<HoldDetail>{
-            new HoldDetail('H001', 'Legal Hold', 1000.00, 'USD', Date.newInstance(2025, 1, 15), Date.newInstance(2025, 12, 31))
-        };
-        result.add(new AccountHoldWrapper(
-            'ACC001',
-            'Current Account',
-            'USD',
-            1000.00,
-            holds1
-        ));
-
-        // Account 2 – Saving Pot (with multiple holds)
-        List<HoldDetail> holds2 = new List<HoldDetail>{
-            new HoldDetail('H002', 'Court Order', 500.00, 'BHD', Date.newInstance(2025, 2, 1), Date.newInstance(2025, 6, 30)),
-            new HoldDetail('H003', 'Admin Freeze', 200.00, 'BHD', Date.newInstance(2025, 3, 15), Date.newInstance(2025, 5, 15))
-        };
-        result.add(new AccountHoldWrapper(
-            'POT001',
-            'Saving Pot – Vacation',
-            'BHD',
-            700.00,
-            holds2
-        ));
-
-        // Account 3 – Al Kanz
-        List<HoldDetail> holds3 = new List<HoldDetail>{
-            new HoldDetail('H004', 'Tax Levy', 300.00, 'BHD', Date.newInstance(2025, 4, 1), Date.newInstance(2025, 9, 30))
-        };
-        result.add(new AccountHoldWrapper(
-            'KANZ001',
-            'Al Kanz',
-            'BHD',
-            300.00,
-            holds3
-        ));
-
-        // Account 4 – Fixed Deposit (with holds)
-        List<HoldDetail> holds4 = new List<HoldDetail>{
-            new HoldDetail('H005', 'Legal Hold', 1500.00, 'USD', Date.newInstance(2025, 5, 10), Date.newInstance(2026, 5, 10))
-        };
-        result.add(new AccountHoldWrapper(
-            'FD001',
-            'Fixed Deposit – 5-Year',
-            'USD',
-            1500.00,
-            holds4
-        ));
-
-        // Account 5 – Another Currency Account (no holds – will be filtered out)
-        // We intentionally do not add it to demonstrate that only accounts with holds are shown.
-
+    if (String.isBlank(cif)) {
         return result;
     }
+
+    String endpoint = '/api/v1/collaterals';
+    HttpRequest req = con.createRequest('GET', endpoint, cif, regionName);
+    req.setHeader('x-canary', xCanaryValue);
+    req.setTimeout(12000);
+
+    Http http = new Http();
+    HttpResponse response = http.send(req);
+
+    System.debug('Response status: ' + response.getStatusCode());
+    System.debug('Response body: ' + response.getBody());
+
+    if (response.getStatusCode() == 200 && String.isNotBlank(response.getBody())) {
+        try {
+            // Parse root as Map
+            Map<String, Object> root = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+            Map<String, Object> data = (Map<String, Object>) root.get('data');
+            List<Object> collaterals = (List<Object>) data.get('collaterals');
+
+            if (collaterals == null || collaterals.isEmpty()) {
+                return result;
+            }
+
+            // Group by accountId
+            Map<String, List<HoldDetail>> accountHoldsMap = new Map<String, List<HoldDetail>>();
+            Map<String, Decimal> accountTotalMap = new Map<String, Decimal>();
+            Map<String, String> accountCurrencyMap = new Map<String, String>();
+            Map<String, String> accountProductNameMap = new Map<String, String>(); // NEW
+
+            for (Object collObj : collaterals) {
+                Map<String, Object> collMap = (Map<String, Object>) collObj;
+
+                String accountId = (String) collMap.get('accountId');
+                String holdId = (String) collMap.get('holdId');
+                String holdType = (String) collMap.get('holdType');
+                Decimal amount = (Decimal) collMap.get('amount');
+                String curry = (String) collMap.get('currency');
+                String productName = (String) collMap.get('productName'); // NEW
+
+                // Parse timestamp (milliseconds) to Date
+                Date fromDate = null;
+                Date expiryDate = null;
+                Object fromObj = collMap.get('fromDate');
+                Object expiryObj = collMap.get('expiryDate');
+                if (fromObj instanceof String) {
+                    Long fromMillis = Long.valueOf((String) fromObj);
+                    fromDate = DateTime.newInstance(fromMillis).date();
+                }
+                if (expiryObj instanceof String) {
+                    Long expiryMillis = Long.valueOf((String) expiryObj);
+                    expiryDate = DateTime.newInstance(expiryMillis).date();
+                }
+
+                // Build HoldDetail
+                HoldDetail hold = new HoldDetail(holdId, holdType, amount, curry, fromDate, expiryDate);
+
+                // Group by account
+                if (!accountHoldsMap.containsKey(accountId)) {
+                    accountHoldsMap.put(accountId, new List<HoldDetail>());
+                    accountTotalMap.put(accountId, 0);
+                    accountCurrencyMap.put(accountId, curry);
+                    // Store the productName from the first collateral for this account
+                    accountProductNameMap.put(accountId, String.isNotBlank(productName) ? productName : accountId);
+                }
+                accountHoldsMap.get(accountId).add(hold);
+                // Accumulate total for this account
+                Decimal currentTotal = accountTotalMap.get(accountId);
+                accountTotalMap.put(accountId, currentTotal + (amount != null ? amount : 0));
+            }
+
+            System.debug('accountHoldsMap --->' + accountHoldsMap);
+            System.debug('keySet --->' + accountHoldsMap.keySet());
+
+            // Build AccountHoldWrapper for each account
+            for (String accountId : accountHoldsMap.keySet()) {
+                List<HoldDetail> holds = accountHoldsMap.get(accountId);
+                Decimal total = accountTotalMap.get(accountId);
+                String curry = accountCurrencyMap.get(accountId);
+                String accountName = accountProductNameMap.get(accountId); // Use stored productName
+                result.add(new AccountHoldWrapper(accountId, accountName, curry, total, holds));
+            }
+
+        } catch (Exception e) {
+            System.debug('Error parsing response: ' + e.getMessage());
+            // Return empty list on parsing error
+            return new List<AccountHoldWrapper>();
+        }
+    } else {
+        System.debug('API call failed with status: ' + response.getStatusCode());
+        // Optionally throw an exception or return empty list
+    }
+
+    return result;
+}
 }

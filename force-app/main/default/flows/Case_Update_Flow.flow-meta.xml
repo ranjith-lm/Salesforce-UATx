@@ -539,7 +539,7 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Maker_Result_Pending_Customer</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -568,6 +568,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Update_Temp_Queue</targetReference>
             </connector>
@@ -575,7 +582,7 @@
         </rules>
         <rules>
             <name>Maker_Result_Cancelled_by_Customer</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -604,6 +611,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Update_Maker_Cancelled_By_Customer</targetReference>
             </connector>
@@ -611,7 +625,7 @@
         </rules>
         <rules>
             <name>Maker_Result_Send_To_ICU_Checker</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -640,6 +654,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Address_Update</targetReference>
             </connector>
@@ -647,7 +668,7 @@
         </rules>
         <rules>
             <name>Checker_Result_Return_to_Maker</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -676,6 +697,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Update_Contact_Centre_Maker_Queue</targetReference>
             </connector>
@@ -683,7 +711,7 @@
         </rules>
         <rules>
             <name>Checker_Result_Cancelled_By_Customer</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -712,6 +740,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Update_Checker_Result_Cancelled</targetReference>
             </connector>
@@ -719,7 +754,7 @@
         </rules>
         <rules>
             <name>Checker_Result_Decline</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 5) AND 3 AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -746,6 +781,13 @@
                 <operator>IsChanged</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Profile Update</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1572,7 +1614,7 @@
         </rules>
         <rules>
             <name>BackOffice_Flow</name>
-            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5 OR 6 OR 7 OR 8 OR 9)</conditionLogic>
+            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Id</leftValueReference>
                 <operator>IsNull</operator>
@@ -1631,6 +1673,13 @@
             </conditions>
             <conditions>
                 <leftValueReference>$Record.cc_HR_Result__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Sub_Status__c</leftValueReference>
                 <operator>IsChanged</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1809,7 +1858,7 @@
         </rules>
         <rules>
             <name>Automation_of_Production_Support</name>
-            <conditionLogic>1 AND (2 OR 13) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 11 OR 12) AND 10</conditionLogic>
+            <conditionLogic>1 AND (2 OR 13) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 11 OR 12 OR 14 OR 15 OR 16) AND 10</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType_Name__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -1899,6 +1948,27 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Profile Update</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Name Update</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ID Expiry Update</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ID Type Update</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -3142,7 +3212,7 @@
         </rules>
         <rules>
             <name>Case_Disputes_and_Frauds</name>
-            <conditionLogic>1 OR 2 OR 3 OR 4 OR 5</conditionLogic>
+            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 5) AND 6</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
@@ -3176,6 +3246,13 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Case_Enquiries</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Request_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancellation Request</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -5027,7 +5104,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Label.Internal_Control_Unit_Queue</elementReference>
+                <elementReference>$Label.CheckerQueue</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

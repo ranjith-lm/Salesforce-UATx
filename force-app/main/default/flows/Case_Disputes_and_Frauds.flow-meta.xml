@@ -649,12 +649,19 @@
         </rules>
         <rules>
             <name>Dormant</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>caseRecord.Sub_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Dormant</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>caseRecord.Sub_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dormant Account Reactivation</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -795,6 +802,13 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Issue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>caseRecord.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service_Request</stringValue>
                 </rightValue>
             </conditions>
             <connector>

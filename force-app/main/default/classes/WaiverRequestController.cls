@@ -103,7 +103,24 @@ public class WaiverRequestController {
     	return '{\"status\":\"success\",\"recordId\":\"' + recordId + '\"}';
     }
     
-    
+    @AuraEnabled(cacheable=false)
+    public static string sendReminderEmail(String recordId){
+        
+        Set<Id> waiverDocumentIds = new Set<Id>();
+        
+        List<New_Wavier_Approval__c> waiverList = [Select Id FROM New_Wavier_Approval__c 
+                                                   WHERE Id =: recordId AND 
+                                                   Wavier_Level__c  like 'Waiver Level%'];
+        
+        if(!waiverList.isEmpty()){
+            //checking if file is also uploaded.
+            if(!String.isBlank(waiverList[0].ContentDocumentId__c)){
+                waiverDocumentIds.add(waiverList[0].ContentDocumentId__c);
+            }
+        }
+        
+        return '';
+    }
     
     @AuraEnabled(cacheable=false)
     public static String validateFileSize(String contentDoumentId){
@@ -129,6 +146,105 @@ public class WaiverRequestController {
         return 'success';
     }
     
+    
+    @AuraEnabled(cacheable=false)
+    public static ApiConnection.Response loadAccountList(String customerId) {
+        
+        ApiConnection con = new ApiConnection();
+        List<Account> accountList = [SELECT Id,CIF__pc,x_canary__pc,Region_Flag__c,Subscription_Model__pc 
+                                     FROM Account 
+                                     WHERE Id =:customerId];
+        
+        
+        String path = '/api/v1/accounts?returnedAccounts=default,HY';// '/api/v1/accounts?returnedAccounts=ALL';
+        
+        
+        ApiConnection.Response response;
+        
+        if(!accountList.isEmpty()){
+            
+        
+            String regionName = accountList[0].Region_Flag__c;
+            
+            if(accountList[0].Subscription_Model__pc.containsIgnoreCase('alburaq')){
+                regionName += '_alburaq';
+            }
+            
+            HttpRequest req = con.createRequest('GET', path, accountList[0].CIF__pc, regionName);
+            
+            System.debug('loadAccountList## regionName ' + regionName);
+            System.debug('loadAccountList## CIF__pc '+accountList[0].CIF__pc);
+            System.debug('loadAccountList## req '+req);
+            
+            if(accountList[0].x_canary__pc != null){
+                req.setHeader('x-canary', accountList[0].x_canary__pc);
+            }
+            
+            response = con.makeCallout(req);
+            
+            List<String> sensitiveFieldsAccountList = new List<String>{
+                'account.availableBalance',
+                'account.ledgerBalance'
+            };
+                
+            if (response.isSuccess && null != response.responseData) {
+                final Map<String, Object> responseData = (Map<String, Object>)response.responseData;
+                final Object[] accounts = (Object[])responseData.get('accounts');
+                if (SensitiveDataCleaner.loadIsDataCleaningRequired(customerId)) {
+                    SensitiveDataCleaner.removeSensitiveData(accounts, sensitiveFieldsAccountList);
+                }
+            }
+            System.debug('loadAccountList##'+response);
+            return response;
+        }
+        else {
+			return response;            
+        }
+    }
+    
+    @AuraEnabled(cacheable=false)
+    public static ApiConnection.Response loadAccountTransactions(final String customerId,final String searchParametersJson) {
+     
+         List<String> sensitiveFieldsAccountList = new List<String>{
+             'account.availableBalance',
+             'account.ledgerBalance',
+             'account.ledgerBalance'
+         };
+             
+             
+         ApiConnection con = new ApiConnection();
+         ApiConnection.Response response;
+         
+         
+         List<Account> accountList = [SELECT Id,x_canary__pc,Region_Flag__c,Subscription_Model__pc FROM Account WHERE CIF__pc =:customerId];
+         String regionName = '';
+         if(!accountList.isEmpty()){
+             
+             regionName = accountList[0].Region_Flag__c;
+             
+             if(accountList[0].Subscription_Model__pc.containsIgnoreCase('alburaq')){
+                regionName += '_alburaq';
+            }
+             
+             String path = '/api/v1/transactions?';
+             HttpRequest req = con.createRequest('POST', path, customerId, regionName);
+             req.setTimeout(120000);
+             req.setBody(searchParametersJson);
+             if(accountList.get(0).x_canary__pc != null){
+                  req.setHeader('x-canary', accountList.get(0).x_canary__pc);
+             }
+             
+             response = con.makeCallout(req);
+             if (response.isSuccess && null != response.responseData) {
+                Map<String, Object> responseData = (Map<String, Object>)response.responseData;
+                if (SensitiveDataCleaner.loadIsDataCleaningRequired(customerId)) {
+                    SensitiveDataCleaner.removeSensitiveData(responseData, sensitiveFieldsAccountList);
+                }
+              }
+         }
+
+         return response;
+     }
     
     public class CustomApprovalResponse {
         @AuraEnabled 

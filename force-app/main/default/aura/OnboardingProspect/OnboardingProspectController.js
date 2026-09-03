@@ -6,7 +6,7 @@
  *             #CH02 : #Jahangeer Mohammed# #13-04-2025# Added Logic to check duplicate Id number (PI-3973)
  *  		   #CH03 : #Jahangeer Mohammed# #13-05-2025# Added Logic for Onboarding Document Number Enhancements(NBA-13626)
  * 		       #CH04 : #Jahangeer Mohammed# #06-10-2025# Added Logic for restricting mobile country codes(NBA-15878)
-
+			   #CH05 : #Jahangeer Mohammed# #27-08-2026# Added Logic for restricting mobile country codes Jordan(NBA-17747)
  */
 ({
     doInit: function (component, event, helper) {
@@ -608,6 +608,8 @@
         try {
             var childPersonInformation = component.find('personalDetail');
             var childIdInformation = component.find('idInformation');
+            console.log("childIdInformation:", childIdInformation);
+			console.log("Is Array:", Array.isArray(childIdInformation));
             var additionalInformation = component.find('additionalInformation');
             //var isValidationSuccess = childIdInformation.doValidityCheckMethod;
             var idType = childIdInformation.find("idType").get("v.value");
@@ -837,7 +839,14 @@
             }
             //CH03: END
             //CH04: Start
-            let invalidCountryCodes = $A.get("$Label.c.INVALID_COUNTRY_CODE").split(',');
+            //CH05: Start
+            let invalidCountryCodes = [];
+            if(regionName == 'Bahrain') {
+            	invalidCountryCodes = $A.get("$Label.c.INVALID_COUNTRY_CODE").split(',');
+            }else if(regionName == 'Jordan'){
+                invalidCountryCodes = $A.get("$Label.c.INVALID_COUNTRY_CODE_JO").split(',');
+            }
+            //CH05: END
             var childcontactInformation = component.find('contactInformation');
             var mobileCountryCode = childcontactInformation.find("countryISOCode").get("v.value");
 

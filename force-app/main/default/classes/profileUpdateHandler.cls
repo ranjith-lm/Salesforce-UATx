@@ -74,7 +74,7 @@ public class profileUpdateHandler {
                            ////////////////////////////////////////// END: When an Agent is updating the Email field ///////////////////////////////////////////////////
                            
                            ////////////////////////////////////////// Start: When an Agent is updating the ID Type & ID Expiry Date related fields ///////////////////////////////////////////////////////////////////
-                           else if((cs.Type == 'Personal Info Update' || cs.Type == 'Profile Update') && cs.Sub_Type__c == 'Expired ID Update'){
+                           else if((cs.Type == 'Personal Info Update' || cs.Type == 'Profile Update') && (cs.Sub_Type__c == 'Expired ID Update' || cs.Sub_Type__c == 'ID Expiry Update' || cs.Sub_Type__c == 'ID Type Update')){
                                
                                if(cs.Account.PersonEmail != null){
                                    conInfo.put('email', cs.Account.PersonEmail);
@@ -103,7 +103,7 @@ public class profileUpdateHandler {
                            ////////////////////////////////////////// END: When an Agent is updating the ID Type & ID Expiry Date related fields ///////////////////////////////////////////////////////////////////
                            
                            ////////////////////////////////////////// Start: When an Agent is updating the Personnel Information related fields ///////////////////////////////////////////////////////////////////
-                           else if((cs.Type == 'Personal Info Update' || cs.Type == 'Profile Update') && cs.Sub_Type__c == 'Name Fix / Update'){
+                           else if((cs.Type == 'Personal Info Update' || cs.Type == 'Profile Update') && (cs.Sub_Type__c == 'Name Fix / Update' || cs.Sub_Type__c == 'Name Update')){
                                
                                if(cs.Account.PersonEmail != null){
                                    conInfo.put('email', cs.Account.PersonEmail);

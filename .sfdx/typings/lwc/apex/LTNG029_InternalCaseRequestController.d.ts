@@ -1,3 +1,6 @@
+declare module "@salesforce/apex/LTNG029_InternalCaseRequestController.loadLoansList" {
+  export default function loadLoansList(param: {customerId: any, caseModel: any}): Promise<any>;
+}
 declare module "@salesforce/apex/LTNG029_InternalCaseRequestController.getPCIOptionsV2" {
   export default function getPCIOptionsV2(param: {accID: any, caseModel: any}): Promise<any>;
 }

@@ -66,6 +66,7 @@ public class RelationshipTerminationAccController {
                 if(status == 'SUCCESS'){
                     //Update Account Status to Accounts Closed Successfully
                     //caseDetails.Status = 'Closed';
+                    caseDetails.OwnerId=system.label.backOffice_Queue_Id;
                     caseDetails.Sub_Status__c  = 'Accounts Closed Successfully';
                     update caseDetails;
                 }	

@@ -108,7 +108,7 @@ public virtual class SegmentAPIHandler {
                                                                     }
                                                                 }
                                                                 //#CH02 : End
-                                                                req.setTimeOut(1200000);
+                                                                req.setTimeOut(120000);
                                                                 req.setBody(requestText);
                                                                 
                                                                 final System_Action__c action = SystemActionLoggerWithCase.initiateLogRequest(caseId, req, 'Upgrade Downgrade Segment');

@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -7,6 +7,7 @@ import getComplaintRecordTypeId
 import { loadStyle } from "lightning/platformResourceLoader";
 import modal from "@salesforce/resourceUrl/custommodalcss";
 import getAccountIdByCIF from '@salesforce/apex/CaseComplaintController.getAccountIdByCIF';
+import getCustomerNameByCIF from '@salesforce/apex/CaseComplaintController.getCustomerNameByCIF';
 
 export default class CaseComplaint extends NavigationMixin(LightningElement) {
     recordTypeId;
@@ -16,6 +17,9 @@ export default class CaseComplaint extends NavigationMixin(LightningElement) {
     accountId = null;
     interactionId = null;
     wrapupCode = null; // NEW
+
+    @track cif;
+    @track customerName;
 
     connectedCallback() {
         loadStyle(this, modal); // optional – keep if you use the static resource
@@ -34,6 +38,7 @@ export default class CaseComplaint extends NavigationMixin(LightningElement) {
     getPageReference(pageRef) {
         if (pageRef && pageRef.state) {
             const cif = pageRef.state.c__cif;
+            this.cif = cif;
             this.interactionId = pageRef.state.c__interactionId || null;
             this.wrapupCode = pageRef.state.c__wrapupcode || null; // NEW
 
@@ -49,6 +54,17 @@ export default class CaseComplaint extends NavigationMixin(LightningElement) {
         try {
             this.accountId = await getAccountIdByCIF({ cif });
             if (!this.accountId) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: 'No Account found for the provided CIF.',
+                        variant: 'error'
+                    })
+                );
+            }
+
+            this.customerName = await getCustomerNameByCIF({ cif });
+            if (!this.customerName) {
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
@@ -116,6 +132,7 @@ export default class CaseComplaint extends NavigationMixin(LightningElement) {
         const fields = event.detail.fields;
         fields.AccountId = accountId;
         fields.Origin = 'Phone';
+        fields.Sub_Status__c = 'In-Progress';
 
         // NEW: store interaction ID and wrapup code if present
         if (this.interactionId) {

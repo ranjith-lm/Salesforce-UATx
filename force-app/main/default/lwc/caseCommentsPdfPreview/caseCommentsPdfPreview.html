@@ -93,7 +93,9 @@
                                 <td class="col-author">
                                     {thread.createdByName}
                                     <template if:true={thread.hasAttachment}>
-                                        <div class="badge badge-attachment">{thread.attachmentName}</div>
+                                        <template for:each={thread.attachments} for:item="att">
+                                            <div key={att.key} class="badge badge-attachment">{att.attachmentName}</div>
+                                        </template>
                                     </template>
                                 </td>
                                 <td class="col-date nowrap">
@@ -113,7 +115,9 @@
                                                         <div class="reply-meta">
                                                             <strong>{reply.createdBy}</strong>
                                                             <template if:true={reply.hasAttachment}>
-                                                                <span class="badge badge-attachment">{reply.attachmentName}</span>
+                                                                <template for:each={reply.attachments} for:item="att">
+                                                                    <span key={att.key} class="badge badge-attachment">{att.attachmentName}</span>
+                                                                </template>
                                                             </template>
                                                             &mdash;
                                                             <lightning-formatted-date-time value={reply.createdDate}
@@ -183,7 +187,9 @@
                                                         <div class="reply-meta">
                                                             <strong>{reply.createdBy}</strong>
                                                             <template if:true={reply.hasAttachment}>
-                                                                <span class="badge badge-attachment">{reply.attachmentName}</span>
+                                                                <template for:each={reply.attachments} for:item="att">
+                                                                    <span key={att.key} class="badge badge-attachment">{att.attachmentName}</span>
+                                                                </template>
                                                             </template>
                                                             &mdash;
                                                             <lightning-formatted-date-time value={reply.createdDate}
@@ -239,7 +245,9 @@
                                         <div class="reply-meta">{email.fromAddress}</div>
                                     </template>
                                     <template if:true={email.hasAttachment}>
-                                        <div class="badge badge-attachment">{email.attachmentName}</div>
+                                        <template for:each={email.attachments} for:item="att">
+                                            <div key={att.key} class="badge badge-attachment">{att.attachmentName}</div>
+                                        </template>
                                     </template>
                                 </td>
                                 <td class="col-date nowrap">

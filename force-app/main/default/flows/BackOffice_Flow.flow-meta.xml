@@ -3,7 +3,7 @@
     <actionCalls>
         <name>call_PingOne_Platform_API_Delete_Ping_User_on_Account_Termination</name>
         <label>call PingOne Platform API - Delete Ping User on Account Termination</label>
-        <locationX>3306</locationX>
+        <locationX>3482</locationX>
         <locationY>1034</locationY>
         <actionName>LTNG053_DeletePingUserAccTermination</actionName>
         <actionType>apex</actionType>
@@ -49,7 +49,7 @@
     <assignments>
         <name>Update_Cancelled_By_Customer1</name>
         <label>Update-Cancelled By Customer</label>
-        <locationX>2338</locationX>
+        <locationX>2426</locationX>
         <locationY>1034</locationY>
         <assignmentItems>
             <assignToReference>GetCaseRecord.Awaiting_Customer_Feedback__c</assignToReference>
@@ -86,7 +86,7 @@
     <decisions>
         <name>ActionBasedOnBackOfficeResult</name>
         <label>ActionBasedOnBackOfficeResult</label>
-        <locationX>3262</locationX>
+        <locationX>3570</locationX>
         <locationY>926</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -878,6 +878,16 @@
                     <stringValue>Return to Back Office</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>GetCaseRecord.Sub_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Success - Hassala Closure</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Region_Flag_check</targetReference>
+            </connector>
             <label>BackOffice Route</label>
         </rules>
         <rules>
@@ -919,111 +929,9 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Copy_2_of_full_Closure</name>
-        <label>full Closure</label>
-        <locationX>2602</locationX>
-        <locationY>2390</locationY>
-        <defaultConnector>
-            <targetReference>Copy_1_of_Copy_1_of_Copy_2_of_update_customer_status_ByCustomer</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_2_of_full</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varR_NewCase.Unit_Termination__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>varR_NewCase.Account.Subscription_Model__pc</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_2_of_Copy_2_of_update_customer_status_ByCustomer</targetReference>
-            </connector>
-            <label>Copy 2 of full</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Decision_8</name>
-        <label>Termination Unit</label>
-        <locationX>2338</locationX>
-        <locationY>2282</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Outcome_1_of_Decision_8</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varR_NewCase.Unit_Termination__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>both</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>update_customer_status_ByCustomer</targetReference>
-            </connector>
-            <label>Both</label>
-        </rules>
-        <rules>
-            <name>ila</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varR_NewCase.Unit_Termination__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>ila</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>full_Closure</targetReference>
-            </connector>
-            <label>ila</label>
-        </rules>
-        <rules>
-            <name>alburaq</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varR_NewCase.Unit_Termination__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>alburaq</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_2_of_full_Closure</targetReference>
-            </connector>
-            <label>alburaq</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>full_Closure</name>
-        <label>full Closure</label>
-        <locationX>2074</locationX>
-        <locationY>2390</locationY>
-        <defaultConnector>
-            <targetReference>Copy_1_of_Copy_2_of_update_customer_status_ByCustomer</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Partial</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varR_NewCase.Unit_Termination__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>varR_NewCase.Account.Subscription_Model__pc</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_2_of_update_customer_status_ByCustomer</targetReference>
-            </connector>
-            <label>full</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>HR_Result_Changed</name>
         <label>HR Result Changed?</label>
-        <locationX>3262</locationX>
+        <locationX>3570</locationX>
         <locationY>134</locationY>
         <defaultConnector>
             <targetReference>GetCaseRecord</targetReference>
@@ -1091,7 +999,7 @@
     <decisions>
         <name>is_case_Created_By_contact_center</name>
         <label>is case Created By contact center?</label>
-        <locationX>2899</locationX>
+        <locationX>3207</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Assign_case_to_backOffice</targetReference>
@@ -1116,7 +1024,7 @@
     <decisions>
         <name>parentCaseStatusAction</name>
         <label>parentCaseStatusAction</label>
-        <locationX>2338</locationX>
+        <locationX>2426</locationX>
         <locationY>1466</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1242,7 +1150,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Decision_8</targetReference>
+                <targetReference>update_customer_status_without_blackListed_Flag</targetReference>
             </connector>
             <label>Flagged Termination Case Created by Contact Center</label>
         </rules>
@@ -1278,7 +1186,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Decision_8</targetReference>
+                <targetReference>update_customer_status_ByCustomer</targetReference>
             </connector>
             <label>Child Closed &amp; Completed by Customer</label>
         </rules>
@@ -1286,7 +1194,7 @@
     <decisions>
         <name>Region_Flag</name>
         <label>Region Flag?</label>
-        <locationX>2701</locationX>
+        <locationX>3009</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Assign_case_to_Jordan_Contact_center</targetReference>
@@ -1333,6 +1241,43 @@
             <label>Bahrain</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Region_Flag_check</name>
+        <label>Region Flag</label>
+        <locationX>6386</locationX>
+        <locationY>1034</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Bahrain_v2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetCaseRecord.Region_Flag__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bahrain</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Route_Back_to_Back_office</targetReference>
+            </connector>
+            <label>Bahrain</label>
+        </rules>
+        <rules>
+            <name>Jordan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetCaseRecord.Region_Flag__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Jordan</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Update_Back_Office_Queue_Contact_Centre</targetReference>
+            </connector>
+            <label>Jordan</label>
+        </rules>
+    </decisions>
     <description>cloned from V35 //add call PingOne Platform API - Delete Ping User on Account Termination</description>
     <environments>Default</environments>
     <formulas>
@@ -1364,7 +1309,7 @@
     <recordLookups>
         <name>accountRecord</name>
         <label>accountRecord</label>
-        <locationX>2338</locationX>
+        <locationX>2426</locationX>
         <locationY>1358</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1385,13 +1330,13 @@
     <recordLookups>
         <name>GetCaseRecord</name>
         <label>GetCaseRecord</label>
-        <locationX>3262</locationX>
+        <locationX>3570</locationX>
         <locationY>818</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>ActionBasedOnBackOfficeResult</targetReference>
         </connector>
-        <filterLogic>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15)</filterLogic>
+        <filterLogic>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16)</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -1497,6 +1442,13 @@
                 <stringValue>Cancelled By Customer</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Sub_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Success - Hassala Closure</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Case</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -1504,7 +1456,7 @@
     <recordLookups>
         <name>Parent_Case</name>
         <label>Parent Case</label>
-        <locationX>2338</locationX>
+        <locationX>2426</locationX>
         <locationY>1250</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1525,7 +1477,7 @@
     <recordUpdates>
         <name>Assign_case_to_backOffice</name>
         <label>Assign case to backOffice</label>
-        <locationX>3097</locationX>
+        <locationX>3405</locationX>
         <locationY>350</locationY>
         <connector>
             <targetReference>GetCaseRecord</targetReference>
@@ -1567,7 +1519,7 @@
     <recordUpdates>
         <name>Assign_case_to_Contact_center</name>
         <label>Assign case to Contact center</label>
-        <locationX>2569</locationX>
+        <locationX>2877</locationX>
         <locationY>458</locationY>
         <connector>
             <targetReference>GetCaseRecord</targetReference>
@@ -1609,7 +1561,7 @@
     <recordUpdates>
         <name>Assign_case_to_Jordan_Contact_center</name>
         <label>Assign case to Jordan Contact center</label>
-        <locationX>2833</locationX>
+        <locationX>3141</locationX>
         <locationY>458</locationY>
         <connector>
             <targetReference>GetCaseRecord</targetReference>
@@ -1684,7 +1636,7 @@
     <recordUpdates>
         <name>Close_case</name>
         <label>Close case</label>
-        <locationX>3361</locationX>
+        <locationX>3669</locationX>
         <locationY>242</locationY>
         <connector>
             <targetReference>GetCaseRecord</targetReference>
@@ -1718,117 +1670,51 @@
         <object>Case</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Copy_1_of_Copy_1_of_Copy_2_of_update_customer_status_ByCustomer</name>
-        <label>update customer status -ByCustomer</label>
-        <locationX>2734</locationX>
-        <locationY>2498</locationY>
+        <name>Copy_1_of_Route_Back_to_Back_office</name>
+        <label>Route Back to Back office</label>
+        <locationX>6122</locationX>
+        <locationY>1142</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>accountRecord.Id</elementReference>
+                <elementReference>caseRecordId</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Closure_Reason__c</field>
+            <field>OwnerId</field>
             <value>
-                <elementReference>GetCaseRecord.Final_Closure_Reason__c</elementReference>
+                <elementReference>$Label.backOffice_Queue_Id</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>Subscription_Model__pc</field>
-            <value>
-                <stringValue>ila</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
+        <object>Case</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Copy_1_of_Copy_2_of_update_customer_status_ByCustomer</name>
-        <label>update customer status -ByCustomer</label>
-        <locationX>2206</locationX>
-        <locationY>2498</locationY>
+        <name>Copy_1_of_Update_Back_Office_Queue_Contact_Centre</name>
+        <label>Route Back to Back office</label>
+        <locationX>6386</locationX>
+        <locationY>1142</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>accountRecord.Id</elementReference>
+                <elementReference>caseRecordId</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Closure_Reason__c</field>
+            <field>OwnerId</field>
             <value>
-                <elementReference>GetCaseRecord.Final_Closure_Reason__c</elementReference>
+                <elementReference>$Label.Jordan_BackOffice</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>Subscription_Model__pc</field>
-            <value>
-                <stringValue>alburaq</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_2_of_Copy_2_of_update_customer_status_ByCustomer</name>
-        <label>update customer status -ByCustomer</label>
-        <locationX>2470</locationX>
-        <locationY>2498</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>accountRecord.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Closure_Reason__c</field>
-            <value>
-                <elementReference>GetCaseRecord.Final_Closure_Reason__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>CustomerStatus__c</field>
-            <value>
-                <stringValue>Closed</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_2_of_update_customer_status_ByCustomer</name>
-        <label>update customer status -ByCustomer</label>
-        <locationX>1942</locationX>
-        <locationY>2498</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>accountRecord.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Closure_Reason__c</field>
-            <value>
-                <elementReference>GetCaseRecord.Final_Closure_Reason__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>CustomerStatus__c</field>
-            <value>
-                <stringValue>Closed</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
+        <object>Case</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Back_Office_Queue_Contact_Centre</name>
         <label>Update-Back Office Queue Contact Centre</label>
-        <locationX>5154</locationX>
+        <locationX>5330</locationX>
         <locationY>1034</locationY>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1880,7 +1766,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_Contact_Centre_0</name>
         <label>Update-Back Office Queue Contact Centre</label>
-        <locationX>5418</locationX>
+        <locationX>5594</locationX>
         <locationY>1034</locationY>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1939,7 +1825,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_GPH</name>
         <label>Update-Back Office Queue GPH</label>
-        <locationX>4626</locationX>
+        <locationX>4802</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND (2 OR 3) AND 4</filterLogic>
         <filters>
@@ -2005,7 +1891,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_GPH_0</name>
         <label>Update-Back Office Queue GPH</label>
-        <locationX>4890</locationX>
+        <locationX>5066</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND(2 OR 3)AND 4</filterLogic>
         <filters>
@@ -2071,7 +1957,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_ICU</name>
         <label>Update-Back Office Queue ICU</label>
-        <locationX>4098</locationX>
+        <locationX>4274</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND (2 OR 3) AND 4</filterLogic>
         <filters>
@@ -2137,7 +2023,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_ICU_0</name>
         <label>Update-Back Office Queue ICU</label>
-        <locationX>4362</locationX>
+        <locationX>4538</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND (2 OR 3) AND 4</filterLogic>
         <filters>
@@ -2203,7 +2089,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_Operation</name>
         <label>Update-Back Office Queue Operation</label>
-        <locationX>3834</locationX>
+        <locationX>4010</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND (2 OR 3) AND 4</filterLogic>
         <filters>
@@ -2269,7 +2155,7 @@
     <recordUpdates>
         <name>Update_Back_Office_Queue_Operation_0</name>
         <label>Update-Back Office Queue Operation</label>
-        <locationX>3570</locationX>
+        <locationX>3746</locationX>
         <locationY>1034</locationY>
         <filterLogic>1 AND (2 OR 3) AND 4</filterLogic>
         <filters>
@@ -2335,7 +2221,7 @@
     <recordUpdates>
         <name>Update_Case</name>
         <label>Update Case</label>
-        <locationX>2338</locationX>
+        <locationX>2426</locationX>
         <locationY>1142</locationY>
         <connector>
             <targetReference>Parent_Case</targetReference>
@@ -2426,8 +2312,35 @@
     <recordUpdates>
         <name>update_customer_status_ByCustomer</name>
         <label>update customer status -ByCustomer</label>
-        <locationX>1678</locationX>
-        <locationY>2390</locationY>
+        <locationX>2954</locationX>
+        <locationY>1574</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Closure_Reason__c</field>
+            <value>
+                <elementReference>GetCaseRecord.Final_Closure_Reason__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CustomerStatus__c</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>update_customer_status_without_blackListed_Flag</name>
+        <label>update customer status without blackListed Flag</label>
+        <locationX>2690</locationX>
+        <locationY>1574</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2453,7 +2366,7 @@
     <recordUpdates>
         <name>Update_Declined</name>
         <label>Update-Declined</label>
-        <locationX>5682</locationX>
+        <locationX>5858</locationX>
         <locationY>1034</locationY>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2886,17 +2799,17 @@
         <object>Case</object>
     </recordUpdates>
     <start>
-        <locationX>3136</locationX>
+        <locationX>3444</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>HR_Result_Changed</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <subflows>
         <name>App_restriction_Blackisted</name>
         <label>App restriction</label>
-        <locationX>3306</locationX>
+        <locationX>3482</locationX>
         <locationY>1142</locationY>
         <connector>
             <isGoTo>true</isGoTo>

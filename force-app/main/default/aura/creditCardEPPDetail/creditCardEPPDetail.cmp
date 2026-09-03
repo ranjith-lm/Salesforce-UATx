@@ -63,7 +63,7 @@
                         <span class="slds-form-element__label">Transaction Amount</span> 
                         <div class="slds-form-element__control">
                             <div class="slds-form-element__static">
-                               {!v.eppDetailData[0].transactionAmount}
+                                {!(v.eppDetailData[0].transactionAmount+' '+v.eppDetailData[0].currencycode)}
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         <span class="slds-form-element__label">Installments Amount</span> 
                         <div class="slds-form-element__control">
                             <div class="slds-form-element__static">
-                               {!v.eppDetailData[0].installmentAmount}
+                               {!(v.eppDetailData[0].installmentAmount+' '+v.eppDetailData[0].currencycode)}
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <span class="slds-form-element__label">Remaining Balance</span>
                         <div class="slds-form-element__control">
                             <div class="slds-form-element__static">
-                                {!v.eppDetailData[0].remainingBalance}
+                                {!(v.eppDetailData[0].remainingBalance+' '+v.eppDetailData[0].currencycode)}
                             </div>
                         </div>
                     </div>

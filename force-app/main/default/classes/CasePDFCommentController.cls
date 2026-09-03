@@ -59,12 +59,18 @@ public with sharing class CasePDFCommentController {
     }
 
     public class AttachmentInfo {
-        @AuraEnabled public Boolean hasAttachment;
-        @AuraEnabled public String attachmentName;
-        @AuraEnabled public String attachmentExtension;
+        @AuraEnabled public Boolean hasAttachment { get; set; }
+        @AuraEnabled public String attachmentName { get; set; }
+        @AuraEnabled public String attachmentExtension { get; set; }
 
         public AttachmentInfo() {
             this.hasAttachment = false;
+        }
+
+        public AttachmentInfo(String fileName) {
+            this.hasAttachment = true;
+            this.attachmentName = fileName;
+            this.attachmentExtension = extensionFromFileName(fileName);
         }
     }
 
@@ -135,10 +141,10 @@ public with sharing class CasePDFCommentController {
         return title;
     }
 
-    private static Map<Id, String> buildEmailAttachmentLabels(List<EmailMessage> emailList) {
-        Map<Id, String> labelsByEmailId = new Map<Id, String>();
+    private static Map<Id, List<AttachmentInfo>> buildEmailAttachments(List<EmailMessage> emailList) {
+        Map<Id, List<AttachmentInfo>> attachmentsByEmailId = new Map<Id, List<AttachmentInfo>>();
         if (emailList == null || emailList.isEmpty()) {
-            return labelsByEmailId;
+            return attachmentsByEmailId;
         }
 
         Set<Id> emailIds = new Set<Id>();
@@ -148,10 +154,10 @@ public with sharing class CasePDFCommentController {
             }
         }
         if (emailIds.isEmpty() || !Schema.sObjectType.ContentDocumentLink.isAccessible()) {
-            return labelsByEmailId;
+            return attachmentsByEmailId;
         }
 
-        Map<Id, Id> emailToDocId = new Map<Id, Id>();
+        Map<Id, List<Id>> docsByEmailId = new Map<Id, List<Id>>();
         Set<Id> contentDocumentIds = new Set<Id>();
         for (ContentDocumentLink cdl : [
             SELECT LinkedEntityId, ContentDocumentId
@@ -159,10 +165,11 @@ public with sharing class CasePDFCommentController {
             WHERE LinkedEntityId IN :emailIds
             WITH SECURITY_ENFORCED
         ]) {
-            if (!emailToDocId.containsKey(cdl.LinkedEntityId)) {
-                emailToDocId.put(cdl.LinkedEntityId, cdl.ContentDocumentId);
-                contentDocumentIds.add(cdl.ContentDocumentId);
+            if (!docsByEmailId.containsKey(cdl.LinkedEntityId)) {
+                docsByEmailId.put(cdl.LinkedEntityId, new List<Id>());
             }
+            docsByEmailId.get(cdl.LinkedEntityId).add(cdl.ContentDocumentId);
+            contentDocumentIds.add(cdl.ContentDocumentId);
         }
 
         Map<Id, String> labelByDocId = new Map<Id, String>();
@@ -178,20 +185,23 @@ public with sharing class CasePDFCommentController {
             }
         }
 
-        for (Id emailId : emailToDocId.keySet()) {
-            Id docId = emailToDocId.get(emailId);
-            if (labelByDocId.containsKey(docId)) {
-                labelsByEmailId.put(emailId, labelByDocId.get(docId));
+        for (Id emailId : docsByEmailId.keySet()) {
+            List<AttachmentInfo> infos = new List<AttachmentInfo>();
+            Set<String> seenNames = new Set<String>();
+            for (Id docId : docsByEmailId.get(emailId)) {
+                String label = labelByDocId.get(docId);
+                addUniqueAttachment(infos, seenNames, String.isNotBlank(label) ? new AttachmentInfo(label) : new AttachmentInfo('Image'));
             }
+            attachmentsByEmailId.put(emailId, infos);
         }
-        return labelsByEmailId;
+        return attachmentsByEmailId;
     }
 
-    private static String fileNameFromLookup(String rawBody, Map<String, String> fileNamesById) {
-        if (fileNamesById == null || fileNamesById.isEmpty()) {
+    private static String fileNameFromLookup(String source, Map<String, String> fileNamesById) {
+        if (String.isBlank(source) || fileNamesById == null || fileNamesById.isEmpty()) {
             return null;
         }
-        for (String fileId : extractFileIds(rawBody)) {
+        for (String fileId : extractFileIds(source)) {
             if (fileNamesById.containsKey(fileId)) {
                 return fileNamesById.get(fileId);
             }
@@ -199,12 +209,24 @@ public with sharing class CasePDFCommentController {
         return null;
     }
 
+    private static void addUniqueAttachment(List<AttachmentInfo> results, Set<String> seenNames, AttachmentInfo info) {
+        if (info == null || String.isBlank(info.attachmentName)) {
+            return;
+        }
+        String key = info.attachmentName.toLowerCase();
+        if (seenNames.contains(key)) {
+            return;
+        }
+        seenNames.add(key);
+        results.add(info);
+    }
+
     // Resolves a single <img> tag's attributes into an AttachmentInfo.
-    private static AttachmentInfo parseSingleImage(String attrs, Map<String, String> fileNamesById, String rawBody) {
+    private static AttachmentInfo parseSingleImage(String attrs, Map<String, String> fileNamesById) {
         AttachmentInfo info = new AttachmentInfo();
         info.hasAttachment = true;
 
-        String lookedUp = fileNameFromLookup(rawBody, fileNamesById);
+        String lookedUp = fileNameFromLookup(attrs, fileNamesById);
         if (String.isNotBlank(lookedUp)) {
             info.attachmentName = lookedUp;
             info.attachmentExtension = extensionFromFileName(lookedUp);
@@ -236,26 +258,28 @@ public with sharing class CasePDFCommentController {
         return info;
     }
 
-    // Parses ALL <img> tags in a body (previously only the first was captured).
+    // Parses every <img> tag and every file Id in the body (not just the first).
     private static List<AttachmentInfo> parseAttachments(String rawBody, Map<String, String> fileNamesById) {
         List<AttachmentInfo> results = new List<AttachmentInfo>();
-        if (!hasImgAttachment(rawBody)) {
-            return results;
+        Set<String> seenNames = new Set<String>();
+
+        if (hasImgAttachment(rawBody)) {
+            Matcher imgMatcher = Pattern.compile('(?i)<img\\s+([^>]+)>').matcher(rawBody);
+            Boolean foundTag = false;
+            while (imgMatcher.find()) {
+                foundTag = true;
+                addUniqueAttachment(results, seenNames, parseSingleImage(imgMatcher.group(1), fileNamesById));
+            }
+            if (!foundTag) {
+                addUniqueAttachment(results, seenNames, new AttachmentInfo('Image'));
+            }
         }
 
-        Matcher imgMatcher = Pattern.compile('(?i)<img\\s+([^>]+)>').matcher(rawBody);
-        Boolean foundTag = false;
-        while (imgMatcher.find()) {
-            foundTag = true;
-            results.add(parseSingleImage(imgMatcher.group(1), fileNamesById, rawBody));
-        }
-
-        if (!foundTag) {
-            // '<img' was present but didn't match the attribute pattern (e.g. self-closing/no attrs)
-            AttachmentInfo fallback = new AttachmentInfo();
-            fallback.hasAttachment = true;
-            fallback.attachmentName = 'Image';
-            results.add(fallback);
+        for (String fileId : extractFileIds(rawBody)) {
+            String label = (fileNamesById == null) ? null : fileNamesById.get(fileId);
+            if (String.isNotBlank(label)) {
+                addUniqueAttachment(results, seenNames, new AttachmentInfo(label));
+            }
         }
         return results;
     }
@@ -275,8 +299,8 @@ public with sharing class CasePDFCommentController {
             this.comment       = cc;
             String rawBody     = cc.CommentBody != null ? cc.CommentBody : '';
             this.attachments   = parseAttachments(rawBody, fileNamesById);
-            AttachmentInfo primary = this.attachments.isEmpty() ? new AttachmentInfo() : this.attachments[0];
-            this.hasAttachment = primary.hasAttachment;
+            this.hasAttachment = !this.attachments.isEmpty();
+            AttachmentInfo primary = this.hasAttachment ? this.attachments[0] : new AttachmentInfo();
             this.attachmentName = primary.attachmentName;
             this.attachmentExtension = primary.attachmentExtension;
 
@@ -299,8 +323,8 @@ public with sharing class CasePDFCommentController {
         public ReplyThread(FeedComment fc, Map<String, String> fileNamesById) {
             String rawBody     = fc.CommentBody != null ? fc.CommentBody : '';
             this.attachments   = parseAttachments(rawBody, fileNamesById);
-            AttachmentInfo primary = this.attachments.isEmpty() ? new AttachmentInfo() : this.attachments[0];
-            this.hasAttachment = primary.hasAttachment;
+            this.hasAttachment = !this.attachments.isEmpty();
+            AttachmentInfo primary = this.hasAttachment ? this.attachments[0] : new AttachmentInfo();
             this.attachmentName = primary.attachmentName;
             this.attachmentExtension = primary.attachmentExtension;
 
@@ -325,7 +349,9 @@ public with sharing class CasePDFCommentController {
         @AuraEnabled public String  attachmentName { get; set; }
         @AuraEnabled public String  attachmentExtension { get; set; }
 
-        public EmailEntry(EmailMessage em, String resolvedAttachmentLabel) {
+        @AuraEnabled public List<AttachmentInfo> attachments { get; set; }
+
+        public EmailEntry(EmailMessage em, List<AttachmentInfo> resolvedAttachments) {
             this.subject       = String.isNotBlank(em.Subject)     ? em.Subject     : '(No Subject)';
             this.fromName      = String.isNotBlank(em.FromName)    ? em.FromName    : '';
             this.fromAddress   = String.isNotBlank(em.FromAddress) ? em.FromAddress : '';
@@ -336,9 +362,14 @@ public with sharing class CasePDFCommentController {
             this.status        = em.Status;
             this.messageDate   = em.MessageDate;
             this.hasAttachment = em.HasAttachment;
+            this.attachments   = resolvedAttachments != null ? resolvedAttachments : new List<AttachmentInfo>();
             if (em.HasAttachment) {
-                this.attachmentName = String.isNotBlank(resolvedAttachmentLabel) ? resolvedAttachmentLabel : 'Image';
-                this.attachmentExtension = extensionFromFileName(this.attachmentName);
+                if (this.attachments.isEmpty()) {
+                    this.attachments.add(new AttachmentInfo('Image'));
+                }
+                AttachmentInfo primary = this.attachments[0];
+                this.attachmentName = primary.attachmentName;
+                this.attachmentExtension = primary.attachmentExtension;
             } else {
                 this.attachmentName = null;
                 this.attachmentExtension = null;
@@ -577,9 +608,9 @@ public with sharing class CasePDFCommentController {
 
         if (!emailList.isEmpty()) {
             hasEmails = true;
-            Map<Id, String> emailAttachmentLabels = buildEmailAttachmentLabels(emailList);
+            Map<Id, List<AttachmentInfo>> emailAttachments = buildEmailAttachments(emailList);
             for (EmailMessage em : emailList) {
-                emails.add(new EmailEntry(em, emailAttachmentLabels.get(em.Id)));
+                emails.add(new EmailEntry(em, emailAttachments.get(em.Id)));
             }
         }
 

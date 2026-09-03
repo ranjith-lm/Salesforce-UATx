@@ -132,8 +132,18 @@ export default class LWC02_CaseDetails extends LightningElement {
                     this.isConfigJsonFetched = false;
 
                     if (this.wiredCaseFields) {
-                        console.log('Case owner:', this.wiredCaseFields.ownerid);
-                        var ownerid = this.wiredCaseFields.ownerid;
+                        //console.log('Case owner:', this.wiredCaseFields.ownerid);
+                        let loanOwnerid = this.wiredCaseFields.ownerid;
+                        let lastAssignedQueueId = this.wiredCaseFields.alias_account__c;
+                        var ownerid;
+                        if(lastAssignedQueueId != null && lastAssignedQueueId.startsWith('00G') ){
+                            ownerid = lastAssignedQueueId;
+                            console.log('Loan -> lastAssignedQueueId using "Accout Alias" Field --> ', ownerid);
+                        }
+                        else{
+                            ownerid = loanOwnerid;
+                            console.log('Loan -> loanOwnerid using OwnerId Field --> ', ownerid);
+                        }
                         getOwnerDeveloperName({ ownerid: ownerid })
                             .then(result => {
                                 console.log('Queue Developer Name:', result);
@@ -482,6 +492,30 @@ export default class LWC02_CaseDetails extends LightningElement {
 
         var fieldValue;
         if (lowerobjectName === 'queue') {
+            //#CH02 : start
+            if (this.ownerDeveloperName == null) {
+                //console.log('this.caseRecord.ownerId :', this.caseRecord.ownerid);
+                let loanOwnerid = this.wiredCaseFields.ownerid;
+                let lastAssignedQueueId = this.wiredCaseFields.alias_account__c;
+                var ownerid;
+                if(lastAssignedQueueId != null && lastAssignedQueueId.startsWith('00G') ){
+                    ownerid = lastAssignedQueueId;
+                    console.log('Loan -> lastAssignedQueueId using "Accout Alias" Field --> ', ownerid);
+                }
+                else{
+                    ownerid = loanOwnerid;
+                    console.log('Loan -> loanOwnerid using OwnerId Field --> ', ownerid);
+                }
+                getOwnerDeveloperName({ ownerid: ownerid })
+                    .then(result => {
+                        console.log('--> Queue Developer Name:', result);
+                        this.ownerDeveloperName = result;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+            //#CH02 : End
             fieldValue = this.ownerDeveloperName;
             console.log('Queue Dev evaluation - objectName:', lowerobjectName, 'fieldValue:', fieldValue, 'comparisonValue:', value);
         } else {

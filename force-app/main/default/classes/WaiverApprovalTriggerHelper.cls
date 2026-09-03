@@ -31,7 +31,7 @@ public class WaiverApprovalTriggerHelper {
         }
         
         //sending an email to all the queue members
-        sendEmailToApprover(waiverOwnerIds,waiverMap.values(),documentIds);
+        sendEmailToApprover(waiverOwnerIds,waiverMap.values(),documentIds,false);
     }
     
     public static void reassignWaiver(List<New_Wavier_Approval__c> records,Set<Id> documentIds){
@@ -63,10 +63,10 @@ public class WaiverApprovalTriggerHelper {
         }
         
         //sending an email to all the queue members
-        sendEmailToApprover(waiverOwnerIds,records,documentIds);    
+        sendEmailToApprover(waiverOwnerIds,records,documentIds,false);    
     }
     
-    public static void sendEmailToApprover(Set<Id> waiverOwnerIds,List<New_Wavier_Approval__c> records,Set<Id> documentIds){
+    public static void sendEmailToApprover(Set<Id> waiverOwnerIds,List<New_Wavier_Approval__c> records,Set<Id> documentIds,Boolean isReminderEmail){
         Map<Id,List<String>> groupIdToUserListMap = new Map<Id,List<String>>();
         
         EmailTemplate waiverTemplates = [SELECT Id from EmailTemplate

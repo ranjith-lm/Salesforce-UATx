@@ -28,6 +28,25 @@ Change History :
         console.log('handleOnSubmit');
         
           event.preventDefault();
+            var fields = event.getParam("fields");
+            //omar start loans Collection change
+            if (component.get("v.type") == 'Loans - Collection Case') {
+                var loanAmount = component.get("v.creditLimit");
+                var loanOutstanding = component.get("v.outstanding");
+                loanAmount = (loanAmount !== null && loanAmount !== '') ? Number(loanAmount) : null;
+                loanOutstanding = (loanOutstanding !== null && loanOutstanding !== '') ? Number(loanOutstanding) : null;
+                fields.cc_Current_Credit_Limit__c = loanAmount;
+                fields.Credit_Card_Outstanding_Balance__c = loanOutstanding;
+                var limitField = component.find("loanCreditLimitField");
+                var outstandingField = component.find("loanOutstandingField");
+                if (limitField) {
+                    limitField.set("v.value", loanAmount);
+                }
+                if (outstandingField) {
+                    outstandingField.set("v.value", loanOutstanding);
+                }
+            }
+            //omar end loans Collection change
             var selectedValue = component.get("v.Sub_Type__c");
            console.log('Sub Type Value:',selectedValue);
             if(selectedValue != null && selectedValue != '' && selectedValue=="Apply Restriction"){
@@ -36,7 +55,7 @@ Change History :
                 component.find("Restriction_Reason1").set("v.value", "");
             	component.find("BUA_Reason").set("v.value", val);
                 //CH07: Start
-                component.find('form').submit();
+                component.find('form').submit(fields);
                 helper.showSpinner(component);
                 //CH07: END
             }
@@ -56,7 +75,7 @@ Change History :
                         	helper.handleErrors('Credit Retail Team is allowed to create the case', '');
                     	}
                         else if(result == true){
-                            component.find('form').submit();
+                            component.find('form').submit(fields);
                 			helper.showSpinner(component);
                         }
                     
@@ -66,7 +85,7 @@ Change History :
               }
             }else{
                component.set("v.Restriction_Reason","");
-               component.find('form').submit();
+               component.find('form').submit(fields);
                helper.showSpinner(component);
             }
         //CH07: END
@@ -129,10 +148,29 @@ Change History :
 	},
 
     requestPCINumberChange: function (component, event, helper) {//CH02	
-		let requestedPCINumber = component.find("requestedPCINumber").get("v.value");	
+		let typeCase = component.get("v.type");
+        //omar start loans Collection change
+        let requestedPCINumber = typeCase == 'Loans - Collection Case'
+            ? component.find("requestedLoanNumber").get("v.value")
+            : component.find("requestedPCINumber").get("v.value");
+        //omar end loans Collection change
         console.log('Id masterCard==> '+requestedPCINumber);
         console.log('test==>');
-		if(requestedPCINumber != null && requestedPCINumber != ''){	
+		if(requestedPCINumber != null && requestedPCINumber != ''){
+            //omar start loans Collection change
+            if(typeCase == 'Loans - Collection Case'){
+                var loanValues = component.get("v.loanIdNumber");
+                var loanIndex = loanValues.findIndex(item => item.cardId == requestedPCINumber);
+                var selectedLoan = loanIndex >= 0 ? loanValues[loanIndex] : null;
+                if(selectedLoan && selectedLoan.cardObj){
+                    component.set('v.selectedPCINumber', requestedPCINumber);
+                    component.set('v.selectedCardNumber', selectedLoan.cardObj.loanAccountNumber);
+                    component.set('v.creditLimit', selectedLoan.cardObj.principalLoanAmount != null ? Number(selectedLoan.cardObj.principalLoanAmount) : null);
+                    component.set('v.outstanding', selectedLoan.cardObj.loanOutstandingAmount != null ? Number(selectedLoan.cardObj.loanOutstandingAmount) : null);
+                }
+                return;
+            }
+            //omar end loans Collection change
             var myValues= component.get("v.cc_cardPCINumber"); 
             var value = component.find("requestedPCINumber").get("v.value");
             var index = myValues.findIndex(item => item.cardId == requestedPCINumber);
@@ -153,8 +191,20 @@ Change History :
 		// }else{	
 		// 	component.set("v.creditLimit",null);	
         //     component.set("v.creditOutstanding",null);
-		// }	
+		// 		}	
 	},
+    //omar start loans Collection change
+    handleLoanAmountChange : function(component, event, helper) {
+        var newValue = event.getSource().get("v.value");
+        console.log('this is the new Credit Limit');
+        component.set("v.creditLimit", (newValue !== null && newValue !== '') ? Number(newValue) : null);
+    },
+    handleLoanBalanceChange : function(component, event, helper) {
+        var newValue = event.getSource().get("v.value");
+        console.log('this is the selectedCardNumber');
+        component.set("v.outstanding", (newValue !== null && newValue !== '') ? Number(newValue) : null);
+    },
+    //omar end loans Collection change
     isChangeType : function(component, event, helper) {
 
         let typeCase = component.get("v.type");
@@ -202,6 +252,59 @@ Change History :
             }
         }
 
+        //omar start loans Collection change
+        if(typeCase == 'Loans - Collection Case'){
+            try {
+                var accountRecord = component.get("v.accountRecord");
+                var customerId = accountRecord ? accountRecord.CIF__pc : null;
+                var action = component.get("c.loadLoansList");
+                action.setParams({
+                    customerId : customerId,
+                    caseModel : component.get("v.caseModel")
+                });
+
+                action.setCallback(this, function(response) {
+                    var state = response.getState();
+                    console.log('loadLoansList state '+state);
+                    if (state === "SUCCESS") {
+                        var result = response.getReturnValue();
+                        console.log('loadLoansList result '+JSON.stringify(result));
+                        var fieldMap = [];
+                        var loans = [];
+                        if (result && result.isSuccess && result.responseData && !$A.util.isEmpty(result.responseData.currentLoans)) {
+                            loans = result.responseData.currentLoans;
+                        }
+                        for (var i = 0; i < loans.length; i++) {
+                            var loan = loans[i];
+                            fieldMap.push({
+                                cardId: loan.arrangementId,
+                                cardObj: loan
+                            });
+                        }
+                        component.set("v.loanIdNumber", fieldMap);
+                    }
+                    else if (state === "INCOMPLETE") {
+                        // do something
+                    }
+                    else if (state === "ERROR") {
+                        var errors = response.getError();
+                        if (errors) {
+                            if (errors[0] && errors[0].message) {
+                                console.log("Error message: " + errors[0].message);
+                            }
+                        } else {
+                            console.log("Unknown error");
+                        }
+                    }
+                });
+
+                $A.enqueueAction(action);
+            } catch (error) {
+                console.log('Error '+error);
+            }
+        }
+        //omar end loans Collection change
+
     },
     deviceNameChange: function (component, event, helper) {//#CH06
         let deviceId = component.find("deviceId").get("v.value");             
@@ -222,5 +325,18 @@ Change History :
         if(subtypeCase == 'Revoke Device FCR' || subtypeCase == 'Device Dispute'){
             helper.loadDeviceList(component, event, helper);
         }
+    },
+    handleLoanAmountChange : function(component, event, helper) {
+    var newValue = event.getSource().get("v.value");
+    console.log('this is the new Credit Limit');
+    component.set("v.creditLimit", newValue);
+
+    },
+
+    
+    handleLoanBalanceChange : function(component, event, helper) {
+    var newValue = event.getSource().get("v.value");
+    console.log('this is the selectedCardNumber');
+    component.set("v.outstanding", newValue);
     }
 })

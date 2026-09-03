@@ -5,7 +5,7 @@
     <assignments>
         <name>Add_and_related_case_word</name>
         <label>Add &quot;and related case&quot; word</label>
-        <locationX>5968</locationX>
+        <locationX>6694</locationX>
         <locationY>935</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -21,7 +21,7 @@
     <assignments>
         <name>Add_and_related_cases_word</name>
         <label>Add &quot;and related cases&quot; word</label>
-        <locationX>6232</locationX>
+        <locationX>6958</locationX>
         <locationY>935</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -37,7 +37,7 @@
     <assignments>
         <name>Add_and_word</name>
         <label>Add &quot;and&quot; word</label>
-        <locationX>6496</locationX>
+        <locationX>7222</locationX>
         <locationY>935</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -53,7 +53,7 @@
     <assignments>
         <name>Add_Child_Case_Number</name>
         <label>Add Child Case Number</label>
-        <locationX>6760</locationX>
+        <locationX>7486</locationX>
         <locationY>1043</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -69,7 +69,7 @@
     <assignments>
         <name>Add_comma</name>
         <label>Add comma</label>
-        <locationX>6496</locationX>
+        <locationX>7222</locationX>
         <locationY>1151</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -85,7 +85,7 @@
     <assignments>
         <name>Add_comma_and_space</name>
         <label>Add comma and space</label>
-        <locationX>6760</locationX>
+        <locationX>7486</locationX>
         <locationY>935</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -102,7 +102,7 @@
         <name>Assign_ABCI_Checker</name>
         <label>Assign ABCI Checker</label>
         <locationX>3922</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -112,10 +112,26 @@
         </assignmentItems>
     </assignments>
     <assignments>
+        <name>assign_Account_Alias</name>
+        <label>assign Account Alias</label>
+        <locationX>6881</locationX>
+        <locationY>1919</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Alias_account__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>RecordType_DeveloperName</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Business_Light_Checker</name>
         <label>Assign Business Light Checker</label>
         <locationX>4450</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -128,7 +144,7 @@
         <name>Assign_Checker_Result_Date_Time</name>
         <label>Assign Checker Result Date Time</label>
         <locationX>3262</locationX>
-        <locationY>2027</locationY>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Checker_Result_Date_Time__c</assignToReference>
             <operator>Assign</operator>
@@ -144,7 +160,7 @@
         <name>Assign_Delinquency_Checker</name>
         <label>Assign Delinquency Checker</label>
         <locationX>4978</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -157,7 +173,7 @@
         <name>Assign_it_to_Prepaid_Maker_Queue</name>
         <label>Assign it to Prepaid Maker Queue</label>
         <locationX>1535</locationX>
-        <locationY>2711</locationY>
+        <locationY>3011</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -170,7 +186,7 @@
         <name>Assign_it_to_Supplmentary_Maker_Queue</name>
         <label>Assign it to Supplmentary Maker Queue</label>
         <locationX>424</locationX>
-        <locationY>2519</locationY>
+        <locationY>2819</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -183,7 +199,7 @@
         <name>Assign_Jordan_RMT</name>
         <label>Assign Jordan RMT</label>
         <locationX>5506</locationX>
-        <locationY>2567</locationY>
+        <locationY>2867</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -196,7 +212,7 @@
         <name>Assign_Owner_as_MLRO</name>
         <label>Assign Owner as MLRO</label>
         <locationX>3130</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -208,7 +224,7 @@
     <assignments>
         <name>Assign_Previous_Email</name>
         <label>Assign Previous Email</label>
-        <locationX>6188</locationX>
+        <locationX>6914</locationX>
         <locationY>611</locationY>
         <assignmentItems>
             <assignToReference>$Record.Previous_Email__c</assignToReference>
@@ -218,13 +234,29 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>RecordType_DeveloperName</targetReference>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Sub_Status</name>
+        <label>Assign Sub Status</label>
+        <locationX>7354</locationX>
+        <locationY>611</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Copy_1_of_Add_Child_Case_Number</name>
         <label>Add Child Case Number</label>
-        <locationX>6496</locationX>
+        <locationX>7222</locationX>
         <locationY>1043</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -240,7 +272,7 @@
     <assignments>
         <name>Copy_1_of_Add_comma_and_space</name>
         <label>Add comma and space</label>
-        <locationX>5968</locationX>
+        <locationX>6694</locationX>
         <locationY>1151</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -256,8 +288,8 @@
     <assignments>
         <name>Copy_1_of_Assign_ABCI_Maker</name>
         <label>Assign ABCI Maker</label>
-        <locationX>7002</locationX>
-        <locationY>2243</locationY>
+        <locationX>7090</locationX>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -283,8 +315,8 @@
     <assignments>
         <name>Copy_1_of_Assign_Business_Light_Maker</name>
         <label>Assign Business Light Maker</label>
-        <locationX>7266</locationX>
-        <locationY>2243</locationY>
+        <locationX>7354</locationX>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -310,8 +342,8 @@
     <assignments>
         <name>Copy_1_of_Assign_Delinquency_Maker</name>
         <label>Assign Delinquency Maker</label>
-        <locationX>7530</locationX>
-        <locationY>2243</locationY>
+        <locationX>7618</locationX>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -338,7 +370,7 @@
         <name>Copy_1_of_Assign_Jordan_RMT</name>
         <label>Cancelled by Customer</label>
         <locationX>5770</locationX>
-        <locationY>2567</locationY>
+        <locationY>2867</locationY>
         <assignmentItems>
             <assignToReference>$Record.Sub_Status__c</assignToReference>
             <operator>Assign</operator>
@@ -357,8 +389,8 @@
     <assignments>
         <name>Copy_1_of_Case_Closed_Accept</name>
         <label>Case Closed - Accept</label>
-        <locationX>9114</locationX>
-        <locationY>2951</locationY>
+        <locationX>9202</locationX>
+        <locationY>3251</locationY>
         <assignmentItems>
             <assignToReference>$Record.Status</assignToReference>
             <operator>Assign</operator>
@@ -377,8 +409,8 @@
     <assignments>
         <name>Copy_1_of_Case_Closed_Declined</name>
         <label>Case Closed - Declined</label>
-        <locationX>9378</locationX>
-        <locationY>2951</locationY>
+        <locationX>9466</locationX>
+        <locationY>3251</locationY>
         <assignmentItems>
             <assignToReference>$Record.Status</assignToReference>
             <operator>Assign</operator>
@@ -397,8 +429,8 @@
     <assignments>
         <name>Copy_1_of_Update_Checker_DateTime</name>
         <label>Update Checker DateTime</label>
-        <locationX>9246</locationX>
-        <locationY>2027</locationY>
+        <locationX>9334</locationX>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Checker_Result_Date_Time__c</assignToReference>
             <operator>Assign</operator>
@@ -413,7 +445,7 @@
     <assignments>
         <name>Copy_2_of_Add_Child_Case_Number</name>
         <label>Add Child Case Number</label>
-        <locationX>6232</locationX>
+        <locationX>6958</locationX>
         <locationY>1043</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -430,7 +462,7 @@
         <name>Copy_2_of_Cancelled_by_Customer</name>
         <label>Pending Customer</label>
         <locationX>6034</locationX>
-        <locationY>2567</locationY>
+        <locationY>2867</locationY>
         <assignmentItems>
             <assignToReference>$Record.Awaiting_Customer_Feedback__c</assignToReference>
             <operator>Assign</operator>
@@ -442,8 +474,8 @@
     <assignments>
         <name>Copy_2_of_Update_Checker_DateTime</name>
         <label>Update Checker DateTime</label>
-        <locationX>10940</locationX>
-        <locationY>2027</locationY>
+        <locationX>11028</locationX>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Checker_Result_Date_Time__c</assignToReference>
             <operator>Assign</operator>
@@ -458,7 +490,7 @@
     <assignments>
         <name>Copy_3_of_Add_Child_Case_Number</name>
         <label>Add Child Case Number</label>
-        <locationX>5968</locationX>
+        <locationX>6694</locationX>
         <locationY>1043</locationY>
         <assignmentItems>
             <assignToReference>varT_childCasesNames</assignToReference>
@@ -474,8 +506,8 @@
     <assignments>
         <name>Copy_3_of_Assign_Delinquency_Maker</name>
         <label>Assign Jordan Contact Center</label>
-        <locationX>7794</locationX>
-        <locationY>2243</locationY>
+        <locationX>7882</locationX>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -501,8 +533,8 @@
     <assignments>
         <name>Copy_3_of_Case_Closed_Accept</name>
         <label>Case Closed - Cancelled by Customer</label>
-        <locationX>10610</locationX>
-        <locationY>2459</locationY>
+        <locationX>10698</locationX>
+        <locationY>2759</locationY>
         <assignmentItems>
             <assignToReference>$Record.Status</assignToReference>
             <operator>Assign</operator>
@@ -521,7 +553,7 @@
     <assignments>
         <name>increment_iteration_Number</name>
         <label>increment iteration Number</label>
-        <locationX>6364</locationX>
+        <locationX>7090</locationX>
         <locationY>719</locationY>
         <assignmentItems>
             <assignToReference>varN_IterationNumber</assignToReference>
@@ -538,7 +570,7 @@
         <name>Maker_Result_to_be_Accept</name>
         <label>Maker Result to be Accept</label>
         <locationX>1194</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Maker__c</assignToReference>
             <operator>Assign</operator>
@@ -558,7 +590,7 @@
         <name>Maker_Result_to_be_Accept1</name>
         <label>Maker Result to be Accept</label>
         <locationX>50</locationX>
-        <locationY>2135</locationY>
+        <locationY>2435</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Maker__c</assignToReference>
             <operator>Assign</operator>
@@ -570,7 +602,7 @@
     <assignments>
         <name>Number_of_child_cases</name>
         <label>Number of child cases</label>
-        <locationX>5880</locationX>
+        <locationX>6606</locationX>
         <locationY>503</locationY>
         <assignmentItems>
             <assignToReference>varN_numberOfChildCases</assignToReference>
@@ -584,10 +616,103 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Set_Case_Approved</name>
+        <label>Set Case Approved</label>
+        <locationX>13074</locationX>
+        <locationY>2327</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Checker_Decline</name>
+        <label>Set Checker Decline</label>
+        <locationX>12810</locationX>
+        <locationY>2327</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Declined</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Checker_Owner</name>
+        <label>Set Checker Owner</label>
+        <locationX>12018</locationX>
+        <locationY>2327</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.Checker_Place_Hold</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.cc_Checker_Result__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>In-Progress</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Maker_Decline</name>
+        <label>Set Maker Decline</label>
+        <locationX>12546</locationX>
+        <locationY>2327</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Declined</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Maker_Owner</name>
+        <label>Set Maker Owner</label>
+        <locationX>12282</locationX>
+        <locationY>2327</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.Maker_Place_Hold</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.cc_Maker__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Sub_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>In-Progress</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
         <name>Update_CC_Employer_Fields</name>
         <label>Update CC Employer Fields</label>
-        <locationX>6045</locationX>
-        <locationY>3635</locationY>
+        <locationX>6881</locationX>
+        <locationY>3935</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Employer_Name__c</assignToReference>
             <operator>Assign</operator>
@@ -655,8 +780,8 @@
     <assignments>
         <name>Update_Checker_DateTime</name>
         <label>Update Checker DateTime</label>
-        <locationX>7530</locationX>
-        <locationY>2027</locationY>
+        <locationX>7618</locationX>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Checker_Result_Date_Time__c</assignToReference>
             <operator>Assign</operator>
@@ -671,8 +796,8 @@
     <assignments>
         <name>Update_Maker_DateTime</name>
         <label>Update Maker DateTime</label>
-        <locationX>5396</locationX>
-        <locationY>2027</locationY>
+        <locationX>5440</locationX>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Maker_Result_Date_Time__c</assignToReference>
             <operator>Assign</operator>
@@ -694,8 +819,8 @@
     <assignments>
         <name>Update_Relationship_Termination_Owner</name>
         <label>Update Relationship Termination Owner</label>
-        <locationX>11666</locationX>
-        <locationY>1919</locationY>
+        <locationX>11754</locationX>
+        <locationY>2219</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -714,8 +839,8 @@
     <assignments>
         <name>Update_Whitelisted_Employer_Checkbox</name>
         <label>Update Whitelisted Employer Checkbox</label>
-        <locationX>6309</locationX>
-        <locationY>3527</locationY>
+        <locationX>7145</locationX>
+        <locationY>3827</locationY>
         <assignmentItems>
             <assignToReference>$Record.cc_Whitelisted_Employer__c</assignToReference>
             <operator>Assign</operator>
@@ -727,8 +852,8 @@
     <customErrors>
         <name>Copy_10_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>10874</locationX>
-        <locationY>2459</locationY>
+        <locationX>10962</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Checker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -738,7 +863,7 @@
         <name>Copy_1_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
         <locationX>4714</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Maker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -748,7 +873,7 @@
         <name>Copy_2_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
         <locationX>5242</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Maker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -757,8 +882,8 @@
     <customErrors>
         <name>Copy_3_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>8498</locationX>
-        <locationY>2459</locationY>
+        <locationX>8586</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Checker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -767,8 +892,8 @@
     <customErrors>
         <name>Copy_4_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>9378</locationX>
-        <locationY>2459</locationY>
+        <locationX>9466</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Checker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -777,8 +902,8 @@
     <customErrors>
         <name>Copy_5_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>10346</locationX>
-        <locationY>2027</locationY>
+        <locationX>10434</locationX>
+        <locationY>2327</locationY>
         <customErrorMessages>
             <errorMessage>Maker Result is not populated, Checker option cannot be done prior to Maker.</errorMessage>
             <isFieldError>false</isFieldError>
@@ -787,8 +912,8 @@
     <customErrors>
         <name>Copy_6_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>8938</locationX>
-        <locationY>2459</locationY>
+        <locationX>9026</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Checker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -797,8 +922,8 @@
     <customErrors>
         <name>Copy_8_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>6474</locationX>
-        <locationY>2459</locationY>
+        <locationX>6562</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Maker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -807,8 +932,8 @@
     <customErrors>
         <name>Copy_9_of_User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
-        <locationX>9818</locationX>
-        <locationY>2459</locationY>
+        <locationX>9906</locationX>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Checker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -818,7 +943,7 @@
         <name>User_is_not_part_of_Queue</name>
         <label>User is not part of Queue</label>
         <locationX>4186</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <customErrorMessages>
             <errorMessage>Logged In user is not a part of Maker Queue</errorMessage>
             <isFieldError>false</isFieldError>
@@ -828,7 +953,7 @@
         <name>Automation_of_Prepaid_Card_Validation_Process</name>
         <label>Automation of Prepaid Card Validation Process?</label>
         <locationX>1260</locationX>
-        <locationY>2027</locationY>
+        <locationY>2327</locationY>
         <defaultConnector>
             <targetReference>Assign_it_to_Prepaid_Maker_Queue</targetReference>
         </defaultConnector>
@@ -874,7 +999,7 @@
         <name>Automation_of_Supplementary_Card_Validation_Process</name>
         <label>Automation of Supplementary Card Validation Process?</label>
         <locationX>182</locationX>
-        <locationY>2027</locationY>
+        <locationY>2327</locationY>
         <defaultConnector>
             <targetReference>Assign_it_to_Supplmentary_Maker_Queue</targetReference>
         </defaultConnector>
@@ -917,12 +1042,58 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Check_Email_is_Changed</name>
-        <label>Check Email is Changed?</label>
-        <locationX>6320</locationX>
-        <locationY>503</locationY>
+        <name>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</name>
+        <label>change Account Alias with last assigned queue on Loan/Manual service</label>
+        <locationX>7013</locationX>
+        <locationY>1811</locationY>
         <defaultConnector>
             <targetReference>RecordType_DeveloperName</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes6</name>
+            <conditionLogic>( 1 OR 2 ) AND 3 AND 4</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Loan_Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LoanFinanceServiceRequest</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>00G</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Account_Alias</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Email_is_Changed</name>
+        <label>Check Email is Changed?</label>
+        <locationX>7046</locationX>
+        <locationY>503</locationY>
+        <defaultConnector>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -944,10 +1115,10 @@
     <decisions>
         <name>Check_Record_Type</name>
         <label>Check Record Type?</label>
-        <locationX>6474</locationX>
+        <locationX>7420</locationX>
         <locationY>395</locationY>
         <defaultConnector>
-            <targetReference>RecordType_DeveloperName</targetReference>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -965,12 +1136,52 @@
             </connector>
             <label>Request</label>
         </rules>
+        <rules>
+            <name>Service_Request</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Status_is_Closed</targetReference>
+            </connector>
+            <label>Service Request</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Status_is_Closed</name>
+        <label>Check Status is Closed?</label>
+        <locationX>7486</locationX>
+        <locationY>503</locationY>
+        <defaultConnector>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_SR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Sub_Status</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Checker_Accept12</name>
         <label>Checker Accept</label>
-        <locationX>9246</locationX>
-        <locationY>2843</locationY>
+        <locationX>9334</locationX>
+        <locationY>3143</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Case_Closed_Declined</targetReference>
         </defaultConnector>
@@ -1001,7 +1212,7 @@
     <decisions>
         <name>Closing_a_parent</name>
         <label>Closing a parent ?</label>
-        <locationX>6177</locationX>
+        <locationX>7013</locationX>
         <locationY>287</locationY>
         <defaultConnector>
             <targetReference>Check_Record_Type</targetReference>
@@ -1047,8 +1258,8 @@
     <decisions>
         <name>Copy_1_of_Jordan_Case_Type_Changed</name>
         <label>Jordan Case Type Changed</label>
-        <locationX>7530</locationX>
-        <locationY>2135</locationY>
+        <locationX>7618</locationX>
+        <locationY>2435</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Copy_1_of_ABCI_Case_Type</name>
@@ -1115,7 +1326,7 @@
         <name>Copy_1_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
         <locationX>4582</locationX>
-        <locationY>2351</locationY>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1139,8 +1350,8 @@
     <decisions>
         <name>Copy_2_of_Jordan_Case_Type_Changed</name>
         <label>Jordan Case Type Changed</label>
-        <locationX>9246</locationX>
-        <locationY>2135</locationY>
+        <locationX>9334</locationX>
+        <locationY>2435</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Copy_2_of_ABCI_Case_Type</name>
@@ -1207,7 +1418,7 @@
         <name>Copy_2_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
         <locationX>5110</locationX>
-        <locationY>2351</locationY>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_2_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1231,8 +1442,8 @@
     <decisions>
         <name>Copy_3_of_Jordan_Case_Type_Changed</name>
         <label>Jordan Case Type Changed</label>
-        <locationX>10940</locationX>
-        <locationY>2135</locationY>
+        <locationX>11028</locationX>
+        <locationY>2435</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Copy_1_of_Preferential_FD_Rate</name>
@@ -1253,8 +1464,8 @@
     <decisions>
         <name>Copy_3_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>8850</locationX>
-        <locationY>2351</locationY>
+        <locationX>8938</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_6_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1278,8 +1489,8 @@
     <decisions>
         <name>Copy_4_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>9290</locationX>
-        <locationY>2351</locationY>
+        <locationX>9378</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_4_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1303,8 +1514,8 @@
     <decisions>
         <name>Copy_5_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>10742</locationX>
-        <locationY>2351</locationY>
+        <locationX>10830</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_10_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1328,8 +1539,8 @@
     <decisions>
         <name>Copy_6_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>8410</locationX>
-        <locationY>2351</locationY>
+        <locationX>8498</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_3_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1353,8 +1564,8 @@
     <decisions>
         <name>Copy_7_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>6188</locationX>
-        <locationY>2351</locationY>
+        <locationX>6232</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_8_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1378,8 +1589,8 @@
     <decisions>
         <name>Copy_8_of_User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
-        <locationX>9730</locationX>
-        <locationY>2351</locationY>
+        <locationX>9818</locationX>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>Copy_9_of_User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -1404,7 +1615,7 @@
         <name>Decision_31</name>
         <label>Maker Result?</label>
         <locationX>5902</locationX>
-        <locationY>2459</locationY>
+        <locationY>2759</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Outcome_1_of_Decision_31</name>
@@ -1457,7 +1668,7 @@
         <name>Is_Checker_Result_Changed</name>
         <label>Is Checker Result Changed?</label>
         <locationX>3460</locationX>
-        <locationY>1919</locationY>
+        <locationY>2219</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Yes_EDD_Checker_Changed</name>
@@ -1486,7 +1697,7 @@
         <name>Is_Checker_Result_changed_to_True_Hit</name>
         <label>Is Checker Result changed to &apos;True Hit&apos;?</label>
         <locationX>3262</locationX>
-        <locationY>2135</locationY>
+        <locationY>2435</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Yes_Checker_Result_To_True_Hit</name>
@@ -1507,10 +1718,10 @@
     <decisions>
         <name>Is_child_Names_not_blank</name>
         <label>Is child Names not blank ?</label>
-        <locationX>5880</locationX>
+        <locationX>6606</locationX>
         <locationY>1427</locationY>
         <defaultConnector>
-            <targetReference>RecordType_DeveloperName</targetReference>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1530,7 +1741,7 @@
         <name>Is_Credit_Limit_Increase_Case</name>
         <label>Is Credit Limit Increase Case</label>
         <locationX>2514</locationX>
-        <locationY>1919</locationY>
+        <locationY>2219</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Credit_Limit</name>
@@ -1552,7 +1763,7 @@
         <name>Is_Jumio_Status_Approved</name>
         <label>Is Jumio Status Approved?</label>
         <locationX>424</locationX>
-        <locationY>1919</locationY>
+        <locationY>2219</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
@@ -1645,7 +1856,7 @@
         <name>Is_Jumio_Status_Approved_0</name>
         <label>Is Jumio Status Approved?</label>
         <locationX>1535</locationX>
-        <locationY>1919</locationY>
+        <locationY>2219</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Yes2</name>
@@ -1752,7 +1963,7 @@
         <name>isNew_record</name>
         <label>isNew record</label>
         <locationX>1062</locationX>
-        <locationY>2135</locationY>
+        <locationY>2435</locationY>
         <defaultConnector>
             <targetReference>Maker_Result_to_be_Accept</targetReference>
         </defaultConnector>
@@ -1776,8 +1987,8 @@
     <decisions>
         <name>Jordan_Case_Type_Changed</name>
         <label>Jordan Case Type Changed</label>
-        <locationX>5396</locationX>
-        <locationY>2135</locationY>
+        <locationX>5440</locationX>
+        <locationY>2435</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>ABCI_Case_Type</name>
@@ -1843,8 +2054,8 @@
     <decisions>
         <name>Jordan_Customer_Type_Changed</name>
         <label>Jordan Customer - Maker / Checker Changed</label>
-        <locationX>8399</locationX>
-        <locationY>1919</locationY>
+        <locationX>8465</locationX>
+        <locationY>2219</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Maker_Changed</name>
@@ -1995,8 +2206,8 @@
     <decisions>
         <name>Listed_Employer_Lookup_changed</name>
         <label>Listed Employer Lookup changed</label>
-        <locationX>6177</locationX>
-        <locationY>3419</locationY>
+        <locationX>7013</locationX>
+        <locationY>3719</locationY>
         <defaultConnector>
             <targetReference>Update_Whitelisted_Employer_Checkbox</targetReference>
         </defaultConnector>
@@ -2025,10 +2236,162 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Maker_Checker_Changed</name>
+        <label>Maker / Checker Changed</label>
+        <locationX>12678</locationX>
+        <locationY>2219</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Send_to_Checker</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.cc_Maker__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Maker__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Send to Checker</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Checker_Owner</targetReference>
+            </connector>
+            <label>Send to Checker</label>
+        </rules>
+        <rules>
+            <name>Send_to_Maker</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Return to Maker</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Maker_Owner</targetReference>
+            </connector>
+            <label>Send to Maker</label>
+        </rules>
+        <rules>
+            <name>Maker_Rejected</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.cc_Maker__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Maker__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Decline</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Maker_Decline</targetReference>
+            </connector>
+            <label>Maker Rejected</label>
+        </rules>
+        <rules>
+            <name>Checker_Declied</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Decline</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Checker_Decline</targetReference>
+            </connector>
+            <label>Checker Declied</label>
+        </rules>
+        <rules>
+            <name>Checker_Place_Hold</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.cc_Checker_Result__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Place Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Case_Approved</targetReference>
+            </connector>
+            <label>Checker Place Hold</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>RecordType_DeveloperName</name>
         <label>RecordType DeveloperName?</label>
-        <locationX>6177</locationX>
-        <locationY>1811</locationY>
+        <locationX>7013</locationX>
+        <locationY>2111</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Supplementary_Card_RecordType</name>
@@ -2305,12 +2668,27 @@
             </connector>
             <label>Relationship Termination</label>
         </rules>
+        <rules>
+            <name>Account_Place_Hold</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>db_AccountHold</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Maker_Checker_Changed</targetReference>
+            </connector>
+            <label>Account Place Hold</label>
+        </rules>
     </decisions>
     <decisions>
         <name>User_is_Part_Of_Queue_Or_Not</name>
         <label>User is Part Of Queue Or Not</label>
         <locationX>4054</locationX>
-        <locationY>2351</locationY>
+        <locationY>2651</locationY>
         <defaultConnector>
             <targetReference>User_is_not_part_of_Queue</targetReference>
         </defaultConnector>
@@ -2334,7 +2712,7 @@
     <decisions>
         <name>which_iteration_Iteration</name>
         <label>which iteration Iteration?</label>
-        <locationX>6364</locationX>
+        <locationX>7090</locationX>
         <locationY>827</locationY>
         <defaultConnector>
             <targetReference>Add_comma_and_space</targetReference>
@@ -2386,7 +2764,7 @@
             <label>last Iteration</label>
         </rules>
     </decisions>
-    <description>Cloned from V35 - Added Onboarding EDD Case Process Logics</description>
+    <description>Cloned from V52 //add Loans Account Alias for last assigned Queue</description>
     <environments>Default</environments>
     <formulas>
         <name>isNew</name>
@@ -2453,7 +2831,7 @@
     <loops>
         <name>LoopChildCases</name>
         <label>LoopChildCases</label>
-        <locationX>5880</locationX>
+        <locationX>6606</locationX>
         <locationY>611</locationY>
         <collectionReference>varC_childCases</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -2487,7 +2865,7 @@
         <name>Check_User_In_ABCI_Queue</name>
         <label>Check User In ABCI Queue</label>
         <locationX>4054</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2514,8 +2892,8 @@
     <recordLookups>
         <name>Check_User_In_Jordan_Contact_Centre_Queue</name>
         <label>Check User In Jordan Contact Centre Queue</label>
-        <locationX>6188</locationX>
-        <locationY>2243</locationY>
+        <locationX>6232</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_7_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2543,7 +2921,7 @@
         <name>Copy_1_of_Check_User_In_Business_Queue</name>
         <label>Check User In Business Queue Queue</label>
         <locationX>4582</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_1_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2570,8 +2948,8 @@
     <recordLookups>
         <name>Copy_1_of_Check_User_In_Delinquency_Queue</name>
         <label>Check User In Jordan RMT</label>
-        <locationX>9730</locationX>
-        <locationY>2243</locationY>
+        <locationX>9818</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_8_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2598,8 +2976,8 @@
     <recordLookups>
         <name>Copy_1_of_Check_User_In_Jordan_RMT</name>
         <label>Check User In Jordan RMT</label>
-        <locationX>10742</locationX>
-        <locationY>2243</locationY>
+        <locationX>10830</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_5_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2627,7 +3005,7 @@
         <name>Copy_2_of_Check_User_In_Delinquency_Queue</name>
         <label>Check User In Delinquency Queue</label>
         <locationX>5110</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_2_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2654,8 +3032,8 @@
     <recordLookups>
         <name>Copy_3_of_Check_User_In_ABCI_Queue</name>
         <label>Check User In ABCI Queue</label>
-        <locationX>8410</locationX>
-        <locationY>2243</locationY>
+        <locationX>8498</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_6_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2682,8 +3060,8 @@
     <recordLookups>
         <name>Copy_4_of_Check_User_In_Business_Queue</name>
         <label>Check User In Business Queue</label>
-        <locationX>8850</locationX>
-        <locationY>2243</locationY>
+        <locationX>8938</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_3_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2710,8 +3088,8 @@
     <recordLookups>
         <name>Copy_5_of_Check_User_In_Delinquency_Queue</name>
         <label>Check User In Delinquency Queue</label>
-        <locationX>9290</locationX>
-        <locationY>2243</locationY>
+        <locationX>9378</locationX>
+        <locationY>2543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_4_of_User_is_Part_Of_Queue_Or_Not</targetReference>
@@ -2738,8 +3116,8 @@
     <recordLookups>
         <name>Get_Listed_Employee</name>
         <label>Get Listed Employee</label>
-        <locationX>6045</locationX>
-        <locationY>3527</locationY>
+        <locationX>6881</locationX>
+        <locationY>3827</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_CC_Employer_Fields</targetReference>
@@ -2759,7 +3137,7 @@
     <recordLookups>
         <name>GetOpenChilds</name>
         <label>GetOpenChilds</label>
-        <locationX>5880</locationX>
+        <locationX>6606</locationX>
         <locationY>395</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2791,7 +3169,7 @@
         <name>Maker_Result</name>
         <label>Maker Result</label>
         <locationX>2866</locationX>
-        <locationY>1919</locationY>
+        <locationY>2219</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2824,7 +3202,7 @@
         <name>Update_Maker_Result</name>
         <label>Update Maker Result</label>
         <locationX>930</locationX>
-        <locationY>2243</locationY>
+        <locationY>2543</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2850,10 +3228,10 @@
     <recordUpdates>
         <name>Update_parent_case</name>
         <label>Update parent case</label>
-        <locationX>5748</locationX>
+        <locationX>6474</locationX>
         <locationY>1535</locationY>
         <connector>
-            <targetReference>RecordType_DeveloperName</targetReference>
+            <targetReference>change_Account_Alias_with_last_assigned_queue_on_Loan_Manual_service</targetReference>
         </connector>
         <inputAssignments>
             <field>Closed_Child_Upon_parent_closure__c</field>
@@ -2864,7 +3242,7 @@
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
-        <locationX>6051</locationX>
+        <locationX>6887</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Closing_a_parent</targetReference>

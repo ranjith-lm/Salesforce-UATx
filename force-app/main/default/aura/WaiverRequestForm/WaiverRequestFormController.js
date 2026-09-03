@@ -1,6 +1,14 @@
 ({
 	init : function(component, event, helper) {
-		
+        helper.initDateFields(component);
+		helper.loadAccountList(component);
+        component.set("v.columns", [
+            { label: 'Reference', fieldName: 'reference', type: 'text' },
+            { label: 'Description', fieldName: 'transactionDescription1', type:'text'},
+            { label: 'Type', fieldName: 'transactionType', type: 'text',fixedWidth:90 },
+            { label: 'Amount', fieldName: 'originalAmount', type: 'text',fixedWidth:110 }, 
+            { label: 'Date', fieldName: 'transactionDate', type: 'text',fixedWidth:110 } 
+        ]);
 	},
     handleOnSubmit: function (component, event, helper) {
         const file = component.get("v.waiverFile");
@@ -72,5 +80,124 @@
         docIds.push(uploadedFiles[0].documentId);
         component.set("v.documentIdList",docIds);
         helper.validateFileSize(component, event, uploadedFiles[0].name);
+    },
+    handleAccountChange : function(component, event, helper){
+        var selectedAccountValue = event.getSource().get("v.value");
+        component.set("v.selectedAccount",selectedAccountValue);
+        console.log("selectedAccountValue ",selectedAccountValue);
+        if(selectedAccountValue != 'none'){
+            const arrCustomerDetails = selectedAccountValue.split(';');
+            helper.getAccountTransaction(component,arrCustomerDetails[0],arrCustomerDetails[1]);
+        }
+    },
+    onSearchClick : function(component, event, helper){
+        
+    },
+    fromDateChanged : function(component, event, helper){
+        var selectedDate = component.get("v.selectedDateFrom");
+        console.log('selectedDate from ',selectedDate);
+    },
+    toDateChanged : function(component, event, helper){
+        var selectedDate = component.get("v.selectedDateTo");
+        console.log('selectedDate to ',selectedDate);
+    },
+    searchFilterClicked : function(component, event, helper){
+        component.set("v.filterError","");
+        var selectedDateFrom = component.get("v.selectedDateFrom");
+        var selectedDateTo = component.get("v.selectedDateTo");
+        var datePartsFrom = selectedDateFrom.split("-");
+        var datePartsTo = selectedDateTo.split("-");
+        var selectedFrom = new Date(datePartsFrom[0],datePartsFrom[1] - 1,datePartsFrom[2]);
+        var selectedTo = new Date(datePartsTo[0],datePartsTo[1] - 1,datePartsTo[2]);
+        selectedFrom.setHours(0, 0, 0, 0);
+        selectedTo.setHours(0, 0, 0, 0);
+        
+        if(selectedTo < selectedFrom){
+            component.set("v.filterError","To Date cannot be earlier than From Date.");
+            return;
+        }
+        
+        //max date one month range only.
+        var maxDate = new Date(selectedFrom);
+        maxDate.setMonth(maxDate.getMonth() + 1);
+        
+        if(selectedTo > maxDate){
+            component.set("v.filterError","From Date and To Date must be within one month.");
+            return;
+        }
+        
+        var selectedAccountValue = component.get("v.selectedAccount");
+        const arrCustomerDetails = selectedAccountValue.split(';');
+        helper.getAccountTransaction(component,arrCustomerDetails[0],arrCustomerDetails[1]);
+    },
+    handleTransactionCellChange : function(component, event, helper){
+        debugger;
+        var selectedRows = event.getParam('selectedRows');
+        let allData = component.get("v.transactionData");
+		
+		var previousSelectionRows = new Set(component.get("v.selectedRows")); 
+        if(selectedRows.length === 0){
+            component.set("v.selectedRows", []);
+            component.set("v.selectedReference","");
+	        component.set("v.totalAmount","");
+            return;
+        }
+        
+        var currentSelectedIds = selectedRows.map(function(row) {
+            return row.Id;
+        });
+        
+        var previousSelectedIds = component.get("v.prevSelectedRows");
+        
+        var newlySelectedId = currentSelectedIds.find(function(id) {
+            return previousSelectedIds.indexOf(id) === -1;
+        });
+        
+        var newlySelectedRow = selectedRows.find(function(row) {
+            return row.Id === newlySelectedId;
+        });
+        
+        
+        
+        // First selected row
+        let referenceNo = newlySelectedRow.reference;
+        
+        // Get the specific row that was toggled
+        //var config = event.getParam('config');
+        console.log('Selected Row:', selectedRows);
+        const arrReferences = [];
+        let rowsToSelect = [];
+        let totalAmount = 0;
+
+		for(let i = 0; i < selectedRows.length; i++){
+            rowsToSelect.push(selectedRows[i].id);
+            arrReferences.push(selectedRows[i].reference);
+            totalAmount += selectedRows[i].originalAmount;
+        }
+        
+        //Below code would only execute when user selects a new row.
+        if(previousSelectionRows.size == 0 || selectedRows.length > previousSelectionRows.size){
+         	
+            //getting referenceno from newly selected rows.
+            if(previousSelectionRows.size != 0){
+            	const newRowSelected = selectedRows.filter(obj => !previousSelectionRows.has(obj.id));
+                referenceNo = newRowSelected[0].reference; //there should always be a one record.
+	            console.log('newly selected record ' + newRowSelected);    
+            }
+            
+            
+            for(let i = 0; i < allData.length; i++){
+                if(allData[i].reference == referenceNo && !rowsToSelect.includes(allData[i].id)){
+                    rowsToSelect.push(allData[i].id);
+                    arrReferences.push(allData[i].reference);
+            		totalAmount += allData[i].originalAmount;
+                }
+            }   
+        }
+        
+        component.set("v.selectedRows", rowsToSelect);
+        component.set("v.prevSelectedRows",currentSelectedIds);
+        component.set("v.selectedReference",arrReferences.join(","));
+        component.set("v.totalAmount",`${totalAmount}`);
     }
 })

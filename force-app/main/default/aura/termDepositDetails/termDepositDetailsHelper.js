@@ -8,6 +8,7 @@
               #CH03# #Jahangeer Mohammed #21-05-2024# Added Interest Payment Option and Calculated Interest
               #CH04# #Jahangeer Mohammed #03-06-2024# Added three decimals for BHD and two decimals for Non BHD
               #CH05# #Jahangeer Mohammed #04-07-2024# Added linkedAsCollateral, PCI Number(NBA-10092)
+              #CH06# #Maksud Ali #12-08-2025 decimal place issue  (UATNB-228703)
 
 */
 ({
@@ -159,7 +160,8 @@
         
         var interestRate = termDepositObject.interestRate;
         if(interestRate != ''){ //Checking for Staff customers if View Staff Data is Checked.
-        	result.interestRate = interestRate + '%';
+            console.log('interestRate interestRate ',interestRate);
+        	result.interestRate = (interestRate.toFixed(2)) + '%'; //CH06 - Change Added Maksud - 12 Aug
         }
         
        ///////////////////////////////////////////////// Annual Interest Rate END ///////////////////////////////////////////////////
@@ -187,8 +189,11 @@
         if(result.statusCode == 'MATURED' ){
         	var totalInterestEarned = termDepositObject.totalInterestEarned;
             if(totalInterestEarned != ''){ //Checking for Staff customers if View Staff Data is Checked.
-                var formatInterestEarned = helper.formatCurrency(totalInterestEarned,3,undefined,undefined);
+                //CH06 Change Start
+                let deicmalPlaces = countryCurrency === 'BHD' ? 3 : 2;
+                var formatInterestEarned = helper.formatCurrency(totalInterestEarned,deicmalPlaces,undefined,undefined);
             	result.totalInterestEarned = formatInterestEarned;
+                //CH06 Change End
             }
         }
         else{
@@ -281,7 +286,12 @@
            
            var earlyWithDrawFee = termDepositObject.earlyWithdraw.withdrawFee;
            if(earlyWithDrawFee != ''){ //Checking for Staff customers if View Staff Data is Checked.
-           	var formatWithDrawFee = helper.formatCurrency(earlyWithDrawFee,3,undefined,undefined);
+               
+               //CH06 START
+               let decimalPlaces = termDepositObject.currency.code == 'BHD' ? 3 : 2;
+               
+           	var formatWithDrawFee = helper.formatCurrency(earlyWithDrawFee,decimalPlaces,undefined,undefined);
+               //CH06 END
                //#CH01# Start
             result.earlyWithdrawFee = termDepositObject.currency.code + ' '+formatWithDrawFee; 
                //#CH01# End
@@ -305,21 +315,35 @@
            
            var withdrawIntrestRate = termDepositObject.earlyWithdraw.withdrawIntrestRate;
            if(withdrawIntrestRate != ''){ //Checking for Staff customers if View Staff Data is Checked.
-              var formatwithdrawIntrestRate =  helper.formatCurrency(withdrawIntrestRate,3,undefined,undefined);
+              
+               //CH06 START
+               let decimalPlaces = termDepositObject.currency.code == 'BHD' ? 3 : 2;
+               var formatwithdrawIntrestRate =  helper.formatCurrency(withdrawIntrestRate,decimalPlaces,undefined,undefined);
+               //CH06 END
            	  console.log('With Draw Interest Rate:',withdrawIntrestRate);
               result.withdrawIntrestRate = formatwithdrawIntrestRate + '%';
-           }
+           }//CH06 START
+            else {
+                result.withdrawIntrestRate =(termDepositObject.currency.code == 'BHD' ? '0.000%' : '0.00%');
+            }//CH06 END
           
            		
        	  /////////////////////////////////// New Interest Earned START /////////////////////////////////////////////////
-           
            var interestEarned = termDepositObject.totalInterestEarned;
            if(interestEarned != ''){ //Checking for Staff customers if View Staff Data is Checked.
-           	   var formatinterestEarned = helper.formatCurrency(interestEarned,3,undefined,undefined);
+               //CH06 START
+               let decimalPlaces = termDepositObject.currency.code == 'BHD' ? 3 : 2;
+               
+           	   var formatinterestEarned = helper.formatCurrency(interestEarned,decimalPlaces,undefined,undefined);
+               //CH06 END
+               
                //#CH01# Start
                result.interestEarned = termDepositObject.currency.code + ' '+formatinterestEarned ;
                //#CH01# End
-           }
+           }//CH06 START
+            else {
+                result.interestEarned = termDepositObject.currency.code + ' '+ (termDepositObject.currency.code == 'BHD' ? '0.000' : '0.00');
+            }//CH06 END
             
            /////////////////////////////////// New Interest Earned START /////////////////////////////////////////////////
            

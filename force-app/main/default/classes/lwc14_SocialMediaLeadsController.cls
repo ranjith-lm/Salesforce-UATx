@@ -1,8 +1,6 @@
 public with sharing class lwc14_SocialMediaLeadsController {
     
-    /**
-     * Data structure for social media lead analysis results
-     */
+
     public class SocialMediaLeadAnalysis {
         @AuraEnabled public String  name                 { get; set; }
         @AuraEnabled public String  email                { get; set; }
@@ -30,9 +28,6 @@ public with sharing class lwc14_SocialMediaLeadsController {
         }
     }
 
-    /**
-     * Entry point for parsing uploaded files and performing matching analysis
-     */
     @AuraEnabled
     public static List<SocialMediaLeadAnalysis> analyzeSocialMediaLeads(String base64Data, String fileName) {
         try {

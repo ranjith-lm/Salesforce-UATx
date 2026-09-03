@@ -60,7 +60,7 @@
                                              mode="{!v.mode}"/>
                		</lightning:tab>  
                </aura:if>
-                <aura:if isTrue="{!'Expired ID Update' == v.caseSubType}">
+               <aura:if isTrue="{!v.caseSubType == 'Expired ID Update' || v.caseSubType == 'ID Expiry Update' || v.caseSubType == 'ID Type Update'}">
                		<lightning:tab label="ID Information" >
                         <c:ID_Information    aura:id="idInfo" 
                                              customerId="{!v.customerId}" 
@@ -69,7 +69,7 @@
                                              mode="{!v.mode}"/>
                		</lightning:tab>  
                </aura:if>
-               <aura:if isTrue="{!'Name Fix / Update' == v.caseSubType}">
+               <aura:if isTrue="{!v.caseSubType == 'Name Fix / Update' || v.caseSubType == 'Name Update'}">
                		<lightning:tab label="Personnnel Information" >
                         <c:Personal_Information    aura:id="perInfo" 
                                              	   customerId="{!v.customerId}" 

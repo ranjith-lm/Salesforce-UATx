@@ -2,7 +2,6 @@
     doInit: function (component, event, helper) {
         helper.getPrepaidCardRecordType(component, event, helper);
         helper.getPrepaidCardConfigViaApi(component, event, helper);
-        // Fetch account details for potential use
         helper.getAccountDetails(component, event, helper);
     },
     handleOnload: function (component, event, helper) {
@@ -22,15 +21,35 @@
             && cardTypeInput.get("v.value") != '' && cardTypeInput.get("v.value") != null) {
             console.log('submit the form');
             
-            // ========== VALIDATION LOGIC (FIXED) ==========
-            // Only skip transaction validation when BOTH are Primary (fields are auto‑filled and disabled)
-            if (!(otpNotificationValue === 'PRIMARY_CUSTOMER' && transactionNotificationValue === 'PRIMARY_CUSTOMER')) {
+            var showOtpMobile = component.get("v.showOtpMobile");
+            var showOtpEmail = component.get("v.showOtpEmail");
+            var showCardholderMobile = component.get("v.showCardholderMobile");
+            var showCardholderEmail = component.get("v.showCardholderEmail");
+            
+            // Validate OTP fields if visible
+            if (showOtpMobile) {
+                let otpMobileCmp = component.find("cardHolderMobile");
+                let otpMobileValue = otpMobileCmp ? otpMobileCmp.get("v.value") : '';
+                if (!otpMobileValue) {
+                    errorMessage = "Primary Mobile number is required.";
+                    helper.showErrorToast(component, event, helper, errorMessage);
+                    return;
+                }
+            }
+            if (showOtpEmail) {
+                let otpEmailCmp = component.find("cardHolderEmail");
+                let otpEmailValue = otpEmailCmp ? otpEmailCmp.get("v.value") : '';
+                if (!otpEmailValue) {
+                    errorMessage = "Primary Email address is required.";
+                    helper.showErrorToast(component, event, helper, errorMessage);
+                    return;
+                }
+            }
+            
+            // Validate Card Holder fields if visible
+            if (showCardholderMobile) {
                 let transactionPhoneCmp = component.find("cardHolderMobileNo");
                 let transactionPhoneValue = transactionPhoneCmp ? transactionPhoneCmp.get("v.value") : '';
-                let transactionEmailCmp = component.find("cardHolderEmailAddress");
-                let transactionEmailValue = transactionEmailCmp ? transactionEmailCmp.get("v.value") : '';
-
-                // Mobile validation
                 if (!transactionPhoneValue) {
                     errorMessage = "Card Holder Mobile number is required.";
                     helper.showErrorToast(component, event, helper, errorMessage);
@@ -41,9 +60,13 @@
                     helper.showErrorToast(component, event, helper, errorMessage);
                     return;
                 }
-
-                // Email validation
-                if (!transactionEmailValue) {
+            }
+            
+            if (showCardholderEmail) {
+                let transactionEmailCmp = component.find("cardHolderEmailAddress");
+                let transactionEmailValue = transactionEmailCmp ? transactionEmailCmp.get("v.value") : '';
+                let isEmailRequired = transactionEmailCmp ? transactionEmailCmp.get("v.required") : false;
+                if (isEmailRequired && !transactionEmailValue) {
                     errorMessage = "Card Holder Email address is required.";
                     helper.showErrorToast(component, event, helper, errorMessage);
                     return;
@@ -89,27 +112,22 @@
     },
     cardDesignIsChanged: function (component, event, helper) {
         console.log('is changed cardDesignIsChanged');
-        // Clear previous values immediately
         component.set("v.cardType", null);
         component.set("v.prepaidFees", null);
-        // Get current values
         var cardDesign = component.get("v.cardDesign");
         var dataConfig = component.get("v.cardOption");
         console.log('dataConfig --->', JSON.stringify(dataConfig));
         console.log('cardDesign --->', cardDesign);
-        // Validate inputs before processing
         if (!cardDesign || !dataConfig) {
             console.log('Waiting for required data...');
-            return; // Exit early if required data is not ready
+            return;
         }
-        // Check if cardTypeConfigurations exists and is valid
         if (!dataConfig.cardTypeConfigurations ||
             !Array.isArray(dataConfig.cardTypeConfigurations) ||
             dataConfig.cardTypeConfigurations.length === 0) {
             console.log('No card type configurations available');
             return;
         }
-        // Find matching card type
         var cardTypes = dataConfig.cardTypeConfigurations;
         var foundMatch = false;
         for (var i = 0; i < cardTypes.length; i++) {
@@ -119,7 +137,7 @@
                 component.set("v.prepaidFees", cardTypeObj.prepaidFees);
                 foundMatch = true;
                 console.log('Match found: ', cardTypeObj.cardType);
-                break; // Exit loop once match is found
+                break;
             }
         }
         if (!foundMatch) {
@@ -129,7 +147,6 @@
     handleLoad: function (component, event, helper) {
         console.log('handleLoad cmp---');
         let subscriptionModelField = component.find("Subscription_Model");
-        // Add null check
         if (subscriptionModelField) {
             let subscriptionModel = subscriptionModelField.get("v.value");
             if (subscriptionModel != null && subscriptionModel == 'alburaq') {
@@ -139,7 +156,7 @@
             }
         } else {
             console.warn('Subscription_Model field not found yet');
-            component.set('v.caseModel', 'ila'); // Default value
+            component.set('v.caseModel', 'ila');
         }
     },
     requestCardTypeChange: function (component, event, helper) {
@@ -150,11 +167,9 @@
             component.set("v.showCardOption", false);
         }
     },
-    // Add handler for transaction notification field change
     handleTransactionNotificationChange: function (component, event, helper) {
         helper.handleNotificationChange(component, event, helper);
     },
-    // Add this new handler method
     handleOtpNotificationChange: function (component, event, helper) {
         helper.handleOtpNotificationChange(component, event, helper);
     },
@@ -164,21 +179,17 @@
         var source = event.getSource();
         var fieldName = source.getLocalId();
        
-        // Important: Use setTimeout to let the pasted value settle in the field
         setTimeout(function() {
             var inputValue = source.get("v.value") || '';
             var errorMsg = "";
-            // ==================== MOBILE VALIDATION ====================
             if (fieldName === "cardHolderMobileNo" && inputValue) {
                 var primaryMobile = accountDetails.PersonMobilePhone || '';
-               
                 var normalizedInput = inputValue.replace(/^00/, '').trim();
                 var normalizedPrimary = primaryMobile.replace(/^00/, '').trim();
                 if (normalizedInput === normalizedPrimary && normalizedInput !== '') {
                     errorMsg = "Phone number cannot be the same as the primary customer mobile number.";
                 }
             }
-            // ==================== EMAIL VALIDATION ====================
             else if (fieldName === "cardHolderEmailAddress" && inputValue) {
                 var primaryEmail = accountDetails.PersonEmail || '';
                 if (primaryEmail && inputValue.toLowerCase().trim() === primaryEmail.toLowerCase().trim()) {
@@ -187,15 +198,11 @@
             }
             if (errorMsg) {
                 helper.showErrorToast(component, event, helper, errorMsg);
-               
-                // Clear the invalid value
                 source.set("v.value", "");
-               
-                // Force validity check after clearing
                 setTimeout(function() {
                     source.reportValidity();
                 }, 150);
             }
-        }, 50); // Small delay to capture pasted value
+        }, 50);
     },
 })

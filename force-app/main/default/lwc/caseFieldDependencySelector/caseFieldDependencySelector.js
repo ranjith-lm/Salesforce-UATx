@@ -97,6 +97,8 @@ import EXIT_DATE_FIELD from '@salesforce/schema/Case.From_Date__c';
 import STAFF_NUMBER_FIELD from '@salesforce/schema/Case.cc_Staff_Number__c';
 import UPDATED_EMAIL_FIELD from '@salesforce/schema/Case.Updated_Email__c';
 
+import getCustomerNameByCIF from '@salesforce/apex/CaseDisputesController.getCustomerNameByCIF';
+
 import { createRecord } from 'lightning/uiRecordApi';
 
 export default class CaseFieldDependencySelector extends NavigationMixin(LightningElement) {
@@ -206,6 +208,7 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     @track fawriTransactionDateTime = '';
     @track fawriBeneficiaryIban = '';
     @track caseFawriTransfer = '';
+     
     // CH01 end 
 
     @track beneficiaryName = '';
@@ -222,6 +225,9 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     @track interactionId = null;
     @track isUrlMode = false;
     @track wrapupCode = null; // NEW
+
+    @track caseCIF;
+    @track caseCustomerName;
 
     // Options for the Requested By combobox
     requestedByOptions = [
@@ -342,6 +348,7 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     getPageReference(pageRef) {
         if (pageRef && pageRef.state) {
             const cif = pageRef.state.c__cif;
+            this.caseCIF = cif;
             this.interactionId = pageRef.state.c__interactionId || null;
             this.wrapupCode = pageRef.state.c__wrapupcode || null; // NEW
             if (cif) {
@@ -360,6 +367,17 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
             if (accountId) {
                 this.recordId = accountId; // set recordId to trigger all wired methods
             } else {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: 'No Account found for the provided CIF.',
+                        variant: 'error'
+                    })
+                );
+            }
+
+            this.caseCustomerName = await getCustomerNameByCIF({ cif });
+            if (!this.caseCustomerName) {
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
@@ -395,9 +413,10 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
         const map = {
             'FCR': 'FCR',
             'customerAbandoned': 'Customer abandoned',
-            'EscalatedComplaint': 'Escalated complaint',
-            'handoffFault': 'Handed off – Fault',
-            'handoffRequest': 'Handed off – Request'
+            'EscalatedComplaint': 'Escalated- complaint',
+            'handoffFault': 'Handed off- fault',
+            'handoffRequest': 'Handed off- request',
+            'disputeFraud': 'Dispute - Fraud'
         };
         return map[this.wrapupCode] || this.wrapupCode;
     }
@@ -503,6 +522,42 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
                 });
         }
 
+        //start  new change for cancel fawri omar 
+        
+            if (this.caseType == 'Funds Transfer' && this.caseSubType == 'Fawri Cancellation Request' ) {
+                console.log("Case Fawri Criteria.");
+                //loadAccountList
+                //BankAccountController
+                const regionName = this.caseModel == 'ila' ? 'Bahrain' : 'Bahrain_alburaq';
+                loadAccountList({ customerId: this.cif, regionName: regionName })
+                    .then((data) => {
+                        console.log('498 Data received:', data);
+
+                        if (data.isSuccess && data.responseData?.accounts?.length) {
+                            const bhdAccounts = data.responseData.accounts.filter(f => f.account.currency.code == 'BHD');
+                            let listOfBHD_Accounts = [];
+                            bhdAccounts.forEach(accountObj => {
+                                listOfBHD_Accounts.push({
+                                    iban: accountObj.account.iban,
+                                    number: accountObj.account.number,
+                                    customerId: accountObj.customerId
+                                })
+                            });
+                            console.log("tmpAccount ", listOfBHD_Accounts);
+                            this.fetchFawriTransferList(listOfBHD_Accounts, regionName);
+                            this.error = undefined;
+                        } else {
+                            //this.allCustomerAccounts = [];
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error loading accounts:', error);
+                        this.error = error;
+                    });
+
+
+            }
+        //end cancel fawri new change 
         if (this.requestTypeOptions?.length === 0) {
             const result = await fetchCaseNatureAndRouting({
                 type: this.caseType,
@@ -547,7 +602,7 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     async handleRequestTypeChange(event) {
         this.isLoading = true;
         // CH01 start 
-        this.isShowFawriTransaction = false;
+        //this.isShowFawriTransaction = false;
         this.caseFawriTransferList = [];
         this.caseFawriTransferOptions = [];
 
@@ -730,7 +785,7 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
 
 
 
-            if (this.caseType == 'Funds Transfer' && this.caseSubType == 'EFTS' && this.caseRequestType == 'Cancellation Request') {
+            if (this.caseType == 'Funds Transfer' && this.caseSubType == 'Fawri Cancellation Request' ) {
                 console.log("Case Fawri Criteria.");
                 //loadAccountList
                 //BankAccountController
@@ -882,11 +937,18 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
                             const fawriObj = data.responseData[fawriIndex];
                             fawriObj["accountInfo"] = account;
 
+                            console.log('fawriObj --->',fawriObj);
+
                             if ((fawriObj.reconciliationStatus == 'ACCEPTED' || fawriObj.reconciliationStatus == 'CREATED') && fawriObj.batchId) {
                                 const debtorIban = fawriObj.debtor && fawriObj.debtor.account ? (fawriObj.debtor.account.iban || fawriObj.debtor.account.IBAN) : '';
                                 const debtorLast10 = (typeof debtorIban === 'string') ? debtorIban.slice(-10) : '';
                                 const accountIbanLast10 = (account.iban && typeof account.iban === 'string') ? account.iban.slice(-10) : '';
                                 const accountNumberLast10 = (account.number && typeof account.number === 'string') ? account.number.slice(-10) : (account.number ? String(account.number).slice(-10) : '');
+
+                                console.log('debtorIban --->',debtorIban);
+                                console.log('debtorLast10 --->',debtorLast10);
+                                console.log('accountIbanLast10 --->',accountIbanLast10);
+                                console.log('accountNumberLast10 --->',accountNumberLast10);
 
                                 if (debtorLast10 && (debtorLast10 === accountIbanLast10 || debtorLast10 === accountNumberLast10)) {
                                     const uniqueKey = fawriObj.paymentIdentification.endToEndId;
@@ -1023,8 +1085,7 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     }
     // CH01 start 
     get isFawriCancellation() {
-        return this.caseType == 'Funds Transfer' && this.caseSubType == 'EFTS' && this.caseRequestType == 'Cancellation Request';
-
+        return ((this.caseType == 'Funds Transfer' && this.caseSubType == 'Fawri Cancellation Request' ) || (this.caseType == 'Funds Transfer' && this.caseSubType == 'Fawri Cancellation'));
         // return this.caseType == 'Funds Transfer' && this.caseSubType == 'Fawri Cancellation';
     }
     // CH01 end
@@ -1241,6 +1302,16 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
                 fields[SUBSTATUS_FIELD.fieldApiName] = 'In-Progress';
             }
 
+            if (this.caseType == 'Profile Update' || (this.caseType == 'Account' && this.caseSubType == 'Dormant Account Reactivation') 
+            || (this.caseType == 'Account' && this.caseSubType == 'Manual Account Creation') 
+            || (this.caseType == 'Card Service' && this.caseSubType == 'Link/ Delink Card')
+            || (this.caseType == 'Cards' && this.caseSubType == 'Debit Card')
+            || (this.caseType == 'Cards' && this.caseSubType == 'Card Control')
+            || (this.caseType == 'Sukuk/bonds/Government security')
+            || (this.caseType === 'App Login' && this.caseSubType === 'Password Reset' && this.caseRequestType === 'Generate Random Password / Revoke Device')) {
+                fields[SUBSTATUS_FIELD.fieldApiName] = 'In-Progress';
+            }
+
             // CH01 start 
             if (this.isShowFawriTransaction) {
                 const fawriIndex = this.caseFawriTransferList.findIndex(f => f.uniqueKey == this.caseFawriTransfer);
@@ -1325,10 +1396,10 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
                 fields[EXIT_DATE_FIELD.fieldApiName] = this.exitDate;
             }
 
-            if (this.shouldShowDeviceDropdown && !this.selectedDeviceId) {
+            /* if (this.shouldShowDeviceDropdown && !this.selectedDeviceId) {
                 this.showToast('Error', 'Please select a device', 'error');
                 return;
-            }
+            } */
 
             if (this.shouldShowDeviceDropdown) {
                 fields[SEID_FIELD.fieldApiName] = this.selectedDeviceName;
@@ -1381,45 +1452,135 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
     }
 
     createCaseAnnex(caseRecord) {
-        const fields = {
-            [CASE_FIELD.fieldApiName]: caseRecord.id,
-        };
+    console.log('===== createCaseAnnex START =====');
 
-        if (this.isShowOverdrawnAccount) {
-            fields[OVERDRAWN_ACCOUNT_FIELD.fieldApiName] = this.overdrawnAccount;
-        }
+    console.log('caseRecord --->', JSON.stringify(caseRecord));
 
-        if (this.isShowDates) {
-            fields[PERIOD_FROM_FIELD.fieldApiName] = this.startDateTime;
-            fields[PERIOD_TO_FIELD.fieldApiName] = this.endDateTime;
-        }
+    const fields = {
+        [CASE_FIELD.fieldApiName]: caseRecord.id,
+    };
 
-        if (this.isShowRequestedAmount) {
-            fields[REQUESTED_AMOUNT_FIELD.fieldApiName] = this.requestedAmount;
-        }
+    console.log('Initial fields --->', JSON.stringify(fields));
 
-        if (this.isShowBeneficiaryName) {
-            fields[BENEFICIARY_NAME_FIELD.fieldApiName] = this.beneficiaryName;
-            fields[AMOUNT_FIELD.fieldApiName] = this.amount;
-        }
+    // Check Overdrawn Account
+    console.log('isShowOverdrawnAccount --->', this.isShowOverdrawnAccount);
+    if (this.isShowOverdrawnAccount) {
+        console.log('Adding Overdrawn Account field --->', this.overdrawnAccount);
 
-        if (this.isShowTenor) {
-            fields[TENOR_FIELD.fieldApiName] = this.tenor;
-        }
+        fields[OVERDRAWN_ACCOUNT_FIELD.fieldApiName] = this.overdrawnAccount;
 
-        fields[CASE_ANNEX_RECTYPE_ID_FIELD.fieldApiName] = '012Pw00000ApHtDIAV';
-
-        createRecord({ apiName: CASEANNEX_OBJECT.objectApiName, fields })
-            .then(() => this.navigateToRecord(caseRecord))
-            .catch(error => {
-                console.log('error --->', JSON.stringify(error));
-                this.isLoading = false;
-                this.showErrorToast('Error creating Case Annex', error.body.message)
-            })
-            .finally(() => {
-                this.isLoading = false;
-            });
+        console.log(
+            'Overdrawn Account field added --->',
+            JSON.stringify(fields)
+        );
     }
+
+    // Check Dates
+    console.log('isShowDates --->', this.isShowDates);
+    if (this.isShowDates) {
+        console.log('startDateTime --->', this.startDateTime);
+        console.log('endDateTime --->', this.endDateTime);
+
+        fields[PERIOD_FROM_FIELD.fieldApiName] = this.startDateTime;
+        fields[PERIOD_TO_FIELD.fieldApiName] = this.endDateTime;
+
+        console.log(
+            'Date fields added --->',
+            JSON.stringify(fields)
+        );
+    }
+
+    // Check Requested Amount
+    console.log('isShowRequestedAmount --->', this.isShowRequestedAmount);
+    if (this.isShowRequestedAmount) {
+        console.log('requestedAmount --->', this.requestedAmount);
+
+        fields[REQUESTED_AMOUNT_FIELD.fieldApiName] = this.requestedAmount;
+
+        console.log(
+            'Requested Amount field added --->',
+            JSON.stringify(fields)
+        );
+    }
+
+    // Check Beneficiary Name
+    console.log('isShowBeneficiaryName --->', this.isShowBeneficiaryName);
+    if (this.isShowBeneficiaryName) {
+        console.log('beneficiaryName --->', this.beneficiaryName);
+        console.log('amount --->', this.amount);
+
+        fields[BENEFICIARY_NAME_FIELD.fieldApiName] = this.beneficiaryName;
+        fields[AMOUNT_FIELD.fieldApiName] = this.amount;
+
+        console.log(
+            'Beneficiary Name and Amount fields added --->',
+            JSON.stringify(fields)
+        );
+    }
+
+    // Check Tenor
+    console.log('isShowTenor --->', this.isShowTenor);
+    if (this.isShowTenor) {
+        console.log('tenor --->', this.tenor);
+
+        fields[TENOR_FIELD.fieldApiName] = this.tenor;
+
+        console.log(
+            'Tenor field added --->',
+            JSON.stringify(fields)
+        );
+    }
+
+    // Case Annex Record Type
+    console.log(
+        'CASE_ANNEX_RECTYPE_ID_FIELD --->',
+        CASE_ANNEX_RECTYPE_ID_FIELD.fieldApiName
+    );
+
+    fields[CASE_ANNEX_RECTYPE_ID_FIELD.fieldApiName] = '012Pw00000ApHtDIAV';
+
+    console.log(
+        'Final fields before createRecord --->',
+        JSON.stringify(fields)
+    );
+
+    console.log('Calling createRecord --->');
+    console.log('Object API Name --->', CASEANNEX_OBJECT.objectApiName);
+
+    createRecord({
+        apiName: CASEANNEX_OBJECT.objectApiName,
+        fields
+    })
+        .then(result => {
+            console.log('createRecord SUCCESS --->');
+            console.log('Created Case Annex result --->', JSON.stringify(result));
+
+            console.log('Calling navigateToRecord --->');
+            this.navigateToRecord(caseRecord);
+        })
+        .catch(error => {
+            console.log('createRecord ERROR --->', JSON.stringify(error));
+            console.log('Error body --->', JSON.stringify(error?.body));
+            console.log('Error message --->', error?.body?.message);
+
+            this.isLoading = false;
+
+            console.log('isLoading set to false due to error --->', this.isLoading);
+
+            this.showErrorToast(
+                'Error creating Case Annex',
+                error.body.message
+            );
+        })
+        .finally(() => {
+            console.log('createRecord FINALLY --->');
+
+            this.isLoading = false;
+
+            console.log('isLoading set to false in finally --->', this.isLoading);
+            console.log('===== createCaseAnnex END =====');
+        });
+}
 
     populatePicklistOptions(data, fieldMapping) {
         for (const fieldName in fieldMapping) {
@@ -1442,6 +1603,15 @@ export default class CaseFieldDependencySelector extends NavigationMixin(Lightni
             this.isLoading = false;
             this.showSuccessToast('Case created successfully!', url, caseRecord.fields.CaseNumber.value);
             this.closeQuickAction();
+        });
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: caseRecord.id,
+                objectApiName: 'Case',
+                actionName: 'view'
+            }
         });
     }
 

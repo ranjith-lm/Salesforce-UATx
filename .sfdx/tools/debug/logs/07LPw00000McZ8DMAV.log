@@ -1,0 +1,36 @@
+68.0 APEX_CODE,DEBUG;APEX_PROFILING,INFO;CALLOUT,INFO;DATA_ACCESS,NONE;DB,INFO;NBA,INFO;SYSTEM,INFO;VALIDATION,INFO;VISUALFORCE,INFO;WAVE,INFO;WORKFLOW,INFO
+14:41:01.0 (206441)|USER_INFO|[EXTERNAL]|0053N000006tZLM|khazi.jahangeer@ilabank.com.uatx|(GMT+03:00) Arabian Standard Time (Asia/Kuwait)|GMT+03:00
+14:41:01.0 (240118)|EXECUTION_STARTED
+14:41:01.0 (250115)|CODE_UNIT_STARTED|[EXTERNAL]|apex://UserProfileController/ACTION$isWatiqueUpload
+14:41:01.0 (6850817)|CODE_UNIT_STARTED|[EXTERNAL]|01p1t00000MLZX9|UserProfileController.isWatiqueUpload(String)
+14:41:01.0 (9955904)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (10010597)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (10055273)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (10067518)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (10071567)|SYSTEM_MODE_ENTER|true
+14:41:01.0 (10074397)|SYSTEM_MODE_EXIT|true
+14:41:01.0 (11956692)|SOQL_EXECUTE_BEGIN|[586]|Aggregations:0|SELECT Id, AccountId FROM Case WHERE Id = :tmpVar1
+14:41:01.0 (21303333)|SOQL_EXECUTE_END|[586]|Rows:1
+14:41:01.0 (23244078)|SOQL_EXECUTE_BEGIN|[587]|Aggregations:1|SELECT Id, (SELECT Id, Document_Type__c FROM Content__r WHERE Document_Type__c = 'Wathiq Consent Form') FROM Account WHERE Id = :tmpVar1
+14:41:01.0 (40054195)|SOQL_EXECUTE_END|[587]|Rows:1
+14:41:01.40 (40393985)|CUMULATIVE_LIMIT_USAGE
+14:41:01.40 (40393985)|LIMIT_USAGE_FOR_NS|(default)|
+  Number of SOQL queries: 2 out of 100
+  Number of query rows: 2 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 10000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+14:41:01.40 (40393985)|CUMULATIVE_LIMIT_USAGE_END
+
+14:41:01.0 (40416115)|CODE_UNIT_FINISHED|UserProfileController.isWatiqueUpload(String)
+14:41:01.0 (40606335)|CODE_UNIT_FINISHED|apex://UserProfileController/ACTION$isWatiqueUpload
+14:41:01.0 (40614188)|EXECUTION_FINISHED

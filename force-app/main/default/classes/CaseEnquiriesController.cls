@@ -11,6 +11,15 @@ public with sharing class CaseEnquiriesController {
     }
 
     @AuraEnabled(cacheable=true)
+    public static String getCustomerNameByCIF(String cif) {   // ✅ changed return type to String
+        if (String.isBlank(cif)) {
+            return null;
+        }
+        List<Account> accounts = [SELECT Name FROM Account WHERE CIF__pc = :cif LIMIT 1];
+        return accounts.isEmpty() ? null : accounts[0].Name;   // ✅ returns Name as String
+    }
+
+    @AuraEnabled(cacheable=true)
     public static Id getCaseEnquiriesRecordTypeId() {
         return [SELECT Id FROM RecordType 
                 WHERE SObjectType = 'Case' 

@@ -25,7 +25,9 @@
     <aura:attribute name="showAllAccount" type="Boolean" default="True"  />
     <aura:attribute name="caseModel" type="String" /><!--CH01 : by D&A team-->
     <aura:attribute name="fields" type="List" default="['Subscription_Model__pc','Region_flag__pc']"/>
-    
+    <aura:attribute name="selectedDate" type="Date" />
+	<aura:attribute name="amount" type="Decimal" />
+    <aura:attribute name="errorMsg" type="String" default="" /> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
     <header class="slds-modal__header">
@@ -62,26 +64,27 @@
                 <lightning:inputField fieldName="Case_Model__c" aura:id="caseModel" required="true" value="{!v.caseModel}"/><!--CH01-->
                 
                 <!--CH01 END -->
-                <lightning:inputField fieldName="Type" aura:id="type" onchange="{!c.onChangeType}"/>
+                <lightning:inputField fieldName="Type" aura:id="type" required="true" onchange="{!c.onChangeType}"/>
                 <lightning:inputField fieldName="Origin" aura:id="origin" required="true"/>
                 <lightning:inputField fieldName="Case_Nature__c" aura:id="CaseNature" required="true"/>
                 <aura:if isTrue="{! v.Type == 'Place Hold'}">
                 <lightning:inputField fieldName="Place_hold_on_all_Accounts__c" aura:id="allAccount" onchange="{!c.onChangeAllAcnt}"/>
                     <aura:if isTrue="{!v.showAllAccount}">
                         <c:LTNG062_AccountsList accountId = "{!v.recordId}" accDetails = "{!v.accDetails}"  accIbans = "{!v.accIbans}" allAccList="{!v.allAccList}" caseModel="{!v.caseModel}" />
-                         <lightning:inputField fieldName="BUA_AccountsInformation__c" aura:id="BUA_AccountsInformation" disabled="true" value="{! v.accDetails}"/>
+                         <lightning:inputField fieldName="BUA_AccountsInformation__c" aura:id="BUA_AccountsInformationDetails" value="{! v.accDetails}"/>
                     </aura:if>
                      <aura:if isTrue="{!!v.showAllAccount}">
                          <div class="slds-hide">
                               <c:LTNG062_AccountsList accountId = "{!v.recordId}" accDetails = "{!v.accDetails}"  accIbans = "{!v.accIbans}" allAccList="{!v.allAccList}" caseModel="{!v.caseModel}" />
                              </div>
-                         <lightning:inputField fieldName="BUA_AccountsInformation__c" aura:id="BUA_AccountsInformation" disabled="true" value="{!v.allAccList}"/>                       
+                         <lightning:inputField fieldName="BUA_AccountsInformation__c" aura:id="BUA_AccountsInformationList" value="{!v.allAccList}"/>                       
                          </aura:if>
-                     <lightning:inputField fieldName="RHA_HoldAmount__c" aura:id="RHA_HoldAmount"/>
-                         <lightning:inputField fieldName="ac_Currency__c" aura:id="ac_Currency" disabled="true" value="{!v.currency}"/>
-                         <lightning:input type="date" name="HoldExpiryDate" label="Hold Expiry Date" aura:id="RHA_HoldExpiryDatecustom"/>
+                     	<!--<lightning:inputField fieldName="RHA_HoldAmount__c" required="true" value="{!v.amount}" aura:id="RHA_HoldAmount"/>-->
+                    <lightning:input type="number" label="Hold Amount" name="RHA_HoldAmount__c" required="true" value="{!v.amount}" min="1" aura:id="RHA_HoldAmount" messageWhenRangeUnderflow="Amount must be greater than 0."/>
+                         <lightning:inputField fieldName="ac_Currency__c" required="true" aura:id="ac_Currency" disabled="true" value="{!v.currency}"/>
+                         <lightning:input type="date" name="HoldExpiryDate" required="true" label="Hold Expiry Date" aura:id="RHA_HoldExpiryDatecustom" value="{!v.selectedDate}" onchange="{!c.validateDate}"/>
                          <!--<lightning:inputField fieldName="RHA_HoldExpiryDate__c" aura:id="RHA_HoldExpiryDate"/>-->
-                         <lightning:inputField fieldName="Hold_Description__c" aura:id="HoldDescription"/>
+                         <lightning:inputField fieldName="Hold_Description__c" required="true" aura:id="HoldDescription"/>
                      <div class="slds-hide">  
                          <lightning:inputField fieldName="Sub_Type__c" aura:id="Sub_Type" disabled="true" value="Place Hold"/>
                      </div>
@@ -126,6 +129,9 @@
 
                 <div class="slds-hide">
                     <lightning:inputField fieldName="AccountId" value="{!v.recordId}" aura:id="accId"/>
+                </div>
+                <div>
+                	<p>{!v.errorMsg}</p>
                 </div>
                 <div class="slds-float_right">
                     <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.showSpinner}" />

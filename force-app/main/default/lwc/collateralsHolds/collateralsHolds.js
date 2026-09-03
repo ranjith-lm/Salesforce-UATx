@@ -1,47 +1,104 @@
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire, track, api } from 'lwc';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import getCustomerHolds from '@salesforce/apex/CollateralsHoldsController.getCustomerHolds';
 
-// Mock CIF – replace with actual from the context
-const CIF = '12345';
+const CIF_FIELD = 'Account.CIF__pc';
+const REGION_NAME_FIELD = 'Account.Region_Flag__pc';
+const XCANARY_FIELD = 'Account.x_canary__pc';
 
 export default class CollateralsHolds extends LightningElement {
+    _recordId;
+    @api 
+    get recordId() {
+        return this._recordId;
+    }
+    set recordId(value) {
+        this._recordId = value;
+        // Reset state and show spinner
+        this.isLoading = true;
+        this.isEmpty = false;
+        this.selectedAccount = null;
+        this.accountsWithHolds = [];
+        // The wire will automatically re-run because recordId changed
+    }
+
     @track accountsWithHolds = [];
     @track selectedAccount = null;
     @track isLoading = true;
     @track isEmpty = false;
+    @api isAlburaqProduct = false;
 
-    // Wire the Apex method
-    @wire(getCustomerHolds, { cif: CIF })
-    wiredHolds({ error, data }) {
-        this.isLoading = false;
+    // Reactive CIF value from Account
+    cif;
+    regionName;
+    xcanary;
+
+    // Wire to get the Account record and extract CIF__pc
+    @wire(getRecord, { recordId: '$recordId', fields: [CIF_FIELD, REGION_NAME_FIELD, XCANARY_FIELD] })
+    wiredAccount({ error, data }) {
         if (data) {
-            // Map data to add a 'selected' flag
-            this.accountsWithHolds = data.map(account => ({
-                ...account,
-                selected: false
-            }));
-            // Check if any accounts exist
+            this.cif = getFieldValue(data, CIF_FIELD);
+            this.regionName = getFieldValue(data, REGION_NAME_FIELD);
+            this.xcanary = getFieldValue(data, XCANARY_FIELD);
+
+            console.log('cif --->', this.cif);
+            console.log('regionName --->', this.regionName);
+            console.log('xcanary --->', this.xcanary);
+
+            // If CIF is blank, we can stop loading and show empty state
+            if (String.isBlank(this.cif)) {
+                this.isLoading = false;
+                this.isEmpty = true;
+                this.accountsWithHolds = [];
+                this.selectedAccount = null;
+            }
+            // else keep isLoading true until holds are fetched
+        } else if (error) {
+            console.error('Error fetching Account CIF:', error);
+            this.isLoading = false;
+            this.isEmpty = true;
+            this.accountsWithHolds = [];
+            this.selectedAccount = null;
+        }
+    }
+
+    // Wire to get holds – triggered when cif changes
+    @wire(getCustomerHolds, { cif: '$cif', regionName: '$regionName', xCanaryValue: '$xcanary' })
+    wiredHolds({ error, data }) {
+        // Always turn off spinner when this wire returns
+        this.isLoading = false;
+        console.log('Data --->', JSON.stringify(data));
+        if (data) {
+            // Sort holds within each account by FromDate (oldest first)
+            this.accountsWithHolds = data.map(account => {
+                const sortedHolds = [...account.holds].sort(
+                    (a, b) => new Date(a.fromDate) - new Date(b.fromDate)
+                );
+                return {
+                    ...account,
+                    holds: sortedHolds,
+                    isSelected: false
+                };
+            });
             this.isEmpty = this.accountsWithHolds.length === 0;
-            // If there is at least one account, select the first one by default?
-            // Requirement: only one record selected at a time; we can leave none selected
-            // or pre-select first. We'll leave none selected, so details panel remains empty.
             this.selectedAccount = null;
         } else if (error) {
             console.error('Error fetching holds:', error);
             this.isEmpty = true;
             this.accountsWithHolds = [];
+            this.selectedAccount = null;
         }
     }
 
     // Handle radio button change
     handleRadioChange(event) {
         const selectedAccNumber = event.target.value;
-        // Update selected flag on all accounts
-        this.accountsWithHolds = this.accountsWithHolds.map(account => ({
-            ...account,
-            selected: account.accountNumber === selectedAccNumber
+        this.accountsWithHolds = this.accountsWithHolds.map(acc => ({
+            ...acc,
+            isSelected: acc.accountNumber === selectedAccNumber
         }));
-        // Find the selected account object
-        this.selectedAccount = this.accountsWithHolds.find(acc => acc.accountNumber === selectedAccNumber) || null;
+        this.selectedAccount = this.accountsWithHolds.find(
+            acc => acc.accountNumber === selectedAccNumber
+        );
     }
 }

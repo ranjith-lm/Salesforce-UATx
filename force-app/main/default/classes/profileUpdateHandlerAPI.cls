@@ -75,12 +75,12 @@ public class profileUpdateHandlerAPI implements Queueable, Database.AllowsCallou
                             acc.PersonEmail = objCase.Account.Email_Update__pc;
                             accListToUpdate.add(acc);  
                         }
-                        else if((objCase.Type == 'Personal Info Update' || objCase.Type == 'Profile Update') && objCase.Sub_Type__c == 'Expired ID Update'){
+                        else if((objCase.Type == 'Personal Info Update' || objCase.Type == 'Profile Update') && (objCase.Sub_Type__c == 'Expired ID Update' || objCase.Sub_Type__c == 'ID Expiry Update' || objCase.Sub_Type__c == 'ID Type Update')){
                            acc.ID_Type__pc =  objCase.Account.ID_Type_Update__pc;
                            acc.ID_Expiry_Date__pc = objCase.Account.ID_Expiry_Date_Update__pc;
                            accListToUpdate.add(acc);
                         }
-                        else if((objCase.Type == 'Personal Info Update' || objCase.Type == 'Profile Update') && objCase.Sub_Type__c == 'Name Fix / Update'){
+                        else if((objCase.Type == 'Personal Info Update' || objCase.Type == 'Profile Update') && (objCase.Sub_Type__c == 'Name Fix / Update' || objCase.Sub_Type__c == 'Name Update')){
                            if(objCase.Account.FirstName_Update__pc != null)
                                 acc.FirstName = objCase.Account.FirstName_Update__pc;
                            if(objCase.Account.MiddleName_Update__pc != null)

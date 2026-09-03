@@ -954,12 +954,12 @@ global class initiateManualOnboarding
         //CH35: Added Issuing_card_for_a_spouse__c,Spouse_CIF__cin the SOQL
         //CH39: Added ContactId,bs_Instrument_ID__c,Resend_DocuSign__c in the SOQL
         //CH40: added ,account.PersonContactId
-        //CH43: Added Is_Initiated_from_Upgrade_Case__c in the SOQL
+        //CH43: Added Is_Initiated_from_Upgrade_Case__c,Target_Upgrade_Credit_Card_Type__c in the SOQL
         List<Case> lstCase = [Select id,Account.x_canary__pc,cc_Credit_Card_PCI_Number__c, status, Sub_Status__c,RecordTypeId, Type, Sub_Type__c, cc_Requested_Card_Type__c, Customer_Segment__c, Customer_CIF__c, cc_Name_on_the_Card__c, cc_Approved_Credit_Limit__c,Origin, Account.PersonEmail, Account.CIF__pc, cc_Credit_Approval_Result__c, cc_Credit_Evaluation_Result__c, cc_Credit_Verification_Result__c, cc_Business_Approval_Result__c, cc_Credit_Approval_Result_Date_Time__c, cc_Application_Stages__c, 
                               cc_Approved_Balance_Transfer_Amount__c,Is_Doc_Dicrepancy__c,cc_Approved_Requested_Card_Type__c,cc_Approved_Transfer_Type__c,cc_Approved_Name_on_the_card__c,cc_Approved_Embossing_line_4__c,cc_Signature_Verifier_Result__c,cc_Service_Centre_Result__c,cc_Operations_Result__c,cc_HR_Result__c, cc_HR_Result_Date_Time__c, cc_Business_Approval_Result_Date_Time__c, cc_Credit_Evaluation_Result_Date_Time__c, cc_Credit_Verification_Result_Date_Time__c, cc_Credit_Pre_Screening_Result__c, cc_Credit_Pre_Screening_Result_Date_Time__c,Account.Segment__pc, cc_Maker__c,
                               Account.Nationality__pc,cc_CEO_Result__c,sc_Spending_Limit_Amount__c,sc_Relationship__c, sc_Card_Holder_First_Name__c, sc_Card_Holder_Last_Name__c, sc_Card_Holder_Date_of_Birth__c, sc_Card_Holder_Email_Address__c,cc_Balance_Transfer_Reference_Number__c,cc_isDocumentReceived__c,Fraud_Results__c,
                               Campaign_Name__c,Approved_Campaign_Name__c,sc_Card_Holder_Mobile_No__c, sc_Card_Holder_Gender__c, sc_Card_Holder_ID_Number__c, cc_ID_Expiry_Date__c, sc_Card_Holder_Nationality__c, cc_Embossing_Line_4__c, cc_Is_Doc_Uploaded__c, cc_Is_Doc_Uploaded_For_Dicrepancy__c,PrimaryCardProductConfigurationId__c, PrimaryCard__c, CaseNumber,sc_Card_Holder_ID_Expiry_Date__c,cc_PCI_Id__c, Region_Flag__c,cc_Customer_Response__c,Case_Model__c ,cc_Request_Type__c,cc_Temporary_Limit_Increase_Duration__c,cc_Temporary_Limit_Increase_Expiry_Date__c,cc_Reminder_Triggered__c,
-                              cc_Requested_Credit_Limit__c,LastModifiedBy.Name,Is_Balance_Transfer__c,Has_Co_Brand_Membership_Number__c,Account.FirstName, Account.LastName,Reapplying_Restriction_Period__c,Issuing_card_for_a_spouse__c,Spouse_CIF__c,ContactId,bs_Instrument_ID__c,Resend_DocuSign__c,account.PersonContactId,Is_Initiated_from_Upgrade_Case__c FROM Case where Id In: setCaseId];
+                              cc_Requested_Credit_Limit__c,LastModifiedBy.Name,Is_Balance_Transfer__c,Has_Co_Brand_Membership_Number__c,Account.FirstName, Account.LastName,Reapplying_Restriction_Period__c,Issuing_card_for_a_spouse__c,Spouse_CIF__c,ContactId,bs_Instrument_ID__c,Resend_DocuSign__c,account.PersonContactId,Is_Initiated_from_Upgrade_Case__c,Target_Upgrade_Credit_Card_Type__c FROM Case where Id In: setCaseId];
         
         //CH01: END
         //Get the queue label for the assignment depending on the region flag
@@ -3429,6 +3429,7 @@ body = '{"crmCaseId": "'+objCase.Id +
             request.setTimeout(50000);
             request.setBody(body);
             request.setHeader('customerId', cItem.Customer_CIF__c);
+            request.setHeader('x-canary', 'cbs');
             
             system.debug('---> Request --> '+request.getBody());
             HttpResponse response = http.send(request);

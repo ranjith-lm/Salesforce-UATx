@@ -100,7 +100,7 @@
                 <lightning:inputField fieldName="cc_PCI_Id__c" value="{!v.maskedCardNumber}" aura:id="maskId"/>
 				<!-- CH04 END -->
                 <!-- CH05 Start -->
-                <lightning:inputField fieldName="Card_Type__c" value="{!v.selectedCard}" aura:id="targetCard"/>
+                <lightning:inputField fieldName="Target_Upgrade_Credit_Card_Type__c" value="{!v.selectedCard}" aura:id="targetCard"/>
 				<!-- CH05 END -->
             </div> 
            

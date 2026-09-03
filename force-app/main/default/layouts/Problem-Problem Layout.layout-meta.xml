@@ -204,12 +204,6 @@
         <fields>Name</fields>
         <relatedList>RelatedChangeRequests</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>Case</fields>
-        <fields>RelationshipType</fields>
-        <fields>Name</fields>
-        <relatedList>CaseRelatedIssues</relatedList>
-    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>

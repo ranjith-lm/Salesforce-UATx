@@ -314,6 +314,14 @@
             </aura:if>
         </aura:if>
         
+        <aura:if isTrue="{!'Account' == v.sObjectName}">
+            <aura:if isTrue="{! v.tabsConfig.Collateral_Holds__c == true }">
+                <lightning:tab label="Collaterals/Holds" id = "collaterals">
+                    <c:collateralsHolds aura:id="lWCChild" recordId="{!v.recordId}" isAlburaqProduct='false'></c:collateralsHolds>
+                </lightning:tab>
+            </aura:if>
+        </aura:if>
+        
         <!-- #CH15 start :  add "|| ('Loan_Application' == v.caseRecordType)"  -->
         <aura:if isTrue="{! 'Loan_Application' != v.caseRecordType}">
             <!--CH14 Start -->

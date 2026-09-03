@@ -187,7 +187,7 @@ public class CreditCardUpgradeRequestControllerTest {
         String mockResponse = '{"data":{"cardOptions":[{"cardDisplayName":"Platinum Card","productStatus":"UPGRADE","productMappingCode":"PLT123"}]}}';
         Test.setMock(HttpCalloutMock.class, new CreditCardHttpCalloutMock(mockResponse, 200));
 
-        Map<String, Object> upgradeOptions = CreditCardUpgradeRequestController.getCreditCardUpgradeOptions(acc.Id, 'standard');
+        Map<String, Object> upgradeOptions = CreditCardUpgradeRequestController.getCreditCardUpgradeOptions(acc.Id,'ila', 'standard');
         Test.stopTest();
     }
 
@@ -227,7 +227,7 @@ public class CreditCardUpgradeRequestControllerTest {
         String mockResponse = '{"data":{"creditLimit":50000}}';
         Test.setMock(HttpCalloutMock.class, new CreditCardHttpCalloutMock(mockResponse, 200));
 
-        Decimal creditLimit = CreditCardUpgradeRequestController.loadCardDetails(acc.Id, 'standard', 'PCI123');
+        Map<String, Object> creditLimit = CreditCardUpgradeRequestController.loadCardDetails(acc.Id, 'ila', 'PCI123');
         Test.stopTest();
     }
 }

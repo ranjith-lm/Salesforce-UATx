@@ -1,0 +1,38 @@
+name: Salesforce Metadata Sync
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+jobs:
+  retrieve-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Salesforce CLI
+        uses: salesforce/sfdx-action@v1
+        with:
+          version: latest
+
+      - name: Authenticate with Salesforce org
+        env:
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
+        run: |
+          echo "$SFDX_AUTH_URL" > sfdx_auth.txt
+          sfdx auth:sfdxurl:store -f sfdx_auth.txt -a github-automation-org
+
+      - name: Retrieve metadata from package.xml
+        run: sfdx force:source:retrieve -x manifest/package.xml
+
+      - name: Commit and push retrieved metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || (git commit -m "Sync Salesforce metadata from org via package.xml" && git push)

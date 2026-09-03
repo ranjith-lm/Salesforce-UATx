@@ -158,6 +158,7 @@
                 if (caseResponse.getState() === "SUCCESS") {
                     var caseMap = caseResponse.getReturnValue();
                     var loansData = component.get('v.data');
+                    console.log('loans > ', loansData)
                     loansData.forEach(function(loan) {
                         if (caseMap[loan.id]) {
                             loan.approvedCaseNumber = caseMap[loan.id].CaseNumber;

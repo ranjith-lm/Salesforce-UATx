@@ -6,9 +6,7 @@ public with sharing class lwc16_SocialMediaLeadsViewerController {
         @AuraEnabled public Map<String, String> accountIdMap {get;set;}
     }
 
-    /**
-     * Retrieves Social Media Leads records with server-side filtering and pagination.
-     */
+ 
     @AuraEnabled(cacheable=true)
     public static LeadPagedResult getSocialMediaLeads(
         Integer pageSize, 

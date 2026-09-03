@@ -196,7 +196,6 @@ export default class EligibleProductsAndOffers extends LightningElement {
         this.isApplyDisabled = !hasSelection;
     }
 
-    // ====== UPDATED handleApply ======
     async handleApply() {
         if (this.isProcessing) return;
         
@@ -274,34 +273,36 @@ export default class EligibleProductsAndOffers extends LightningElement {
                 }
             }
             
-            if (allSuccess) {
-                this.refreshList();
-                const combinedMessage = successMessages.join(' | ');
-                this.showToast('Success', combinedMessage || 'All items processed successfully', 'success');
-                const remainingItems = this.activeProducts.length + this.activeOffers.length;
-                if (remainingItems === 0) {
-                    // ✅ Close modal immediately after toast (300ms delay to let toast fire)
-                    this.showToast('All Done', 'All eligible items have been processed', 'success');
-                    setTimeout(() => {
-                        this.hideModalBox();
-                    }, 300);
-                } else {
-                    this.resetSelections();
-                    this.showSummary = false;
-                    this.isApplyDisabled = true;
-                    this.isProcessing = false;
-                    this.showToast(
-                        'Remaining Items', 
-                        remainingItems + ' items still pending for review', 
-                        'info'
-                    );
+            // --- FIX STARTS HERE ---
+            // After processing, check if any active items remain.
+            // If none, we consider the process "complete" and close the modal after showing a toast.
+            const remainingItems = this.activeProducts.length + this.activeOffers.length;
+            
+            if (remainingItems === 0) {
+                // All items have been actioned – show success (or combined messages) and close
+                this.isProcessing = false; // ensure spinner stops
+                this.updateApplyButton();
+                this.showSummary = false;
+                
+                let finalMessage = 'All items processed successfully.';
+                if (successMessages.length > 0) {
+                    finalMessage = successMessages.join(' | ');
                 }
+                this.showToast('Success', finalMessage, 'success');
+                
+                // Close modal after a short delay so the toast is visible
+                setTimeout(() => {
+                    this.hideModalBox();
+                }, 2000);
             } else {
-                const errorMessage = errorMessages.join(' | ');
-                this.showToast('Error', errorMessage || 'Failed to process some selections. Please try again.', 'error');
+                // There are still items left – show info and keep modal open
                 this.isProcessing = false;
                 this.updateApplyButton();
+                this.showSummary = false; // reset summary for new selections
+                this.showToast('Remaining Items', remainingItems + ' items still pending for review', 'info');
             }
+            // --- FIX ENDS HERE ---
+            
         } catch (error) {
             console.error('Error in handleApply:', error);
             this.showToast('Error', 'An unexpected error occurred. Please try again.', 'error');

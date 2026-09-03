@@ -43,6 +43,7 @@ public class loanPaymentPdfController {
         // Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename=paymentsSchedule.pdf');
 
         String pageName = ApexPages.currentPage().getParameters().get('pageName');
+        System.debug('pageName ' + pageName);
         decodedPageName = EncodingUtil.base64Decode(pageName).toString();
         
         currentDate = '';

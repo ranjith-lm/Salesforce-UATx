@@ -16,6 +16,7 @@
             const res = response.getReturnValue();
             if (state === "SUCCESS") {
                 component.set('v.showLoadingSpinner',false);
+                debugger;
                 if(res && res.length > 0){
                     if(res[0].Unit_Termination__c == undefined || res[0].Unit_Termination__c == null || res[0].Unit_Termination__c == ''){
                         component.set("v.errMsg","Unit Termination field value is missing");
@@ -53,6 +54,7 @@
             const res = response.getReturnValue();
             console.log("response.getReturnValue() ",res);
             console.log("state ",state);
+            debugger;
             if (state === "SUCCESS" && res.isSuccess) {
                 let errMsg = '';
                 let successMsg = '';
@@ -69,10 +71,10 @@
                 }
                 else if(res.responseData.status == 'AWATING_HASSALA_COB_CLOSURE'){
                     for(let i = 0; i < res.responseData.pendingAccounts.length; i++){
-                        errMsg = errMsg + "<li>" + res.responseData.pendingAccounts[i].iban;
+                        errMsg = errMsg + "<li>" + res.responseData.pendingAccounts[i].iban + "</li>";
                     }
                     if(errMsg != ''){
-                        errMsg = '<p>Following Hassala Account(s) are pending for closure</p><ul>' + errMsg + '</ul>';
+                        errMsg = '<p>Following Hassala / Currency Account(s) are pending for closure</p><ul>' + errMsg + '</ul>';
                         console.log("errMsg ",errMsg);
                         component.set("v.errMsg",errMsg);
                     }
@@ -92,7 +94,18 @@
                 }
             }
             else {
-                component.set("v.errMsg",res.errorData.message);
+                let errMsg = "";
+                
+                if(res.errorData.message){
+                    errMsg = res.errorData.message;
+                }
+                else if(res.errorData){
+                    errMsg = res.errorData;
+                }
+                    else {
+                        errMsg = "An unhandled error occured while processing account termination.";
+                    }
+                component.set("v.errMsg",errMsg);
             }
             component.set('v.showLoadingSpinner',false);
         });

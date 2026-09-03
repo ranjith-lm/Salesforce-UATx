@@ -4,6 +4,9 @@ declare module "@salesforce/apex/FaultIncidentCaseController.getFaultIncidentRec
 declare module "@salesforce/apex/FaultIncidentCaseController.getAccountIdByCIF" {
   export default function getAccountIdByCIF(param: {cif: any}): Promise<any>;
 }
+declare module "@salesforce/apex/FaultIncidentCaseController.getCustomerNameByCIF" {
+  export default function getCustomerNameByCIF(param: {cif: any}): Promise<any>;
+}
 declare module "@salesforce/apex/FaultIncidentCaseController.createCaseAnnex" {
   export default function createCaseAnnex(param: {caseId: any, incidentOutage: any, incidentOutageNumber: any}): Promise<any>;
 }

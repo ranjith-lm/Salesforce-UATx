@@ -106,6 +106,10 @@
             	</div>
             </aura:if>
             <!-- CH01 END -->
+            <br/>
+            <aura:if isTrue="{!v.cc_subType == 'Credit Card Upgrade - No Limit Increase'}">
+                <lightning:inputField fieldName="Is_Initiated_from_Limit_Increase_Case__c" aura:id="Is_LMTIncrease_Case"/>                
+            </aura:if>
             <aura:if isTrue="{! OR(v.cc_subType == 'Credit Card Limit Split', v.cc_subType == 'Credit Card Upgrade - No Limit Increase')}"> 
 				<lightning:inputField fieldName="Is_Cash_Collateral__c" aura:id="Is_Cash_Collateral" disabled="true" value="{! v.isCashCollateral}"/>
             </aura:if>

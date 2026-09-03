@@ -1234,7 +1234,7 @@ public without sharing class Loans_APIHandler {
             caseAnnexRecord.cx_ln_Reminder_1_Datetime__c = reminderMetadataRecord.Reminder_1_Hours__c != null ? currentDT.addMinutes(5) : null;
             caseAnnexRecord.cx_ln_Reminder_2_Datetime__c = reminderMetadataRecord.Reminder_2_Hours__c != null ? currentDT.addMinutes(10) : null;
             caseAnnexRecord.cx_ln_Reminder_3_Datetime__c = reminderMetadataRecord.Reminder_3_Hours__c != null ? currentDT.addMinutes(15) : null;
-            caseAnnexRecord.cx_ln_expiry_Datetime__c = reminderMetadataRecord.Expiry_Hours__c != null ? currentDT.addMinutes(20) : null;
+            caseAnnexRecord.cx_ln_expiry_Datetime__c = reminderMetadataRecord.Expiry_Hours__c != null ? currentDT.addMinutes(2800) : null;
 
             // Add Hours // toDo Uncoment before deployment
             // caseAnnexRecord.cx_ln_Reminder_1_Datetime__c = reminderMetadataRecord.Reminder_1_Hours__c != null ? currentDT.addHours(reminderMetadataRecord.Reminder_1_Hours__c.intValue()) : null;

@@ -430,6 +430,28 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Contact_Check</name>
+        <label>Contact Check</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_Contact_Populated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>newCase.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ila_Case_Model</targetReference>
+            </connector>
+            <label>Is Contact Populated</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Copy_1_of_Case_Model</name>
         <label>Case Model</label>
         <locationX>0</locationX>
@@ -1041,7 +1063,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>ila_Case_Model</targetReference>
+                <targetReference>Contact_Check</targetReference>
             </connector>
             <label>Case Type - Walk-In</label>
         </rules>

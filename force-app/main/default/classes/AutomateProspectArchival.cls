@@ -26,9 +26,11 @@ public class AutomateProspectArchival {
         for(Case cs:[SELECT Id,status,Closure_Type__c,RecordType_DeveloperName__c,Region_Flag__c,account.CIF__pc,accountId FROM Case WHERE id in: arcCaseIds]){
             Http http = new Http();
             HttpRequest request = new HttpRequest();
-            request =con.createRequest('DELETE', '/api/v1/distribution/customer/archive', cs.Region_Flag__c);
+            request = con.createRequest('POST', '/api/v1/prospects/archive', cs.Region_Flag__c);
+           // request =con.createRequest('DELETE', '/api/v1/distribution/customer/archive', cs.Region_Flag__c);
             request.setHeader('customerId', cs.account.CIF__pc);
-            request.setTimeout(30000);
+            request.setTimeout(40000);
+            request.setBody('{"customerId":"'+cs.account.CIF__pc+'","marketCode":"'+cs.Region_Flag__c+'"}');
             HttpResponse response = http.send(request);
             if(response.getStatusCode()== 200){
                 cs.Last_Api_Call_Status__c='Success';

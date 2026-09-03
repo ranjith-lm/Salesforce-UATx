@@ -90,10 +90,6 @@
                 <behavior>Edit</behavior>
                 <field>Relationship_Termination_Account_Closure__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Is_Campaign_Upgrade__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -139,6 +135,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Can_Approve_Loan_Collateral_Card_Request__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Campaign_Upgrade__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

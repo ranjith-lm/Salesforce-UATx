@@ -19,3 +19,6 @@ declare module "@salesforce/apex/CaseFieldDependencyController.isUserInMakerQueu
 declare module "@salesforce/apex/CaseFieldDependencyController.getAccountIdByCIF" {
   export default function getAccountIdByCIF(param: {cif: any}): Promise<any>;
 }
+declare module "@salesforce/apex/CaseFieldDependencyController.getCustomerNameByCIF" {
+  export default function getCustomerNameByCIF(param: {cif: any}): Promise<any>;
+}
